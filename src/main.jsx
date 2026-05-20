@@ -1,9 +1,28 @@
-import React from 'react'
+import { StrictMode, Suspense, lazy } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App'
-import { store } from './app/store'
 import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { store } from './app/store'
+import './index.css'
+
+const App = lazy(() => import('./App'))
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+})
+
+const PageLoader = () => (
+  <div className='flex min-h-screen items-center justify-center text-sm text-gray-500'>
+    Loading...
+  </div>
+)
 
 const container = document.getElementById('root')
 
@@ -11,9 +30,17 @@ if (container) {
   const root = createRoot(container)
 
   root.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
+    <StrictMode>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <Suspense fallback={<PageLoader />}>
+              <App />
+            </Suspense>
+          </BrowserRouter>
+        </QueryClientProvider>
+      </Provider>
+    </StrictMode>,
   )
 } else {
   throw new Error(
