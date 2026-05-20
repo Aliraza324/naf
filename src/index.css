@@ -1,1 +1,131 @@
 @import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+
+  /* Core palette */
+  --color-bg: #050505;
+  --color-bg-soft: #0a0a08;
+  --color-surface: #10100d;
+  --color-surface-raised: #171710;
+  --color-surface-muted: #202016;
+  --color-border: #2f2d1f;
+  --color-border-strong: #4a4526;
+
+  /* Brand accents */
+  --color-primary: #ffd000;
+  --color-primary-hover: #ffe04a;
+  --color-primary-pressed: #d7ac00;
+  --color-primary-soft: rgba(255, 208, 0, 0.14);
+  --color-primary-ring: rgba(255, 208, 0, 0.38);
+
+  /* Text */
+  --color-text: #f6f1d7;
+  --color-text-strong: #ffffff;
+  --color-text-muted: #a7a28b;
+  --color-text-subtle: #696653;
+  --color-text-on-primary: #090806;
+
+  /* Supporting colors */
+  --color-success: #63d471;
+  --color-danger: #f15b50;
+  --color-warning: #ffb020;
+  --color-info: #6eb7ff;
+
+  /* Product/category swatches */
+  --color-equipment: #c7ccd1;
+  --color-performance: #d8b456;
+  --color-carbon: #151515;
+  --color-safety: #f3eee4;
+
+  /* Effects */
+  --shadow-sm: 0 6px 18px rgba(0, 0, 0, 0.32);
+  --shadow-md: 0 14px 34px rgba(0, 0, 0, 0.42);
+  --shadow-glow: 0 0 32px rgba(255, 208, 0, 0.2);
+
+  /* Layout */
+  --container-width: 1180px;
+  --section-gap: clamp(3rem, 6vw, 6rem);
+  --header-height: 72px;
+
+  /* Shape */
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Typography */
+  --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --font-display: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+@theme inline {
+  --color-page: var(--color-bg);
+  --color-page-soft: var(--color-bg-soft);
+  --color-surface: var(--color-surface);
+  --color-surface-raised: var(--color-surface-raised);
+  --color-border: var(--color-border);
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-text: var(--color-text);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-subtle: var(--color-text-subtle);
+  --font-body: var(--font-body);
+  --font-display: var(--font-display);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--color-bg);
+  }
+
+  body {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    background:
+      radial-gradient(circle at 72% 12%, rgba(255, 208, 0, 0.09), transparent 28rem),
+      linear-gradient(180deg, var(--color-bg-soft) 0%, var(--color-bg) 42rem);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  ::selection {
+    background: var(--color-primary);
+    color: var(--color-text-on-primary);
+  }
+}
