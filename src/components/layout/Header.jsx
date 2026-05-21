@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   ChevronDown,
+  ChevronRight,
   Heart,
   Mail,
   Menu,
@@ -14,15 +15,100 @@ import { dropdownMenu, mobileNavMenu } from '../../animations/animations'
 
 const navItems = ['Home', 'New Drops', 'Blog', 'Support', 'Contact Us']
 
+const inventoryFeaturedCategory = {
+  name: 'BBS',
+  subCategories: ['Biodegradable (4)', 'Non-Biodegradable (5)', 'Grenades & Smoke'],
+}
+
+const inventoryItems = [
+  {
+    name: 'Guns',
+    subCategories: ['Markers', 'Rifles', 'Pistols'],
+  },
+  {
+    name: 'Goggles & Masks',
+    subCategories: ['Full Face Masks', 'Thermal Lenses', 'Replacement Foam'],
+  },
+  {
+    name: 'Tactical Gear',
+    subCategories: ['Vests', 'Holsters', 'Mag Pouches'],
+  },
+  {
+    name: 'Optics',
+    subCategories: ['Red Dot Sights', 'Scopes', 'Mounts'],
+  },
+  {
+    name: 'Gas',
+    subCategories: ['CO2 Tanks', 'HPA Tanks', 'Regulators'],
+  },
+  {
+    name: 'Batteries',
+    subCategories: ['9V Batteries', 'Rechargeable Packs', 'Chargers'],
+  },
+  {
+    name: 'Apparel',
+    subCategories: ['Jerseys', 'Gloves', 'Protective Pants'],
+  },
+]
+
 const Header = () => {
+  const inventoryRef = useRef(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isAccountOpen, setIsAccountOpen] = useState(false)
+  const [isTopHeaderHidden, setIsTopHeaderHidden] = useState(false)
+  const [isInventoryOpen, setIsInventoryOpen] = useState(false)
+  const [isAllCategoriesOpen, setIsAllCategoriesOpen] = useState(true)
+  const [isBbsOpen, setIsBbsOpen] = useState(true)
+  const [openInventoryCategory, setOpenInventoryCategory] = useState(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsTopHeaderHidden(window.scrollY > 8)
+    }
+
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    if (!isInventoryOpen) return undefined
+
+    const handleMouseDown = (event) => {
+      if (!inventoryRef.current?.contains(event.target)) {
+        setIsInventoryOpen(false)
+      }
+    }
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setIsInventoryOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleMouseDown)
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('mousedown', handleMouseDown)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isInventoryOpen])
+
+  const toggleInventory = () => {
+    setIsInventoryOpen((value) => !value)
+  }
 
   return (
     <header className='sticky top-0 z-50 border-b border-white/5 bg-[#050505]/95 text-white backdrop-blur-xl'>
-      <div className='border-b border-white/8 bg-[#111]'>
-        <div className='mx-auto flex min-h-9 max-w-[1180px] items-center justify-center gap-5 px-4 text-[9px] font-semibold uppercase tracking-[0.06em] text-white/85 sm:justify-between sm:text-[10px] sm:tracking-[0.08em] lg:px-6'>
-          <p className='max-w-full truncate text-center sm:text-left'>
+      <div
+        className={`overflow-hidden border-b border-white/8 bg-[#111] mx-auto transition-all duration-300 ease-out ${
+          isTopHeaderHidden ? 'max-h-0 opacity-0' : 'max-h-9 opacity-100'
+        }`}
+      >
+        <div className='relative mx-auto flex min-h-9 max-w-[1180px] items-center justify-center gap-5 px-4 text-[9px] font-semibold uppercase tracking-[0.06em] text-white/85 sm:text-[10px] sm:tracking-[0.08em] lg:px-6'>
+          <p className='max-w-full truncate text-center'>
             Eco-friendly tactical paintballs now available
           </p>
 
@@ -33,17 +119,6 @@ const Header = () => {
             <Mail size={13} strokeWidth={1.8} />
             ops@NAFsupply.com
           </a>
-
-          <div className='hidden items-center gap-5 text-[10px] text-white/85 lg:flex'>
-            <button className='flex items-center gap-1 uppercase'>
-              United States (USD $)
-              <ChevronDown size={12} />
-            </button>
-            <button className='flex items-center gap-1 uppercase'>
-              English
-              <ChevronDown size={12} />
-            </button>
-          </div>
         </div>
       </div>
 
@@ -67,7 +142,7 @@ const Header = () => {
               placeholder='Search tactical gear...'
               className='min-w-0 flex-1 bg-transparent px-5 text-sm text-white outline-none placeholder:text-white/45'
             />
-            <button className='rounded-full bg-primary px-8 py-3 text-[11px] font-black uppercase tracking-[0.16em] text-white transition hover:bg-primary-hover'>
+            <button className='brand-red-gradient rounded-full px-8 py-3 text-[11px] font-black uppercase tracking-[0.16em] text-white transition'>
               Search
             </button>
           </form>
@@ -159,7 +234,7 @@ const Header = () => {
                       <a href='#signout' className='shrink-0 text-sm font-semibold'>
                         Sign Out
                       </a>
-                      <button className='shrink-0 rounded-full bg-primary px-4 py-2 text-[8px] font-black uppercase tracking-[0.1em] transition hover:bg-primary-hover sm:px-5 sm:text-[9px] sm:tracking-[0.13em]'>
+                      <button className='brand-red-gradient shrink-0 rounded-full bg-primary px-4 py-2 text-[8px] font-black uppercase tracking-[0.1em] transition hover:bg-primary-hover sm:px-5 sm:text-[9px] sm:tracking-[0.13em]'>
                         Sign Out
                       </button>
                     </div>
@@ -193,8 +268,14 @@ const Header = () => {
       </div>
 
       <div className='bg-[#050505]'>
-        <div className='mx-auto flex max-w-[1180px] items-center gap-8 px-4 py-3 lg:px-6'>
-          <button className='header-nav-text flex h-10 items-center gap-2.5 rounded-full bg-primary px-5 text-white transition hover:bg-primary-hover sm:h-11 sm:gap-3 sm:px-6'>
+        <div ref={inventoryRef} className='relative mx-auto max-w-[1180px]'>
+          <div className='flex items-center gap-8 px-4 py-3 lg:px-6'>
+          <button
+            type='button'
+          onClick={toggleInventory}
+            className='brand-red-gradient header-nav-text flex h-10 items-center gap-2.5 rounded-full bg-primary px-5 text-white transition hover:bg-primary-hover sm:h-11 sm:gap-3 sm:px-6'
+            aria-expanded={isInventoryOpen}
+          >
             <Menu size={19} />
             Inventory
           </button>
@@ -212,6 +293,99 @@ const Header = () => {
               </a>
             ))}
           </nav>
+          </div>
+
+          <AnimatePresence>
+            {isInventoryOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -8, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                transition={{ duration: 0.18, ease: 'easeOut' }}
+                className='absolute left-4 top-full z-[70] w-[min(82vw,324px)] rounded-[24px] bg-[#202020] px-6 py-7 text-white shadow-2xl ring-1 ring-white/8 lg:left-6'
+              >
+                <button
+                  type='button'
+                  onClick={() => setIsAllCategoriesOpen((value) => !value)}
+                  className='flex w-full items-center justify-between border-b border-white/10 pb-5 text-left text-[15px] font-black'
+                >
+                  All categories
+                  <ChevronDown
+                    size={17}
+                    strokeWidth={2.2}
+                    className={`transition-transform ${isAllCategoriesOpen ? 'rotate-180' : ''}`}
+                  />
+                </button>
+
+                {isAllCategoriesOpen && (
+                  <div className='py-5'>
+                    <button
+                      type='button'
+                      onClick={() => setIsBbsOpen((value) => !value)}
+                      className='mb-1.5 flex w-full items-center justify-between text-left text-sm font-bold text-white'
+                    >
+                      {inventoryFeaturedCategory.name}
+                      <ChevronRight
+                        size={17}
+                        strokeWidth={2.2}
+                        className={`transition-transform ${isBbsOpen ? 'rotate-90' : ''}`}
+                      />
+                    </button>
+                    {isBbsOpen && (
+                      <div className='grid gap-0.5 text-[10px] font-bold uppercase leading-[18px] text-white/55'>
+                        {inventoryFeaturedCategory.subCategories.map((subCategory) => (
+                          <span key={subCategory}>{subCategory}</span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {isAllCategoriesOpen && (
+                  <nav className='grid gap-4 border-b border-white/10 pb-6 text-sm font-bold text-white/90'>
+                    {inventoryItems.map((item) => (
+                      <div key={item.name}>
+                      <button
+                        type='button'
+                        key={item.name}
+                        onClick={() =>
+                          setOpenInventoryCategory((value) =>
+                            value === item.name ? null : item.name,
+                          )
+                        }
+                        className='flex w-full items-center justify-between text-left transition hover:text-primary'
+                      >
+                        {item.name}
+                        <ChevronRight
+                          size={18}
+                          strokeWidth={2.1}
+                          className={`transition-transform ${
+                            openInventoryCategory === item.name ? 'rotate-90' : ''
+                          }`}
+                        />
+                      </button>
+
+                      {openInventoryCategory === item.name && (
+                        <div className='mt-2 grid gap-1 pl-3 text-[10px] font-bold uppercase leading-[18px] text-white/55'>
+                          {item.subCategories.map((subCategory) => (
+                            <a
+                              key={subCategory}
+                              href={`#${subCategory.toLowerCase().replaceAll(' ', '-')}`}
+                              onClick={() => setIsInventoryOpen(false)}
+                              className='transition hover:text-primary'
+                            >
+                              {subCategory}
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                      </div>
+                    ))}
+                  </nav>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         <AnimatePresence>

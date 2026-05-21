@@ -139,26 +139,26 @@
 
 @layer components {
   .hero-eyebrow {
-    font-size: clamp(0.62rem, 0.85vw, 0.76rem);
+    font-size: clamp(0.58rem, 0.78vw, 0.7rem);
     line-height: 1;
     letter-spacing: 0.42em;
   }
 
   .hero-title {
-    font-size: clamp(4rem, 7.8vw, 5.75rem);
+    font-size: clamp(3.35rem, 6.8vw, 5rem);
     line-height: 1.1;
     letter-spacing: 0.001em;
     font-weight: 700;
   }
 
   .hero-copy {
-    font-size: clamp(0.9rem, 1.35vw, 1rem);
+    font-size: clamp(0.84rem, 1.2vw, 0.94rem);
     line-height: 1.75;
     letter-spacing: 0;
   }
 
   .hero-cta {
-    font-size: clamp(0.88rem, 1.25vw, 0.98rem);
+    font-size: clamp(0.8rem, 1.1vw, 0.9rem);
     line-height: 1;
     letter-spacing: 0.04em;
   }
@@ -169,6 +169,10 @@
     line-height: 20px;
     letter-spacing: 1.4px;
     text-transform: uppercase;
+  }
+
+  .brand-red-gradient {
+    background-image: linear-gradient(to right, #e80c0c, #8b0505);
   }
 
   @keyframes marquee {

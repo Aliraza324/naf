@@ -25,7 +25,7 @@ const MostSellerProduct = () => {
           initial="initial"
           whileInView="animate"
           viewport={{ once: true, amount: 0.3 }}
-          className='mb-10 flex items-center justify-between gap-4'
+          className='mb-8 flex items-center justify-between gap-4'
         >
           <h2 className='font-display text-[clamp(1.8rem,3vw,2.25rem)] font-black uppercase italic leading-none tracking-[0.01em] text-text-strong'>
             Most Sale Products
@@ -38,7 +38,7 @@ const MostSellerProduct = () => {
           initial="initial"
           whileInView="animate"
           viewport={{ once: true, amount: 0.1 }}
-          className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+          className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
         >
           {mostSaleProducts.map((product) => {
             const isHovered = hoveredId === product.id
@@ -51,16 +51,16 @@ const MostSellerProduct = () => {
                 onMouseEnter={() => setHoveredId(product.id)}
                 onMouseLeave={() => setHoveredId(null)}
                 onClick={() => handleProductClick(product)}
-                className={`group relative flex flex-col rounded-[9px] border bg-surface p-4 transition-all duration-300 cursor-pointer ${
+                className={`group relative flex flex-col rounded-[9px] border bg-surface p-3 transition-all duration-300 cursor-pointer ${
                   isHovered
                     ? 'border-primary shadow-[0_0_34px_rgba(230,1,3,0.14)] translate-y-[-4px]'
                     : 'border-white/7'
                 }`}
               >
                 {/* Image Container */}
-                <div className='relative w-full aspect-[1.18] rounded-[6px] bg-page-soft/90 border border-white/5 overflow-hidden flex items-center justify-center p-3 transition-colors duration-300 group-hover:bg-page-soft/50'>
+                <div className='relative w-full aspect-[1.28] rounded-[6px] bg-page-soft/90 border border-white/5 overflow-hidden flex items-center justify-center p-4 transition-colors duration-300 group-hover:bg-page-soft/50'>
                   {product.badge && (
-                    <span className='absolute right-0 top-3 bg-primary px-3 py-1.5 text-[9px] font-black uppercase leading-none tracking-[0.08em] text-white rounded-l-sm z-10 shadow-md'>
+                    <span className='absolute right-0 top-2.5 bg-primary px-2.5 py-1.5 text-[8px] font-black uppercase leading-none tracking-[0.08em] text-white rounded-l-sm z-10 shadow-md'>
                       {product.badge}
                     </span>
                   )}
@@ -75,19 +75,19 @@ const MostSellerProduct = () => {
                 </div>
 
                 {/* Content details */}
-                <div className='mt-5 flex flex-col flex-grow'>
-                  <span className='text-[10px] font-bold text-primary tracking-[0.08em] uppercase mb-1.5 block'>
+                <div className='mt-4 flex flex-col flex-grow'>
+                  <span className='text-[9px] font-bold text-primary tracking-[0.08em] uppercase mb-1.5 block'>
                     {product.category}
                   </span>
                   
-                  <h3 className='text-sm font-black text-text-strong leading-snug tracking-[0.01em] line-clamp-2 min-h-[40px] group-hover:text-primary transition-colors duration-300'>
+                  <h3 className='text-[13px] font-black text-text-strong leading-snug tracking-[0.01em] line-clamp-2 min-h-9 group-hover:text-primary transition-colors duration-300'>
                     {product.title}
                   </h3>
 
                   {/* Bottom Row: Price & Status + View More CTA */}
-                  <div className='flex items-center justify-between border-t border-white/6 pt-4 mt-5'>
+                  <div className='flex items-center justify-between border-t border-white/6 pt-3 mt-4'>
                     <div className='flex flex-col'>
-                      <span className='text-[15px] font-black text-text-strong tracking-wide leading-none'>
+                      <span className='text-sm font-black text-text-strong tracking-wide leading-none'>
                         {product.price}
                       </span>
                       
@@ -118,7 +118,7 @@ const MostSellerProduct = () => {
                         e.stopPropagation()
                         handleProductClick(product)
                       }}
-                      className='inline-flex h-9 items-center justify-center bg-primary px-5 text-[10px] font-black uppercase tracking-[0.08em] text-white shadow-[0_2.5px_0_var(--color-primary-pressed)] hover:bg-primary-hover active:translate-y-[2.5px] active:shadow-none transition-all rounded-[3px] group-hover:shadow-[0_2.5px_10px_rgba(230,1,3,0.3)]'
+                      className='brand-red-gradient inline-flex h-8 items-center justify-center bg-primary px-4 text-[9px] font-black uppercase tracking-[0.08em] text-white shadow-[0_2.5px_0_var(--color-primary-pressed)] hover:bg-primary-hover active:translate-y-[2.5px] active:shadow-none transition-all rounded-[3px] group-hover:shadow-[0_2.5px_10px_rgba(230,1,3,0.3)]'
                     >
                       View More
                     </button>

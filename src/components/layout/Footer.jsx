@@ -110,7 +110,7 @@ const Footer = () => {
                                 />
                                 <button
                                     type="submit"
-                                    className="bg-primary hover:bg-primary-hover active:bg-primary-pressed text-white font-display px-8 py-3.5 rounded-lg text-xs sm:text-sm transition-all shadow-lg shadow-primary/14 active:scale-[0.98]"
+                                    className="brand-red-gradient active:bg-primary-pressed text-white font-display px-8 py-3.5 rounded-lg text-xs sm:text-sm transition-all shadow-lg shadow-primary/14 active:scale-[0.98]"
                                 >
                                     ENLIST
                                 </button>

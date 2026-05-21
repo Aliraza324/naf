@@ -54,7 +54,7 @@ const FeaturedCategories = () => {
           initial="initial"
           whileInView="animate"
           viewport={{ once: true, amount: 0.3 }}
-          className='mb-10 flex items-center justify-between gap-4'
+          className='mb-8 flex items-center justify-between gap-4'
         >
           <h2 className='font-display text-[clamp(1.8rem,3vw,2.25rem)] font-black uppercase italic leading-none tracking-[0.01em] text-text-strong'>
             Featured Categories
@@ -84,7 +84,7 @@ const FeaturedCategories = () => {
             ...slideAnim,
             transition: 'opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1)',
           }}
-          className='grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'
+          className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'
         >
           {visibleCategories.map((category, index) => {
             const isHighlighted = hoveredId === category.id || (hoveredId === null && category.featured)
@@ -94,7 +94,7 @@ const FeaturedCategories = () => {
                 key={`${category.id}-${index}`}
                 onMouseEnter={() => setHoveredId(category.id)}
                 onMouseLeave={() => setHoveredId(null)}
-                className={`relative rounded-[7px] border bg-surface px-5 pb-7 pt-5 transition-all duration-300 ${
+                className={`relative rounded-[7px] border bg-surface px-4 pb-5 pt-4 transition-all duration-300 ${
                   isHighlighted
                     ? 'border-primary shadow-[0_0_34px_rgba(230,1,3,0.12)]'
                     : 'border-white/7'
@@ -114,7 +114,7 @@ const FeaturedCategories = () => {
                   )}
                 </AnimatePresence>
 
-                <div className='relative mb-7 grid aspect-[1.12] place-items-center overflow-hidden rounded bg-page-soft'>
+                <div className='relative mb-5 grid aspect-[1.22] place-items-center overflow-hidden rounded bg-page-soft'>
                   {category.badge && (
                     <span className='absolute left-4 top-4 rounded bg-white/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-text-copy'>
                       {category.badge}
@@ -125,27 +125,27 @@ const FeaturedCategories = () => {
                     alt={category.name}
                     loading='lazy'
                     decoding='async'
-                    className='h-full w-full object-contain p-2'
+                    className='h-full w-full object-contain p-3'
                   />
                 </div>
 
                 <h3
-                  className={`font-display text-[1.75rem] font-black uppercase leading-none tracking-[0.02em] transition-colors duration-300 ${
+                  className={`font-display text-[1.45rem] font-black uppercase leading-none tracking-[0.02em] transition-colors duration-300 ${
                     isHighlighted ? 'text-primary' : 'text-text-strong'
                   }`}
                 >
                   {category.name}
                 </h3>
 
-                <p className='mt-3 min-h-10 text-sm leading-5 text-text-subtle'>
+                <p className='mt-2 min-h-9 text-xs leading-5 text-text-subtle'>
                   {category.description}
                 </p>
 
-                <dl className='mt-4 grid gap-3'>
+                <dl className='mt-3 grid gap-2'>
                   {category.specs.map((spec) => (
                     <div
                       key={spec.label}
-                      className='flex items-center justify-between border-t border-white/6 pt-3'
+                      className='flex items-center justify-between border-t border-white/6 pt-2.5'
                     >
                       <dt className='text-[11px] font-medium uppercase leading-none text-text-subtle'>
                         {spec.label}
