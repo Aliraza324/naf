@@ -1,0 +1,23 @@
+<svg width="320" height="240" viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="240" rx="10" fill="#0B0B0B"/>
+  <g filter="url(#shadow)">
+    <path d="M91 93L210 70L246 119L128 148L91 93Z" fill="#252018"/>
+    <path d="M91 93L128 148V177L91 122V93Z" fill="#111"/>
+    <path d="M128 148L246 119V148L128 177V148Z" fill="#060606"/>
+    <path d="M111 101L211 82L230 108L132 132L111 101Z" fill="#D1D5DB"/>
+    <path d="M118 105L204 89L218 105L134 125L118 105Z" fill="#151515"/>
+    <text x="141" y="112" fill="white" font-family="Arial Black, Arial" font-size="20" font-weight="900" transform="rotate(-11 141 112)">PREMIUM</text>
+    <text x="147" y="129" fill="#D1D5DB" font-family="Arial" font-size="8" font-weight="700" transform="rotate(-11 147 129)">.68 LACON CRIB</text>
+  </g>
+  <g fill="#B88631">
+    <rect x="70" y="157" width="37" height="9" rx="4.5" transform="rotate(15 70 157)"/>
+    <rect x="236" y="157" width="43" height="9" rx="4.5" transform="rotate(-12 236 157)"/>
+    <rect x="94" y="70" width="10" height="48" rx="5" transform="rotate(-16 94 70)"/>
+    <circle cx="73" cy="165" r="4" fill="#D9B15E"/>
+  </g>
+  <defs>
+    <filter id="shadow" x="61" y="48" width="215" height="159" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="14" stdDeviation="10" flood-color="#000" flood-opacity=".7"/>
+    </filter>
+  </defs>
+</svg>

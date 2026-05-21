@@ -1,0 +1,23 @@
+<svg width="320" height="240" viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="240" rx="10" fill="#0B0B0B"/>
+  <g filter="url(#shadow)">
+    <rect x="91" y="94" width="141" height="66" rx="4" fill="#0D5D50"/>
+    <path d="M91 94H232L215 80H107L91 94Z" fill="#168672"/>
+    <rect x="107" y="108" width="107" height="35" rx="2" fill="#D8E4D7"/>
+    <rect x="113" y="114" width="95" height="23" rx="2" fill="#18392F"/>
+    <text x="124" y="132" fill="white" font-family="Arial Black, Arial" font-size="24" font-weight="900">PREMIUM</text>
+    <text x="137" y="145" fill="#D1D5DB" font-family="Arial" font-size="7" font-weight="700">.68 LOGIUM LUXER</text>
+  </g>
+  <g fill="#C29130">
+    <rect x="55" y="160" width="58" height="8" rx="4"/>
+    <rect x="210" y="162" width="57" height="8" rx="4"/>
+    <rect x="71" y="139" width="9" height="38" rx="4.5"/>
+    <rect x="247" y="128" width="9" height="47" rx="4.5"/>
+    <rect x="123" y="164" width="42" height="8" rx="4"/>
+  </g>
+  <defs>
+    <filter id="shadow" x="63" y="58" width="197" height="132" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="14" stdDeviation="10" flood-color="#000" flood-opacity=".7"/>
+    </filter>
+  </defs>
+</svg>

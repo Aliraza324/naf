@@ -1,0 +1,22 @@
+<svg width="320" height="240" viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="240" rx="10" fill="#0B0B0B"/>
+  <g filter="url(#shadow)">
+    <path d="M83 73H232L250 151H101L83 73Z" fill="#FFB0BA"/>
+    <path d="M101 151H250L232 171H83L101 151Z" fill="#FF7C8E"/>
+    <path d="M83 73L101 151L83 171L66 93L83 73Z" fill="#EF5D73"/>
+    <rect x="96" y="92" width="118" height="52" rx="3" fill="#AE1622"/>
+    <text x="121" y="116" fill="white" font-family="Arial Black, Arial" font-size="15" font-weight="900">PREMIUM</text>
+    <text x="112" y="136" fill="#FFD732" font-family="Arial Black, Arial" font-size="24" font-weight="900">PAEIMULN</text>
+    <text x="130" y="151" fill="#FFCBD1" font-family="Arial" font-size="9" font-weight="700">PIN BALLS</text>
+  </g>
+  <g fill="#FF8A31">
+    <rect x="92" y="181" width="48" height="8" rx="4"/>
+    <rect x="161" y="183" width="38" height="8" rx="4"/>
+    <rect x="211" y="176" width="32" height="8" rx="4"/>
+  </g>
+  <defs>
+    <filter id="shadow" x="39" y="51" width="239" height="149" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="14" stdDeviation="10" flood-color="#000" flood-opacity=".7"/>
+    </filter>
+  </defs>
+</svg>

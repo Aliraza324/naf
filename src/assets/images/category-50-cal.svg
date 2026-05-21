@@ -1,0 +1,24 @@
+<svg width="320" height="240" viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="240" rx="10" fill="#0B0B0B"/>
+  <g filter="url(#shadow)">
+    <rect x="89" y="58" width="145" height="141" rx="4" fill="#32230E"/>
+    <rect x="101" y="70" width="121" height="117" rx="3" fill="#0E0D0A"/>
+    <g fill="#C7A245">
+      <rect x="117" y="101" width="12" height="65" rx="6" transform="rotate(-15 117 101)"/>
+      <rect x="152" y="87" width="13" height="83" rx="6.5" transform="rotate(-3 152 87)"/>
+      <rect x="187" y="103" width="12" height="68" rx="6" transform="rotate(14 187 103)"/>
+      <rect x="128" y="156" width="57" height="11" rx="5.5" transform="rotate(10 128 156)"/>
+      <rect x="143" y="79" width="53" height="11" rx="5.5"/>
+    </g>
+    <g fill="#D4C37B">
+      <circle cx="119" cy="101" r="6"/>
+      <circle cx="158" cy="87" r="6"/>
+      <circle cx="190" cy="103" r="6"/>
+    </g>
+  </g>
+  <defs>
+    <filter id="shadow" x="61" y="36" width="201" height="193" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="14" stdDeviation="10" flood-color="#000" flood-opacity=".7"/>
+    </filter>
+  </defs>
+</svg>

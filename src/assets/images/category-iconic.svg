@@ -1,0 +1,21 @@
+<svg width="320" height="240" viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="240" rx="10" fill="#0B0B0B"/>
+  <g filter="url(#shadow)">
+    <path d="M89 85H232L250 153H107L89 85Z" fill="#1D2751"/>
+    <path d="M107 153H250L230 171H89L107 153Z" fill="#10162F"/>
+    <path d="M89 85L107 153L89 171L72 103L89 85Z" fill="#12172C"/>
+    <path d="M131 109H170L162 136H121L131 109Z" fill="#FFCC22"/>
+    <path d="M165 109H201L194 123H172L169 136H158L165 109Z" fill="#FFCC22"/>
+    <text x="115" y="151" fill="white" font-family="Arial Black, Arial" font-size="22" font-weight="900">PANTMUNT</text>
+    <text x="135" y="164" fill="#D1D5DB" font-family="Arial" font-size="8" font-weight="700">ALLINY STYLE</text>
+  </g>
+  <g fill="#D8912C">
+    <rect x="217" y="174" width="44" height="9" rx="4.5" transform="rotate(-10 217 174)"/>
+    <rect x="248" y="164" width="31" height="9" rx="4.5" transform="rotate(13 248 164)"/>
+  </g>
+  <defs>
+    <filter id="shadow" x="45" y="63" width="233" height="137" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="14" stdDeviation="10" flood-color="#000" flood-opacity=".7"/>
+    </filter>
+  </defs>
+</svg>

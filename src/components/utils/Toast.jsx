@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
-  HiOutlineCheckCircle,
-  HiOutlineXCircle,
-  HiOutlineExclamationCircle,
-  HiX,
-} from "react-icons/hi";
+  CircleAlert,
+  CheckCircle,
+  X,
+  XCircle,
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { toastAnimation } from "../../animations/animations";
 
 // --- Global toast trigger using window events (survives HMR) ---
 const TOAST_EVENT = "NAF-toast";
@@ -39,28 +41,28 @@ const getToastConfig = (status) => {
         bgColor: "bg-[#C4F4D0]",
         borderColor: "border-[#C4F4D0]",
         textColor: "text-gray-700",
-        icon: <HiOutlineCheckCircle size={20} className="text-green-600" />,
+        icon: <CheckCircle size={20} className="text-green-600" />,
       };
     case "no-response":
       return {
         bgColor: "bg-[#FFDFFD]",
         borderColor: "border-[#FFDFFD]",
         textColor: "text-gray-700",
-        icon: <HiOutlineXCircle size={20} className="text-pink-500" />,
+        icon: <XCircle size={20} className="text-pink-500" />,
       };
     case "error":
       return {
         bgColor: "bg-[#F9CDCD]",
         borderColor: "border-[#F9CDCD]",
         textColor: "text-gray-700",
-        icon: <HiOutlineExclamationCircle size={20} className="text-red-600" />,
+        icon: <CircleAlert size={20} className="text-red-600" />,
       };
     default:
       return {
         bgColor: "bg-[#C4F4D0]",
         borderColor: "border-[#C4F4D0]",
         textColor: "text-gray-700",
-        icon: <HiOutlineCheckCircle size={20} className="text-green-600" />,
+        icon: <CheckCircle size={20} className="text-green-600" />,
       };
   }
 };
@@ -80,33 +82,40 @@ export function ToastProvider() {
     return () => window.removeEventListener(TOAST_EVENT, handler);
   }, []);
 
-  if (!data) return null;
-
-  const config = getToastConfig(data.statusCode);
+  const config = data ? getToastConfig(data.statusCode) : null;
 
   return (
     <div className="fixed top-4 right-4 z-[9999]">
-      <div
-        className={`relative ${config.bgColor} ${config.borderColor} border rounded-lg h-[50px] min-w-[200px] max-w-[400px] w-fit`}
-        style={{ padding: "12px 24px 12px 16px" }}
-      >
-        <div className="absolute top-0 right-0 w-0 h-0 border-l-[20px] border-l-transparent border-t-[20px] border-t-white"></div>
+      <AnimatePresence>
+        {data && (
+          <motion.div
+            key={data.message}
+            variants={toastAnimation}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className={`relative ${config.bgColor} ${config.borderColor} border rounded-lg h-[50px] min-w-[200px] max-w-[400px] w-fit shadow-lg`}
+            style={{ padding: "12px 24px 12px 16px" }}
+          >
+            <div className="absolute top-0 right-0 w-0 h-0 border-l-[20px] border-l-transparent border-t-[20px] border-t-white"></div>
 
-        <button
-          onClick={handleClose}
-          className={`absolute -top-2 -right-2 w-6 h-6 ${config.bgColor} border-2 border-white rounded-full flex items-center justify-center text-gray-600 hover:opacity-70 transition-opacity z-10`}
-        >
-          <HiX size={14} />
-        </button>
+            <button
+              onClick={handleClose}
+              className={`absolute -top-2 -right-2 w-6 h-6 ${config.bgColor} border-2 border-white rounded-full flex items-center justify-center text-gray-600 hover:opacity-70 transition-opacity z-10`}
+            >
+              <X size={14} />
+            </button>
 
-        <div className="flex items-center gap-3 h-full">
-          <div className="flex-shrink-0">{config.icon}</div>
-          <p className={`${config.textColor} font-medium text-sm flex-1 truncate leading-tight`}>
-            {data.message}
-          </p>
-        </div>
-      </div>
-      <AutoClose duration={data.autoRemoveTime} onClose={handleClose} />
+            <div className="flex items-center gap-3 h-full">
+              <div className="flex-shrink-0">{config.icon}</div>
+              <p className={`${config.textColor} font-medium text-sm flex-1 truncate leading-tight`}>
+                {data.message}
+              </p>
+            </div>
+            <AutoClose duration={data.autoRemoveTime} onClose={handleClose} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
