@@ -81,7 +81,6 @@ const Performance = () => {
 
                         {/* Action Explore Button */}
                         <button
-                            onClick={handleExploreClick}
                             type='button'
                             className='mt-8 sm:mt-10 inline-flex h-12 sm:h-14 items-center justify-center bg-white px-8 text-xs font-black uppercase tracking-[0.12em] text-primary transition-all duration-300 rounded-[4px] shadow-lg hover:bg-primary hover:text-white hover:shadow-[0_4px_20px_rgba(230,1,3,0.3)] active:translate-y-[2px]'
                         >

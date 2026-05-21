@@ -50,7 +50,6 @@ const MostSellerProduct = () => {
                 key={product.id}
                 onMouseEnter={() => setHoveredId(product.id)}
                 onMouseLeave={() => setHoveredId(null)}
-                onClick={() => handleProductClick(product)}
                 className={`group relative flex flex-col rounded-[9px] border bg-surface p-3 transition-all duration-300 cursor-pointer ${
                   isHovered
                     ? 'border-primary shadow-[0_0_34px_rgba(230,1,3,0.14)] translate-y-[-4px]'
@@ -114,10 +113,7 @@ const MostSellerProduct = () => {
                     {/* View More Button */}
                     <button
                       type='button'
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        handleProductClick(product)
-                      }}
+                   
                       className='brand-red-gradient inline-flex h-8 items-center justify-center bg-primary px-4 text-[9px] font-black uppercase tracking-[0.08em] text-white shadow-[0_2.5px_0_var(--color-primary-pressed)] hover:bg-primary-hover active:translate-y-[2.5px] active:shadow-none transition-all rounded-[3px] group-hover:shadow-[0_2.5px_10px_rgba(230,1,3,0.3)]'
                     >
                       View More
