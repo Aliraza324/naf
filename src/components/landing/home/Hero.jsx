@@ -6,7 +6,7 @@ import { fadeInUp, scaleIn, staggerContainer } from '../../../animations/animati
 
 const Hero = () => {
   return (
-    <section className='relative isolate min-h-[calc(100vh-230px)] overflow-hidden bg-page'>
+    <section className='relative isolate min-h-[300px] overflow-hidden bg-page sm:min-h-[440px] lg:min-h-[484px]'>
       <div className='absolute inset-y-0 right-0 -z-10 w-full md:w-[64%]'>
         <motion.img
           variants={scaleIn}
@@ -22,16 +22,16 @@ const Hero = () => {
         <div className='absolute inset-0 bg-black/20' />
       </div>
 
-      <div className='mx-auto flex min-h-[calc(100vh-230px)] max-w-[1180px] items-center px-4 py-5 sm:py-6 lg:px-6'>
+      <div className='mx-auto flex min-h-[400px] max-w-[1180px] items-center px-4 py-4 sm:min-h-[440px] sm:py-5 lg:min-h-[400px] lg:px-6'>
         <motion.div 
           variants={staggerContainer(0.08, 0.15)}
           initial="initial"
           animate="animate"
-          className='w-full max-w-[600px] py-5 sm:py-7 lg:max-w-[640px]'
+          className='w-full max-w-[620px] py-4 sm:py-5 lg:max-w-[660px]'
         >
           <motion.div 
             variants={fadeInUp} 
-            className='mb-6 flex items-center gap-4 text-primary sm:mb-7'
+            className='mb-4 flex items-center gap-4 text-primary sm:mb-5'
           >
             <span className='h-[2px] w-10 bg-primary sm:w-12' />
             <p className='hero-eyebrow relative font-black uppercase'>
@@ -42,17 +42,17 @@ const Hero = () => {
 
           <motion.h1 
             variants={fadeInUp} 
-            className='hero-title max-w-[560px] font-display uppercase text-text-strong'
+            className='hero-title max-w-[620px] font-display uppercase text-text-strong'
           >
-            <span className='block'>Built For</span>
-            <span className='block text-primary'>Champions.</span>
+            <span>Built For </span>
+            <span className='text-primary'>Champions.</span>
             <span className='block'>Delivered For</span>
             <span className='block text-primary'>Dealers.</span>
           </motion.h1>
 
           <motion.p 
             variants={fadeInUp} 
-            className='hero-copy mt-6 max-w-[520px] font-medium text-text-copy'
+            className='hero-copy mt-5 max-w-[560px] font-medium text-text-copy'
           >
             Premium paintballs, tactical gear, and protective equipment
             <br />
@@ -61,10 +61,10 @@ const Hero = () => {
             <strong className='text-white'> Chosen by pros.</strong>
           </motion.p>
 
-          <motion.div variants={fadeInUp} className='mt-8'>
+          <motion.div variants={fadeInUp} className='mt-6'>
             <Link
               to='#order'
-              className='brand-red-gradient hero-cta inline-flex h-12 items-center gap-2.5 bg-primary px-7 font-display uppercase text-text-strong shadow-[0_4px_0_var(--color-primary-pressed)] transition hover:bg-primary-hover active:translate-y-1 active:shadow-none sm:h-14 sm:px-8'
+              className='brand-red-gradient hero-cta inline-flex h-11 items-center gap-2.5 bg-primary px-6 font-display uppercase text-text-strong shadow-[0_4px_0_var(--color-primary-pressed)] transition hover:bg-primary-hover active:translate-y-1 active:shadow-none sm:h-12 sm:px-7'
             >
               Order Now
               <span className='flex items-center gap-0' aria-hidden='true'>

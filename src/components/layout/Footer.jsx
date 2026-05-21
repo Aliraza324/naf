@@ -15,29 +15,29 @@ const Footer = () => {
             initial="initial"
             whileInView="animate"
             viewport={{ once: true, amount: 0.15 }}
-            className="bg-[#050505] text-white border-t border-white/5 px-4 pt-16 pb-8 lg:px-6 overflow-hidden"
+            className="bg-[#050505] text-white border-t border-white/5 px-4 pt-12 pb-8 sm:pt-16 lg:px-6 overflow-hidden"
         >
             <div className="mx-auto max-w-[1180px]">
                 {/* Main Grid */}
                 <motion.div
                     variants={staggerContainer(0.1, 0.05)}
-                    className="grid grid-cols-12 gap-y-12 gap-x-8 lg:gap-x-12"
+                    className="grid grid-cols-1 gap-y-10 md:grid-cols-12 md:gap-x-8 md:gap-y-12 lg:gap-x-12"
                 >
 
                     {/* Column 1: Brand & Contact Info */}
                     <motion.div
                         variants={fadeInUp}
-                        className="col-span-12 md:col-span-6 lg:col-span-4 flex flex-col justify-between gap-10"
+                        className="min-w-0 md:col-span-6 lg:col-span-4 flex flex-col justify-between gap-8 sm:gap-10"
                     >
                         <div>
                             {/* Logo */}
-                            <div className="flex items-center gap-3.5 mb-6">
+                            <div className="flex min-w-0 items-center gap-3.5 mb-6">
                                 <img
                                     src={logo}
                                     alt="NAF Supply Logo"
                                     className="h-11 w-auto object-contain"
                                 />
-                                <span className="font-display text-[22px] font-black uppercase italic tracking-wider leading-none">
+                                <span className="min-w-0 font-display text-[19px] font-black uppercase italic tracking-wider leading-none sm:text-[22px]">
                                     NAF Supply
                                 </span>
                             </div>
@@ -54,16 +54,16 @@ const Footer = () => {
                                 Support Hub
                             </h4>
                             <div className="flex flex-col gap-4 text-sm text-white/40">
-                                <div className="flex items-center gap-3.5 group">
+                                <div className="flex min-w-0 items-center gap-3.5 group">
                                     <span className="grid size-8 place-items-center rounded-lg bg-primary/10 border border-primary/20 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
                                         <MapPin size={15} />
                                     </span>
-                                    <span className="group-hover:text-white transition-colors duration-200">
+                                    <span className="min-w-0 break-words group-hover:text-white transition-colors duration-200">
                                         Elite Ops HQ, Austin, TX
                                     </span>
                                 </div>
 
-                                <a href="tel:800-677-8228" className="flex items-center gap-3.5 group">
+                                <a href="tel:800-677-8228" className="flex min-w-0 items-center gap-3.5 group">
                                     <span className="grid size-8 place-items-center rounded-lg bg-primary/10 border border-primary/20 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
                                         <Phone size={15} />
                                     </span>
@@ -72,11 +72,11 @@ const Footer = () => {
                                     </span>
                                 </a>
 
-                                <a href="mailto:ops@tacticalzone.com" className="flex items-center gap-3.5 group">
+                                <a href="mailto:ops@tacticalzone.com" className="flex min-w-0 items-center gap-3.5 group">
                                     <span className="grid size-8 place-items-center rounded-lg bg-primary/10 border border-primary/20 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
                                         <Mail size={15} />
                                     </span>
-                                    <span className="group-hover:text-white transition-colors duration-200">
+                                    <span className="min-w-0 break-all group-hover:text-white transition-colors duration-200">
                                         ops@tacticalzone.com
                                     </span>
                                 </a>
@@ -87,11 +87,11 @@ const Footer = () => {
                     {/* Column 2: Newsletter & Arsenal/Company Links */}
                     <motion.div
                         variants={fadeInUp}
-                        className="col-span-12 md:col-span-6 lg:col-span-5 flex flex-col justify-between gap-10"
+                        className="min-w-0 md:col-span-6 lg:col-span-5 flex flex-col justify-between gap-8 sm:gap-10"
                     >
                         {/* Newsletter */}
                         <div>
-                            <h3 className="font-display text-[22px] font-black uppercase italic tracking-[0.02em] text-white mb-2.5">
+                            <h3 className="font-display text-[clamp(1.35rem,7vw,1.55rem)] font-black uppercase italic tracking-[0.02em] text-white mb-2.5">
                                 REINFORCEMENT INCOMING
                             </h3>
                             <p className="text-white/40 text-sm mb-5 leading-relaxed max-w-[420px]">
@@ -100,17 +100,17 @@ const Footer = () => {
 
                             <form
                                 onSubmit={(e) => e.preventDefault()}
-                                className="flex flex-col sm:flex-row gap-3 w-full max-w-[440px]"
+                                className="flex w-full max-w-[440px] flex-col gap-3 sm:flex-row"
                             >
                                 <input
                                     type="email"
                                     placeholder="Your tactical email..."
                                     required
-                                    className="flex-1 bg-[#10100d] border border-white/10 rounded-lg px-4.5 py-3.5 text-sm text-white placeholder-white/35 outline-none focus:border-primary/50 transition-colors shadow-inner"
+                                    className="min-w-0 flex-1 bg-[#10100d] border border-white/10 rounded-lg px-4 py-3.5 text-sm text-white placeholder-white/35 outline-none focus:border-primary/50 transition-colors shadow-inner"
                                 />
                                 <button
                                     type="submit"
-                                    className="brand-red-gradient active:bg-primary-pressed text-white font-display px-8 py-3.5 rounded-lg text-xs sm:text-sm transition-all shadow-lg shadow-primary/14 active:scale-[0.98]"
+                                    className="brand-red-gradient active:bg-primary-pressed text-white font-display px-8 py-3.5 rounded-lg text-xs sm:text-sm transition-all shadow-lg shadow-primary/14 active:scale-[0.98] sm:shrink-0"
                                 >
                                     ENLIST
                                 </button>
@@ -118,7 +118,7 @@ const Footer = () => {
                         </div>
 
                         {/* Links Columns */}
-                        <div className="grid grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-6">
                             {/* Arsenal Link List */}
                             <div>
                                 <h4 className="font-display text-[11px] font-black uppercase tracking-[0.18em] text-white/80 mb-4">
@@ -129,7 +129,7 @@ const Footer = () => {
                                         <a
                                             key={item}
                                             href={`#${item.toLowerCase().replaceAll(' ', '-')}`}
-                                            className="hover:text-primary transition-colors duration-200 w-fit"
+                                            className="w-fit max-w-full break-words hover:text-primary transition-colors duration-200"
                                         >
                                             {item}
                                         </a>
@@ -147,7 +147,7 @@ const Footer = () => {
                                         <a
                                             key={item}
                                             href={`#${item.toLowerCase().replaceAll(' ', '-')}`}
-                                            className="hover:text-primary transition-colors duration-200 w-fit"
+                                            className="w-fit max-w-full break-words hover:text-primary transition-colors duration-200"
                                         >
                                             {item}
                                         </a>
@@ -160,14 +160,14 @@ const Footer = () => {
                     {/* Column 3: Social Hub */}
                     <motion.div
                         variants={fadeInUp}
-                        className="col-span-12 lg:col-span-3 flex flex-col items-start lg:items-end gap-5"
+                        className="min-w-0 lg:col-span-3 flex flex-col items-start lg:items-end gap-5"
                     >
                         <h4 className="font-display text-[11px] font-black tracking-[0.18em] text-white/55 lg:text-right w-full">
                             Social Intel
                         </h4>
 
                         {/* Social Icons row */}
-                        <div className="flex items-center gap-2.5 lg:justify-end w-full">
+                        <div className="flex w-full flex-wrap items-center gap-2.5 lg:justify-end">
                             {/* Twitter/X Icon */}
                             <a
                                 href="#twitter"
@@ -234,22 +234,22 @@ const Footer = () => {
                 {/* Bottom Bar */}
                 <motion.div
                     variants={fadeInUp}
-                    className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between text-[11px] font-semibold tracking-widest text-white/40"
+                    className="flex flex-col gap-6 text-[11px] font-semibold tracking-widest text-white/40 md:flex-row md:items-center md:justify-between"
                 >
                     {/* Copyrights */}
-                    <div className="uppercase">
+                    <div className="max-w-full break-words uppercase">
                         © 2024 TACTICAL ZONE • ALL RIGHTS RESERVED • SECURE ENCRYPTION ACTIVE
                     </div>
 
                     {/* Designed and hosted by Codesinc */}
-                    <div className="flex items-center group cursor-pointer text-white/40">
+                    <div className="flex max-w-full items-center group cursor-pointer text-white/40">
                         <a href="https://www.codes-inc.com/" target="_blank" rel="noopener noreferrer">
-                            <img src={Company} alt="Codesinc" />
+                            <img src={Company} alt="Codesinc" className="max-h-8 w-auto" />
                         </a>
                     </div>
 
                     {/* Payment Badges */}
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                         {/* Visa */}
                         <div className="px-2.5 py-1.5 bg-[#0a0a08] border border-white/8 rounded-md flex items-center justify-center w-11 h-7 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.02]">
                             <img src={visa} alt="Visa" className="h-full w-auto object-contain" />

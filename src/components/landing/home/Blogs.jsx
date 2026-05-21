@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import blogone from '../../../assets/images/blogone.png';
 import blogtwo from '../../../assets/images/blogtwo.png';
 import blogthree from '../../../assets/images/blogthree.png';
@@ -81,14 +81,31 @@ const blogs = [
   },
 ];
 
-const CARDS_PER_VIEW = 4;
+const getCardsPerView = () => {
+  if (typeof window === 'undefined') return 4;
+  if (window.innerWidth < 640) return 1;
+  if (window.innerWidth < 1024) return 2;
+  return 4;
+};
 
 const Blogs = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState(null); // 'left' | 'right'
+  const [cardsPerView, setCardsPerView] = useState(getCardsPerView);
 
-  const totalSlides = Math.ceil(blogs.length / CARDS_PER_VIEW);
+  useEffect(() => {
+    const handleResize = () => {
+      setCardsPerView(getCardsPerView());
+      setCurrentIndex(0);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const totalSlides = Math.ceil(blogs.length / cardsPerView);
 
   const slide = (dir) => {
     if (isAnimating) return;
@@ -108,8 +125,8 @@ const Blogs = () => {
   };
 
   const visibleBlogs = blogs.slice(
-    currentIndex * CARDS_PER_VIEW,
-    currentIndex * CARDS_PER_VIEW + CARDS_PER_VIEW
+    currentIndex * cardsPerView,
+    currentIndex * cardsPerView + cardsPerView
   );
 
   const slideStyle = isAnimating
@@ -154,7 +171,11 @@ const Blogs = () => {
       <div style={styles.viewport}>
         <motion.div 
           variants={staggerContainer(0.08, 0.05)}
-          style={{ ...styles.track, ...slideStyle }}
+          style={{
+            ...styles.track,
+            gridTemplateColumns: `repeat(${cardsPerView}, minmax(0, 1fr))`,
+            ...slideStyle,
+          }}
         >
           {visibleBlogs.map((blog) => (
             <BlogCard key={blog.id} blog={blog} />
@@ -211,7 +232,7 @@ const BlogCard = ({ blog }) => {
 const styles = {
   section: {
     backgroundColor: '#0a0a08',
-    padding: '60px clamp(1.5rem, 5vw, 5rem)',
+    padding: 'clamp(42px, 7vw, 60px) clamp(1rem, 5vw, 5rem)',
     fontFamily: 'Inter, ui-sans-serif, system-ui, sans-serif',
     overflow: 'hidden',
   },
@@ -219,6 +240,8 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+    gap: '16px',
+    flexWrap: 'wrap',
     marginBottom: '32px',
   },
   sectionTitle: {
@@ -255,13 +278,13 @@ const styles = {
   },
   track: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(4, 1fr)',
-    gap: '20px',
+    gap: 'clamp(16px, 3vw, 20px)',
     transition: 'opacity 0.35s ease, transform 0.35s ease',
     willChange: 'opacity, transform',
   },
   card: {
     cursor: 'pointer',
+    minWidth: 0,
   },
   imageWrapper: {
     position: 'relative',
@@ -304,7 +327,7 @@ const styles = {
   },
   title: {
     fontFamily: 'Oswald, Impact, "Arial Narrow Bold", sans-serif',
-    fontSize: 'clamp(0.85rem, 1.2vw, 1rem)',
+    fontSize: 'clamp(1rem, 5vw, 1.15rem)',
     fontWeight: 700,
     color: '#ffffff',
     margin: '0 0 8px',
@@ -313,7 +336,7 @@ const styles = {
     textTransform: 'uppercase',
   },
   excerpt: {
-    fontSize: '0.78rem',
+    fontSize: 'clamp(0.82rem, 4vw, 0.9rem)',
     color: '#a7a28b',
     lineHeight: 1.6,
     margin: '0 0 12px',
