@@ -9,22 +9,30 @@ const Performance = () => {
     }
 
     return (
-        <section className='relative overflow-hidden bg-page px-4 py-14 sm:py-16 lg:px-6 border-t border-white/5'>
-            <div className='absolute inset-0 z-0'>
-                <img
-                    src={performanceImage}
-                    alt=''
-                    loading='lazy'
-                    decoding='async'
-                    className='h-full w-full object-contain object-center'
-                />
-                
-            </div>
-
-            <div className='relative z-10 mx-auto max-w-7xl'>
+        <section className='bg-page px-4 py-14 sm:py-16 lg:px-6 border-t border-white/5'>
+            <div className='mx-auto max-w-7xl'>
 
                 {/* Section Header */}
-              
+                <motion.div
+                    variants={staggerContainer(0.1, 0)}
+                    initial="initial"
+                    whileInView="animate"
+                    viewport={{ once: true, amount: 0.3 }}
+                    className='mb-8 text-center'
+                >
+                    <motion.h2
+                        variants={fadeInUp}
+                        className='font-display text-[clamp(2.2rem,4vw,3.25rem)] font-black uppercase italic leading-none tracking-[0.01em] text-text-strong'
+                    >
+                        Tactical Performance
+                    </motion.h2>
+                    <motion.p
+                        variants={fadeInUp}
+                        className='mt-3 text-xs sm:text-sm text-[#9CA3AF] max-w-[620px] mx-auto leading-relaxed'
+                    >
+                        Engineered for athletes who push the limits. Maximum mobility, ultimate protection.
+                    </motion.p>
+                </motion.div>
 
                 {/* Feature Hero Card */}
                 <motion.div
@@ -32,16 +40,16 @@ const Performance = () => {
                     initial="initial"
                     whileInView="animate"
                     viewport={{ once: true, amount: 0.2 }}
-                    className='group relative overflow-hidden min-h-[460px] md:min-h-[580px] flex items-center transition-all duration-500'
+                    className='group relative overflow-hidden rounded-[8px] bg-[#0b0b0a] min-h-[300px] md:min-h-[360px] flex items-center transition-all duration-500'
                 >
                     {/* Background Image Layer with Zoom Effect */}
-                    <div className='absolute inset-0 overflow-hidden w-full h-full z-0 opacity-0'>
+                    <div className='absolute inset-0 overflow-hidden w-full h-full z-0'>
                         <img
                             src={performanceImage}
                             alt='Tactical Velocity Mask System'
                             loading='lazy'
                             decoding='async'
-                        className='h-full w-full object-contain object-center transition-transform duration-700 ease-out group-hover:scale-103'
+                            className='h-full w-full object-cover object-center'
                         />
                         {/* Rich gradient overlays for premium dark styling and text legibility */}
                         <div className='absolute inset-0 bg-gradient-to-r from-[#050505]/95 via-[#050505]/75 to-transparent md:from-[#050505]/95 md:via-[#050505]/30 md:to-transparent z-10' />
