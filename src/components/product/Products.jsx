@@ -29,15 +29,17 @@ const Products = () => {
             <div className='mx-auto max-w-[1180px]'>
                 <nav
                     aria-label='Breadcrumb'
-                    className='font-display text-[clamp(1.85rem,4vw,2.65rem)] font-black uppercase italic leading-none text-white'
+                    className='flex flex-wrap items-center gap-x-1 gap-y-2 font-display text-[clamp(1.1rem,7vw,2.35rem)] font-black uppercase italic leading-[1.05] text-white sm:gap-x-2 sm:text-[clamp(1.65rem,3vw,2.35rem)]'
                 >
-                    <Link to='/' className='transition hover:text-primary'>
+                    <Link to='/' className='shrink-0 transition hover:text-primary'>
                         {firstCrumb}
                     </Link>
-                    <span className='px-2 text-white'>&gt;</span>
-                    <span>{secondCrumb}</span>
-                    <span className='px-2 text-primary'>&gt;</span>
-                    <span className='text-primary'>{activeCrumb}</span>
+                    <span className='shrink-0 px-1 text-white sm:px-2'>&gt;</span>
+                    <span className='shrink-0'>{secondCrumb}</span>
+                    <span className='shrink-0 px-1 text-primary sm:px-2'>&gt;</span>
+                    <span className='min-w-0 flex-1 basis-full break-words text-primary sm:basis-auto'>
+                        {activeCrumb}
+                    </span>
                 </nav>
 
                 <h1 className='mt-8 font-display text-[clamp(1.05rem,2vw,1.35rem)] font-black uppercase italic leading-none text-white'>
@@ -84,12 +86,12 @@ const Products = () => {
                                         </p>
                                     </div>
 
-                                    <button
-                                        type='button'
-                                        className='brand-red-gradient h-8 shrink-0 rounded-[4px] px-4 text-[8px] font-black uppercase tracking-[0.08em] text-white shadow-[0_6px_16px_rgba(230,1,3,0.26)] transition active:translate-y-0.5'
+                                    <Link
+                                        to={`/product-details/${slug}`}
+                                        className='brand-red-gradient flex h-8 shrink-0 items-center justify-center rounded-[4px] px-4 text-center text-[8px] font-black uppercase tracking-[0.08em] text-white shadow-[0_6px_16px_rgba(230,1,3,0.26)] transition active:translate-y-0.5'
                                     >
                                         View More
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </article>

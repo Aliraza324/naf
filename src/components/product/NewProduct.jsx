@@ -67,7 +67,7 @@ const NewProduct = () => {
                     </div>
 
                     <Link
-                      to={`/products/${product.slug}`}
+                      to={`/product-details/${product.slug}`}
                       className='brand-red-gradient inline-flex h-10 shrink-0 items-center justify-center rounded-[6px] px-5 text-[11px] font-black uppercase tracking-[0.08em] text-white shadow-[0_6px_18px_rgba(230,1,3,0.25)] transition hover:bg-primary-hover active:translate-y-0.5'
                     >
                       View More
