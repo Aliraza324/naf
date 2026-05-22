@@ -1,20 +1,12 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { CheckCircle2, AlertCircle } from 'lucide-react'
 import { mostSaleProducts } from '../../../data/mostSaleProducts'
 import { fadeInUp, staggerContainer } from '../../../animations/animations'
-import Toast from '../../utils/Toast'
 
 const MostSellerProduct = () => {
   const [hoveredId, setHoveredId] = useState(null)
-
-  const handleProductClick = (product) => {
-    if (product.status === 'LOW STOCK') {
-      Toast.warning(`Warning: Limited stock remaining for ${product.title}!`)
-    } else {
-      Toast.success(`Successfully opened product details for ${product.title}`)
-    }
-  }
 
   return (
     <section className='bg-page px-4 py-14 sm:py-16 lg:px-6 border-t border-white/5'>
@@ -111,13 +103,12 @@ const MostSellerProduct = () => {
                     </div>
 
                     {/* View More Button */}
-                    <button
-                      type='button'
-                   
+                    <Link
+                      to={`/products/:slug`}
                       className='brand-red-gradient inline-flex h-8 items-center justify-center bg-primary px-4 text-[9px] font-black uppercase tracking-[0.08em] text-white shadow-[0_2.5px_0_var(--color-primary-pressed)] hover:bg-primary-hover active:translate-y-[2.5px] active:shadow-none transition-all rounded-[3px] group-hover:shadow-[0_2.5px_10px_rgba(230,1,3,0.3)]'
                     >
                       View More
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </motion.article>

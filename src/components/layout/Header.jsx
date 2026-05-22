@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   ChevronDown,
   ChevronRight,
   Heart,
-  Mail,
   Menu,
   Search,
   ShoppingBasket,
@@ -19,6 +19,14 @@ const inventoryFeaturedCategory = {
   name: 'BBS',
   subCategories: ['Biodegradable (4)', 'Non-Biodegradable (5)', 'Grenades & Smoke'],
 }
+
+const toProductSlug = (value) =>
+  value
+    .toLowerCase()
+    .replace(/\(\d+\)/g, '')
+    .replace(/&/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
 
 const inventoryItems = [
   {
@@ -55,22 +63,10 @@ const Header = () => {
   const inventoryRef = useRef(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isAccountOpen, setIsAccountOpen] = useState(false)
-  const [isTopHeaderHidden, setIsTopHeaderHidden] = useState(false)
   const [isInventoryOpen, setIsInventoryOpen] = useState(false)
   const [isAllCategoriesOpen, setIsAllCategoriesOpen] = useState(true)
   const [isBbsOpen, setIsBbsOpen] = useState(true)
   const [openInventoryCategory, setOpenInventoryCategory] = useState(null)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsTopHeaderHidden(window.scrollY > 8)
-    }
-
-    handleScroll()
-    window.addEventListener('scroll', handleScroll, { passive: true })
-
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
 
   useEffect(() => {
     if (!isInventoryOpen) return undefined
@@ -102,25 +98,7 @@ const Header = () => {
 
   return (
     <header className='sticky top-0 z-50 border-b border-white/5 bg-[#050505]/95 text-white backdrop-blur-xl'>
-      <div
-        className={`overflow-hidden border-b border-white/8 bg-[#111] mx-auto transition-all duration-300 ease-out ${
-          isTopHeaderHidden ? 'max-h-0 opacity-0' : 'max-h-9 opacity-100'
-        }`}
-      >
-        <div className='relative mx-auto flex min-h-9 max-w-[1180px] items-center justify-center gap-5 px-4 text-[9px] font-semibold uppercase tracking-[0.06em] text-white/85 sm:text-[10px] sm:tracking-[0.08em] lg:px-6'>
-          <p className='max-w-full truncate text-center'>
-            Eco-friendly tactical paintballs now available
-          </p>
-
-          <a
-            href='mailto:ops@NAFsupply.com'
-            className='hidden items-center gap-2 normal-case tracking-normal text-white/75 transition hover:text-white sm:flex'
-          >
-            <Mail size={13} strokeWidth={1.8} />
-            ops@NAFsupply.com
-          </a>
-        </div>
-      </div>
+      
 
       <div className='border-b border-white/8 bg-[#080808]'>
         <div className='mx-auto grid max-w-[1180px] grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-4 lg:grid-cols-[140px_1fr_auto] lg:px-6'>
@@ -334,7 +312,14 @@ const Header = () => {
                     {isBbsOpen && (
                       <div className='grid gap-0.5 text-[10px] font-bold uppercase leading-[18px] text-white/55'>
                         {inventoryFeaturedCategory.subCategories.map((subCategory) => (
-                          <span key={subCategory}>{subCategory}</span>
+                          <Link
+                            key={subCategory}
+                            to={`/products/${toProductSlug(subCategory)}`}
+                            onClick={() => setIsInventoryOpen(false)}
+                            className='transition hover:text-primary'
+                          >
+                            {subCategory}
+                          </Link>
                         ))}
                       </div>
                     )}

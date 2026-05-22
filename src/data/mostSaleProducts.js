@@ -12,6 +12,7 @@ export const mostSaleProducts = [
     status: 'IN STOCK',
     badge: 'ELITE-GRADE',
     image: blackHand,
+    slug: 'grenades-smoke',
   },
   {
     id: 'product-2',
@@ -21,6 +22,7 @@ export const mostSaleProducts = [
     status: 'IN STOCK',
     badge: 'NEW OPS',
     image: whiteHand,
+    slug: 'grenades-smoke',
   },
   {
     id: 'product-3',
@@ -30,6 +32,7 @@ export const mostSaleProducts = [
     status: 'LOW STOCK',
     badge: null,
     image: scope,
+    slug: 'grenades-smoke',
   },
   {
     id: 'product-4',
@@ -39,6 +42,7 @@ export const mostSaleProducts = [
     status: 'LOW STOCK',
     badge: null,
     image: skinHand,
+    slug: 'grenades-smoke',
   },
   {
     id: 'product-5',
@@ -48,6 +52,7 @@ export const mostSaleProducts = [
     status: 'LOW STOCK',
     badge: null,
     image: whiteHand,
+    slug: 'grenades-smoke',
   },
   {
     id: 'product-6',
@@ -57,6 +62,7 @@ export const mostSaleProducts = [
     status: 'LOW STOCK',
     badge: null,
     image: skinHand,
+    slug: 'grenades-smoke',
   },
   {
     id: 'product-7',
@@ -66,6 +72,7 @@ export const mostSaleProducts = [
     status: 'LOW STOCK',
     badge: null,
     image: scope,
+    slug: 'grenades-smoke',
   },
   {
     id: 'product-8',
@@ -75,5 +82,6 @@ export const mostSaleProducts = [
     status: 'LOW STOCK',
     badge: null,
     image: skinHand,
+    slug: 'grenades-smoke',
   },
 ]
