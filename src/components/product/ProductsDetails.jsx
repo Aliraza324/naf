@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ShieldCheck, Star } from 'lucide-react'
 import smokeImage from '../../assets/images/smoke.png'
 
@@ -93,7 +94,7 @@ const ProductsDetails = () => {
                         In Stock - Ready For Deployment
                     </p>
 
-                    <h1 className='mt-4 max-w-[640px] text-[clamp(2rem,5vw,3.7rem)] font-black leading-[0.98] tracking-[-0.02em] text-white'>
+                    <h1 className='mt-4 max-w-[640px] text-[clamp(1rem,5vw,3rem)] font-black leading-[0.98] tracking-[-0.02em] text-white'>
                         Enola Gaye WP40 Grenades 100 Pack
                     </h1>
 
@@ -114,30 +115,28 @@ const ProductsDetails = () => {
                                 const isSelected = selectedTier === tier.range
 
                                 return (
-                                <div key={tier.range} className='grid grid-cols-2 gap-3'>
-                                    <button
-                                        type='button'
-                                        onClick={() => setSelectedTier(tier.range)}
-                                        className={`rounded-[9px] border bg-[#151515] px-4 py-4 text-center text-sm font-semibold transition hover:border-primary/70 hover:text-white ${
-                                            isSelected
-                                                ? 'border-primary text-primary'
-                                                : 'border-white/10 text-white/85'
-                                        }`}
-                                    >
-                                        {tier.range}
-                                    </button>
-                                    <button
-                                        type='button'
-                                        onClick={() => setSelectedTier(tier.range)}
-                                        className={`rounded-[9px] border bg-[#151515] px-4 py-4 text-center text-sm font-semibold transition hover:border-primary/70 hover:text-white ${
-                                            isSelected
-                                                ? 'border-primary text-primary'
-                                                : 'border-white/10 text-white/85'
-                                        }`}
-                                    >
-                                        {tier.price}
-                                    </button>
-                                </div>
+                                    <div key={tier.range} className='grid grid-cols-2 gap-3'>
+                                        <button
+                                            type='button'
+                                            onClick={() => setSelectedTier(tier.range)}
+                                            className={`rounded-[9px] border bg-[#151515] px-4 py-4 text-center text-sm font-semibold transition hover:border-primary/70 hover:text-white ${isSelected
+                                                    ? 'border-primary text-primary'
+                                                    : 'border-white/10 text-white/85'
+                                                }`}
+                                        >
+                                            {tier.range}
+                                        </button>
+                                        <button
+                                            type='button'
+                                            onClick={() => setSelectedTier(tier.range)}
+                                            className={`rounded-[9px] border bg-[#151515] px-4 py-4 text-center text-sm font-semibold transition hover:border-primary/70 hover:text-white ${isSelected
+                                                    ? 'border-primary text-primary'
+                                                    : 'border-white/10 text-white/85'
+                                                }`}
+                                        >
+                                            {tier.price}
+                                        </button>
+                                    </div>
                                 )
                             })}
                         </div>
@@ -169,23 +168,21 @@ const ProductsDetails = () => {
                                         const isSelected = selectedPacksByColor[row.color] === packId
 
                                         return (
-                                        <button
-                                            key={packId}
-                                            type='button'
-                                            disabled={!isAvailable}
-                                            onClick={() => togglePack(row.color, packId)}
-                                            className={`rounded-[3px] border px-2 py-2 text-center font-semibold transition ${
-                                                isSelected
-                                                    ? 'border-primary bg-[#1b0b0b] text-white'
-                                                    : 'border-transparent bg-white/8 text-white/45'
-                                            } ${
-                                                isAvailable
-                                                    ? 'cursor-pointer hover:border-primary/70 hover:text-white'
-                                                    : 'cursor-not-allowed opacity-60'
-                                            }`}
-                                        >
-                                            {pack}
-                                        </button>
+                                            <button
+                                                key={packId}
+                                                type='button'
+                                                disabled={!isAvailable}
+                                                onClick={() => togglePack(row.color, packId)}
+                                                className={`rounded-[3px] border px-2 py-2 text-center font-semibold transition ${isSelected
+                                                        ? 'border-primary bg-[#1b0b0b] text-white'
+                                                        : 'border-transparent bg-white/8 text-white/45'
+                                                    } ${isAvailable
+                                                        ? 'cursor-pointer hover:border-primary/70 hover:text-white'
+                                                        : 'cursor-not-allowed opacity-60'
+                                                    }`}
+                                            >
+                                                {pack}
+                                            </button>
                                         )
                                     })}
                                 </div>
@@ -194,18 +191,18 @@ const ProductsDetails = () => {
                     </div>
 
                     <div className='mt-8 flex flex-col gap-4 sm:flex-row'>
-                        <button
-                            type='button'
-                            className='h-12 rounded-[6px] border border-primary px-10 text-xs font-black uppercase tracking-[0.12em] text-primary transition hover:bg-primary hover:text-white sm:h-14 sm:min-w-[190px]'
+                        <Link
+                            to='/cart'
+                            className='flex h-12 items-center justify-center rounded-[6px] border border-primary px-10 text-center text-xs font-black uppercase tracking-[0.12em] text-primary transition hover:bg-primary hover:text-white sm:h-14 sm:min-w-[190px]'
                         >
                             Add To Cart
-                        </button>
-                        <button
-                            type='button'
-                            className='brand-red-gradient h-12 rounded-[6px] px-10 text-xs font-black uppercase tracking-[0.12em] text-white shadow-[0_10px_26px_rgba(230,1,3,0.25)] transition active:translate-y-0.5 sm:h-14 sm:min-w-[190px]'
+                        </Link>
+                        <Link
+                            to='/checkout'
+                            className='brand-red-gradient flex h-12 items-center justify-center rounded-[6px] px-10 text-xs font-black uppercase tracking-[0.12em] text-white shadow-[0_10px_26px_rgba(230,1,3,0.25)] transition active:translate-y-0.5 sm:h-14 sm:min-w-[190px]'
                         >
                             Buy Now
-                        </button>
+                        </Link>
                     </div>
 
                     <p className='mt-8 flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.18em] text-white/40'>

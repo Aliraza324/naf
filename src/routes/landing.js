@@ -2,6 +2,8 @@ import { createElement } from 'react'
 import Home from '../pages/landing/Home'
 import Product from '../pages/landing/Product'
 import ProductDetails from '../pages/landing/ProductDetails'
+import AddToCart from '../pages/landing/AddToCart'
+import BuyNow from '../pages/landing/BuyNow'
 
 const landingRoutes = [
   {
@@ -16,6 +18,15 @@ const landingRoutes = [
     path: '/product-details/:slug',
     element: createElement(ProductDetails),
   },
+  {
+    path: '/cart',
+    element: createElement(AddToCart),
+  },
+  {
+    path: '/checkout',
+    element: createElement(BuyNow),
+  },
 ]
 
 export default landingRoutes
+
