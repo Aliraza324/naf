@@ -219,7 +219,7 @@ const AddCart = () => {
                   Add products from the inventory to build your order.
                 </p>
                 <Link
-                  to='/products/grenades-smoke'
+                  to='/'
                   className='brand-red-gradient mt-6 inline-flex h-12 items-center justify-center rounded-[6px] px-7 text-xs font-black uppercase tracking-[0.12em] text-white'
                 >
                   Browse Products
@@ -292,14 +292,7 @@ const AddCart = () => {
         </div>
       </div>
 
-      <button
-        type='button'
-        aria-label='Back to top'
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className='fixed bottom-6 right-5 z-40 grid size-11 place-items-center rounded-[10px] bg-primary text-white shadow-[0_10px_28px_rgba(230,1,3,0.32)]'
-      >
-        <ChevronUp size={18} />
-      </button>
+   
     </main>
   )
 }
