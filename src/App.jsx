@@ -3,7 +3,6 @@ import { useRoutes, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
-import WelcomeModal from './components/auth/WelcomeModal'
 import landingRoutes from './routes/landing'
 import authRoutes from './routes/auth'
 import { ToastProvider } from './components/utils/Toast'
@@ -35,7 +34,6 @@ const App = () => {
     <>
       <AnimatePresence>{isLoading && <PageLoader />}</AnimatePresence>
       <TopToScroll />
-      <WelcomeModal />
       <div className='min-h-screen bg-page text-text flex flex-col justify-between'>
         <div>
           {!isAuthRoute && <Header />}
