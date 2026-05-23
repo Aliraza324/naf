@@ -2,6 +2,7 @@ import { createElement } from 'react'
 import Home from '../pages/landing/Home'
 import Product from '../pages/landing/Product'
 import ProductDetails from '../pages/landing/ProductDetails'
+import AddToCart from '../pages/landing/AddToCart'
 
 const landingRoutes = [
   {
@@ -15,6 +16,10 @@ const landingRoutes = [
   {
     path: '/product-details/:slug',
     element: createElement(ProductDetails),
+  },
+  {
+    path: '/cart',
+    element: createElement(AddToCart),
   },
 ]
 
