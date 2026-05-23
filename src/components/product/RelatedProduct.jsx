@@ -19,7 +19,7 @@ const RelatedProduct = () => {
             return (
               <article
                 key={product.id}
-                className='group flex min-h-[350px] flex-col overflow-hidden rounded-[10px] border border-primary/20 bg-[#0b0b0a] transition duration-300 hover:-translate-y-1 hover:border-primary/70 hover:shadow-[0_0_28px_rgba(230,1,3,0.12)]'
+                className='group flex min-h-[350px] flex-col overflow-hidden rounded-[10px] border border-primary/20 bg-[#0b0b0a] transition duration-300 hover:-translate-y-1 hover:border-primary/70 hover:shadow-[0_0_28px_rgba(232,12,12,0.12)]'
               >
                 <div className='relative grid h-[195px] place-items-center bg-black px-7 py-6'>
                   {product.badge && (
@@ -68,7 +68,7 @@ const RelatedProduct = () => {
 
                     <Link
                       to={`/product-details/${product.slug}`}
-                      className='brand-red-gradient inline-flex h-10 shrink-0 items-center justify-center rounded-[6px] px-5 text-[10px] font-black uppercase tracking-[0.08em] text-white shadow-[0_7px_18px_rgba(230,1,3,0.25)] transition active:translate-y-0.5'
+                      className='brand-red-gradient inline-flex h-10 shrink-0 items-center justify-center rounded-[6px] px-5 text-[10px] font-black uppercase tracking-[0.08em] text-white shadow-[0_7px_18px_rgba(232,12,12,0.25)] transition active:translate-y-0.5'
                     >
                       View Details
                     </Link>

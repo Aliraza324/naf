@@ -101,7 +101,7 @@ const FeaturedCategories = () => {
                   onMouseLeave={() => setHoveredId(null)}
                   className={`relative rounded-[7px] border bg-surface px-4 pb-5 pt-4 transition-all duration-300 cursor-pointer h-full ${
                     isHighlighted
-                      ? 'border-primary shadow-[0_0_34px_rgba(230,1,3,0.12)]'
+                      ? 'border-primary shadow-[0_0_34px_rgba(232,12,12,0.12)]'
                       : 'border-white/7'
                   }`}
               >

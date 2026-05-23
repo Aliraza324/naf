@@ -81,7 +81,7 @@ const FeaturedEngagement = () => {
           {visibleGear.map((item) => (
             <article
               key={item.id}
-              className='flex min-h-[354px] flex-col rounded-[7px] border border-white/8 bg-[#141414] p-5 transition duration-300 hover:-translate-y-1 hover:border-primary/60 hover:shadow-[0_0_28px_rgba(230,1,3,0.12)]'
+              className='flex min-h-[354px] flex-col rounded-[7px] border border-white/8 bg-[#141414] p-5 transition duration-300 hover:-translate-y-1 hover:border-primary/60 hover:shadow-[0_0_28px_rgba(232,12,12,0.12)]'
             >
               <div className='relative grid aspect-square place-items-center overflow-hidden rounded-[4px] bg-[#101010] p-4'>
                 <span className='absolute left-2 top-2 rounded-[2px] bg-primary px-2.5 py-1.5 text-[9px] font-black uppercase leading-none tracking-[0.04em] text-white'>

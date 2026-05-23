@@ -42,7 +42,7 @@ const HeroNewDrops = () => {
 
             <Link
               to='/products/grenades-smoke'
-              className='brand-red-gradient mt-9 inline-flex h-14 min-w-[168px] items-center justify-center rounded-[6px] px-8 text-[12px] font-black uppercase tracking-[0.12em] text-white shadow-[0_12px_26px_rgba(230,1,3,0.24)] transition hover:brightness-110 active:translate-y-0.5'
+              className='brand-red-gradient mt-9 inline-flex h-14 min-w-[168px] items-center justify-center rounded-[6px] px-8 text-[12px] font-black uppercase tracking-[0.12em] text-white shadow-[0_12px_26px_rgba(232,12,12,0.24)] transition hover:brightness-110 active:translate-y-0.5'
             >
               Shop Arsenal
             </Link>
@@ -79,7 +79,7 @@ const HeroNewDrops = () => {
         type='button'
         aria-label='Back to top'
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className='absolute bottom-16 right-5 z-10 grid size-12 place-items-center rounded-[10px] bg-primary text-white shadow-[0_12px_28px_rgba(230,1,3,0.35)] transition hover:bg-primary-hover active:scale-95 lg:right-10'
+        className='absolute bottom-16 right-5 z-10 grid size-12 place-items-center rounded-[10px] bg-primary text-white shadow-[0_12px_28px_rgba(232,12,12,0.35)] transition hover:bg-primary-hover active:scale-95 lg:right-10'
       >
         <ChevronsUp size={18} strokeWidth={3} />
       </button>

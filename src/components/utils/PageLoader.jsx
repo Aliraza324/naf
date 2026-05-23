@@ -15,8 +15,8 @@ const PageLoader = () => {
       role='status'
       aria-label='Loading NAF Supply'
     >
-      <div className='absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(230,1,3,0.16),transparent_24rem)]' />
-      <div className='absolute inset-x-0 top-1/2 h-px bg-primary/35 shadow-[0_0_34px_rgba(230,1,3,0.42)]' />
+      <div className='absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(232,12,12,0.16),transparent_24rem)]' />
+      <div className='absolute inset-x-0 top-1/2 h-px bg-primary/35 shadow-[0_0_34px_rgba(232,12,12,0.42)]' />
 
       <motion.div
         className='relative flex w-[min(86vw,360px)] flex-col items-center'
@@ -36,7 +36,7 @@ const PageLoader = () => {
             transition={{ duration: 5.5, repeat: Infinity, ease: 'linear' }}
           />
           <motion.span
-            className='absolute -left-2 top-1/2 h-3 w-3 bg-primary shadow-[0_0_18px_rgba(230,1,3,0.8)]'
+            className='absolute -left-2 top-1/2 h-3 w-3 bg-primary shadow-[0_0_18px_rgba(232,12,12,0.8)]'
             animate={{ opacity: [0.35, 1, 0.35] }}
             transition={{ duration: 1.1, repeat: Infinity, ease: 'easeInOut' }}
           />
@@ -57,7 +57,7 @@ const PageLoader = () => {
         <div className='mt-8 grid w-full gap-2'>
           <div className='h-1.5 overflow-hidden rounded-full bg-white/10'>
             <motion.div
-              className='h-full rounded-full bg-primary shadow-[0_0_18px_rgba(230,1,3,0.6)]'
+              className='h-full rounded-full bg-primary shadow-[0_0_18px_rgba(232,12,12,0.6)]'
               initial={{ x: '-100%' }}
               animate={{ x: '100%' }}
               transition={{ duration: 1.15, repeat: Infinity, ease: 'easeInOut' }}

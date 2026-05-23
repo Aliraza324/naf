@@ -259,7 +259,7 @@ const BuyNows = () => {
             
             <button 
               type='button'
-              className='w-full mt-8 h-14 brand-red-gradient text-white rounded-[6px] font-black text-sm tracking-[0.05em] uppercase hover:opacity-90 transition shadow-[0_10px_28px_rgba(230,1,3,0.25)] flex items-center justify-center gap-2.5'
+              className='w-full mt-8 h-14 brand-red-gradient text-white rounded-[6px] font-black text-sm tracking-[0.05em] uppercase hover:opacity-90 transition shadow-[0_10px_28px_rgba(232,12,12,0.25)] flex items-center justify-center gap-2.5'
             >
               <Lock size={16} strokeWidth={2.5} /> COMPLETE SECURE ORDER
             </button>

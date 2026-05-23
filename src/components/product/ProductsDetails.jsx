@@ -341,7 +341,7 @@ const ProductsDetails = () => {
                         </button>
                         <Link
                             to='/checkout'
-                            className='brand-red-gradient flex h-12 items-center justify-center rounded-[6px] px-10 text-xs font-black uppercase tracking-[0.12em] text-white shadow-[0_10px_26px_rgba(230,1,3,0.25)] transition active:translate-y-0.5 sm:h-14 sm:min-w-[190px]'
+                            className='brand-red-gradient flex h-12 items-center justify-center rounded-[6px] px-10 text-xs font-black uppercase tracking-[0.12em] text-white shadow-[0_10px_26px_rgba(232,12,12,0.25)] transition active:translate-y-0.5 sm:h-14 sm:min-w-[190px]'
                         >
                             Buy Now
                         </Link>

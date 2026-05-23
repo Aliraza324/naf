@@ -99,9 +99,9 @@ const Login = () => {
   }
 
   return (
-    <main className='bg-[#e5e7eb] text-white'>
-      <div className='mx-auto flex max-w-7xl overflow-hidden bg-black shadow-2xl'>
-        <section className='relative hidden flex-1 overflow-hidden lg:block'>
+    <main className='bg-black text-white'>
+      <div className='flex min-h-screen w-full overflow-hidden bg-black'>
+        <section className='relative hidden flex-1 overflow-hidden lg:flex'>
           <img
             src={authImg}
             alt='Paintball operator'
@@ -113,7 +113,7 @@ const Login = () => {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
-            className='relative z-10 flex min-h-[calc(100vh-1rem)] max-w-[690px] flex-col justify-center px-14 py-12 xl:px-[70px]'
+            className='relative z-10 flex min-h-screen w-full flex-col justify-center px-12 py-12 xl:px-16'
           >
             <p className='mb-6 flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.38em] text-primary'>
               <span className='h-px w-12 bg-primary' />
@@ -156,7 +156,7 @@ const Login = () => {
           </motion.div>
         </section>
 
-        <section className='flex min-h-[calc(100vh-1rem)] w-full items-center justify-center bg-[#070707] px-5 py-8 sm:px-8 lg:w-[42%] lg:min-w-[470px]'>
+        <section className='flex min-h-screen w-full items-center justify-center bg-[#070707] px-4 py-8 sm:px-6 lg:w-[42%] lg:min-w-[450px]'>
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -171,7 +171,7 @@ const Login = () => {
               <p className='mt-2 text-xs text-white/35'>Authentication required to proceed</p>
             </div>
 
-            <div className='rounded-[18px] border border-primary/70 bg-[#0b0b0c] p-6 shadow-[0_0_0_1px_rgba(230,1,3,0.2),0_0_30px_rgba(230,1,3,0.16)] sm:p-7'>
+            <div className='rounded-[18px] border border-primary/55 bg-[#070707]/98 px-7 pb-10 pt-9 shadow-[0_4px_0_rgba(232,12,12,0.95),0_0_32px_rgba(0,0,0,0.45)] sm:px-11'>
               <form onSubmit={handleSubmit} className='space-y-5'>
                 <div>
                   <label
@@ -275,7 +275,7 @@ const Login = () => {
                 <button
                   type='submit'
                   disabled={loading}
-                  className='h-11 w-full rounded-[6px] bg-primary text-xs font-black text-white shadow-[0_0_22px_rgba(230,1,3,0.38)] transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-55'
+                  className='h-11 w-full rounded-[6px] bg-primary text-xs font-black text-white shadow-[0_0_22px_rgba(232,12,12,0.38)] transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-55'
                 >
                   {loading ? 'Authenticating...' : 'Login To NAF'}
                 </button>

@@ -275,7 +275,7 @@ const AddCart = () => {
 
             <Link
               to='/checkout'
-              className={`brand-red-gradient mt-6 inline-flex h-14 w-full items-center justify-center gap-3 text-sm font-black text-white shadow-[0_10px_28px_rgba(230,1,3,0.25)] ${
+              className={`brand-red-gradient mt-6 inline-flex h-14 w-full items-center justify-center gap-3 text-sm font-black text-white shadow-[0_10px_28px_rgba(232,12,12,0.25)] ${
                 cartItems.length === 0 ? 'pointer-events-none opacity-45' : ''
               }`}
             >

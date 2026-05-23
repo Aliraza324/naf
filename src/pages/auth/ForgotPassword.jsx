@@ -34,8 +34,8 @@ const ForgotPassword = () => {
   }
 
   return (
-    <main className='bg-[#e5e7eb] text-white'>
-      <section className='relative mx-auto max-w-7xl overflow-hidden bg-black'>
+    <main className='bg-black text-white'>
+      <section className='relative w-full min-h-screen overflow-hidden bg-black'>
         <img
           src={authImg}
           alt='Paintball operator'
@@ -45,12 +45,12 @@ const ForgotPassword = () => {
         <div className='absolute inset-0 bg-gradient-to-t from-black via-black/45 to-black/8' />
         <div className='absolute inset-0 bg-gradient-to-r from-black/35 via-transparent to-black/30' />
 
-        <div className='relative z-10 flex min-h-[calc(100vh-2rem)] items-center justify-center px-4 py-12'>
+        <div className='relative z-10 flex min-h-screen items-center justify-center px-4 py-12'>
           <motion.div
             initial={{ opacity: 0, y: 16, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.45 }}
-            className='w-full max-w-[460px] rounded-[18px] border border-primary/55 bg-[#070707]/98 px-7 pb-10 pt-9 shadow-[0_4px_0_rgba(230,1,3,0.95),0_0_32px_rgba(0,0,0,0.45)] sm:px-11'
+            className='w-full max-w-[460px] rounded-[18px] border border-primary/55 bg-[#070707]/98 px-7 pb-10 pt-9 shadow-[0_4px_0_rgba(232,12,12,0.95),0_0_32px_rgba(0,0,0,0.45)] sm:px-11'
           >
             <div className='text-center'>
               <img src={logo} alt='NAF Power logo' className='mx-auto h-9 w-auto object-contain' />
@@ -85,7 +85,7 @@ const ForgotPassword = () => {
 
               <button
                 type='submit'
-                className='mt-11 h-11 w-full rounded-[6px] bg-primary text-xs font-black text-white shadow-[0_10px_24px_rgba(230,1,3,0.22)] transition hover:bg-primary-hover active:translate-y-0.5'
+                className='mt-11 h-11 w-full rounded-[6px] bg-primary text-xs font-black text-white shadow-[0_10px_24px_rgba(232,12,12,0.22)] transition hover:bg-primary-hover active:translate-y-0.5'
               >
                 Reset Password
               </button>

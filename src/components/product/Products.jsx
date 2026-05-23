@@ -84,7 +84,7 @@ const Products = () => {
                     {group.products.map((product) => (
                         <article
                             key={product.id}
-                            className='group overflow-hidden rounded-[7px] border border-primary/15 bg-[#090908] shadow-[0_0_0_1px_rgba(255,255,255,0.015)] transition duration-300 hover:-translate-y-1 hover:border-primary/60 hover:shadow-[0_0_26px_rgba(230,1,3,0.13)]'
+                            className='group overflow-hidden rounded-[7px] border border-primary/15 bg-[#090908] shadow-[0_0_0_1px_rgba(255,255,255,0.015)] transition duration-300 hover:-translate-y-1 hover:border-primary/60 hover:shadow-[0_0_26px_rgba(232,12,12,0.13)]'
                         >
                             <div className='relative grid aspect-[1.35] place-items-center bg-black px-8 py-5'>
                                 {product.badge && (
@@ -122,7 +122,7 @@ const Products = () => {
 
                                     <Link
                                         to={`/product-details/${slug}`}
-                                        className='brand-red-gradient flex h-8 shrink-0 items-center justify-center rounded-[4px] px-4 text-center text-[8px] font-black uppercase tracking-[0.08em] text-white shadow-[0_6px_16px_rgba(230,1,3,0.26)] transition active:translate-y-0.5'
+                                        className='brand-red-gradient flex h-8 shrink-0 items-center justify-center rounded-[4px] px-4 text-center text-[8px] font-black uppercase tracking-[0.08em] text-white shadow-[0_6px_16px_rgba(232,12,12,0.26)] transition active:translate-y-0.5'
                                     >
                                         View More
                                     </Link>

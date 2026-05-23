@@ -266,7 +266,7 @@ const Header = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => navigate('/login')}
-                className='hidden sm:block px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors text-sm'
+                className='hidden sm:block px-6 py-2.5 bg-primary hover:bg-primary-hover text-white font-black rounded-full transition-colors text-sm tracking-wide shadow-[0_4px_12px_rgba(232,12,12,0.3)]'
               >
                 LOGIN
               </motion.button>
@@ -456,7 +456,7 @@ const Header = () => {
                       navigate('/login')
                       setIsMenuOpen(false)
                     }}
-                    className='w-full px-3 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors text-sm'
+                    className='w-full px-4 py-3 bg-primary hover:bg-primary-hover text-white font-black rounded-full transition-colors text-sm tracking-wide shadow-[0_4px_12px_rgba(232,12,12,0.3)]'
                   >
                     LOGIN
                   </motion.button>

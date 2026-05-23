@@ -166,7 +166,7 @@ const ContactForm = () => {
               <div className='sm:col-span-2'>
                 <button
                   type='submit'
-                  className='brand-red-gradient h-12 min-w-[138px] rounded-full px-8 text-[11px] font-black uppercase tracking-[0.12em] text-white shadow-[0_10px_24px_rgba(230,1,3,0.26)] transition hover:brightness-110 active:translate-y-0.5'
+                  className='brand-red-gradient h-12 min-w-[138px] rounded-full px-8 text-[11px] font-black uppercase tracking-[0.12em] text-white shadow-[0_10px_24px_rgba(232,12,12,0.26)] transition hover:brightness-110 active:translate-y-0.5'
                 >
                   Submit
                 </button>
