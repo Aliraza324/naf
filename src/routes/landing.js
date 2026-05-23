@@ -7,6 +7,7 @@ import BuyNow from '../pages/landing/BuyNow'
 import Blog from '../pages/landing/Blog'
 import BlogsDetails from '../pages/landing/BlogsDetails'
 import NewDrops from '../pages/landing/NewDrops'
+import Contact from '../pages/landing/Contact'
 
 const landingRoutes = [
   {
@@ -40,7 +41,11 @@ const landingRoutes = [
   {
     path: '/new-drops',
     element: createElement(NewDrops),
-  }
+  },
+  {
+    path: '/contact',
+    element: createElement(Contact),
+  },
 ]
 
 export default landingRoutes
