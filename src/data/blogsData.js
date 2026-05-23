@@ -1,3 +1,8 @@
+import blogOneImage from '../assets/images/blogone.png'
+import blogTwoImage from '../assets/images/blogtwo.png'
+import blogThreeImage from '../assets/images/blogthree.png'
+import blogFourImage from '../assets/images/blogfour.png'
+
 // Mock blog data – shared across Blog listing and BlogsDetails pages
 
 export const blogsData = [
@@ -6,7 +11,7 @@ export const blogsData = [
     slug: 'mastering-your-marker-pro-maintenance-guide',
     category: 'MAINTENANCE',
     date: '4 MARCH, 2022',
-    image: '/src/assets/images/blogone.png',
+    image: blogOneImage,
     title: 'MASTERING YOUR MARKER: PRO MAINTENANCE GUIDE',
     excerpt:
       'Ensure peak performance in every skirmish with our comprehensive internal maintenance walkthrough.',
@@ -44,7 +49,7 @@ export const blogsData = [
     slug: 'stealth-ops-the-art-of-the-flank',
     category: 'STRATEGY',
     date: '10 MARCH, 2022',
-    image: '/src/assets/images/blogtwo.png',
+    image: blogTwoImage,
     title: 'STEALTH OPS: THE ART OF THE FLANK',
     excerpt:
       'Learn the movement techniques used by elite bushballers to disappear on the field.',
@@ -82,7 +87,7 @@ export const blogsData = [
     slug: 'the-future-of-paint-our-eco-commitment',
     category: 'SUSTAINABILITY',
     date: '18 MARCH, 2022',
-    image: '/src/assets/images/blogthree.png',
+    image: blogThreeImage,
     title: 'THE FUTURE OF PAINT: OUR ECO COMMITMENT',
     excerpt:
       "How we're leading the charge in 100% biodegradable, non-toxic field paint.",
@@ -120,7 +125,7 @@ export const blogsData = [
     slug: '2024-world-cup-preview-gear-trends',
     category: 'PRO NEWS',
     date: '25 MARCH, 2022',
-    image: '/src/assets/images/blogfour.png',
+    image: blogFourImage,
     title: '2024 WORLD CUP PREVIEW: GEAR TRENDS',
     excerpt:
       "A first look at the equipment professional teams are bringing to this year's cup.",
@@ -158,7 +163,7 @@ export const blogsData = [
     slug: 'bunker-control-dominating-the-field',
     category: 'TACTICS',
     date: '1 APRIL, 2022',
-    image: '/src/assets/images/blogtwo.png',
+    image: blogTwoImage,
     title: 'BUNKER CONTROL: DOMINATING THE FIELD',
     excerpt:
       'Master the art of bunker-to-bunker movement and control choke points like a pro.',
@@ -196,7 +201,7 @@ export const blogsData = [
     slug: 'top-5-markers-of-2024-full-breakdown',
     category: 'GEAR REVIEW',
     date: '8 APRIL, 2022',
-    image: '/src/assets/images/blogone.png',
+    image: blogOneImage,
     title: 'TOP 5 MARKERS OF 2024: FULL BREAKDOWN',
     excerpt:
       'We tested the industry\'s best markers so you don\'t have to — here\'s the verdict.',
@@ -234,7 +239,7 @@ export const blogsData = [
     slug: 'off-season-drills-for-paintball-athletes',
     category: 'TRAINING',
     date: '15 APRIL, 2022',
-    image: '/src/assets/images/blogthree.png',
+    image: blogThreeImage,
     title: 'OFF-SEASON DRILLS FOR PAINTBALL ATHLETES',
     excerpt:
       'Stay sharp between events with these proven drills used by national-level teams.',
@@ -272,7 +277,7 @@ export const blogsData = [
     slug: 'meet-the-team-naf-athlete-spotlight',
     category: 'COMMUNITY',
     date: '22 APRIL, 2022',
-    image: '/src/assets/images/blogfour.png',
+    image: blogFourImage,
     title: 'MEET THE TEAM: NAF ATHLETE SPOTLIGHT',
     excerpt:
       'Get to know the faces behind the masks — our sponsored athletes share their stories.',
