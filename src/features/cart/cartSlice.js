@@ -105,6 +105,9 @@ export const selectCartItems = (state) => state.cart.items
 export const selectCartTotalQuantity = (state) =>
   state.cart.items.reduce((total, item) => total + item.quantity, 0)
 
+export const selectCartProductCount = (state) =>
+  new Set(state.cart.items.map((item) => getCartGroupKey(item))).size
+
 export const selectCartSubtotal = (state) =>
   Object.values(
     state.cart.items.reduce((groups, item) => {
