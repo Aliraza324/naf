@@ -40,7 +40,7 @@ const WelcomeModal = () => {
   const showWelcomeModal = useSelector(selectShowWelcomeModal)
   const isAuthenticated = useSelector(selectIsAuthenticated)
 
-  // Hide modal if user is authenticated33333
+  // Hide modal if user is authenticated
   useEffect(() => {
     if (isAuthenticated && showWelcomeModal) {
       dispatch(hideWelcomeModal())
