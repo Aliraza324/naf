@@ -124,7 +124,7 @@ const Products = () => {
                                         to={`/product-details/${slug}`}
                                         className='brand-red-gradient flex h-8 shrink-0 items-center justify-center rounded-[4px] px-4 text-center text-[8px] font-black uppercase tracking-[0.08em] text-white shadow-[0_6px_16px_rgba(232,12,12,0.26)] transition active:translate-y-0.5'
                                     >
-                                        View More
+                                        View Details
                                     </Link>
                                 </div>
                             </div>
