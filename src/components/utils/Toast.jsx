@@ -1,131 +1,129 @@
-import { useState, useEffect, useCallback } from "react";
-import {
-  CircleAlert,
-  CheckCircle,
-  X,
-  XCircle,
-} from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { toastAnimation } from "../../animations/animations";
+import { useCallback, useEffect, useState } from 'react'
+import { CircleAlert, CheckCircle, X, XCircle } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { toastAnimation } from '../../animations/animations'
 
-// --- Global toast trigger using window events (survives HMR) ---
-const TOAST_EVENT = "NAF-toast";
+const TOAST_EVENT = 'NAF-toast'
 
 const Toast = {
   success: (message, duration = 3000) => {
-    console.log("🟢 toast.success called:", message);
-    window.dispatchEvent(new CustomEvent(TOAST_EVENT, {
-      detail: { message, statusCode: "success", autoRemoveTime: duration },
-    }));
+    window.dispatchEvent(
+      new CustomEvent(TOAST_EVENT, {
+        detail: { message, statusCode: 'success', autoRemoveTime: duration },
+      }),
+    )
   },
   error: (message, duration = 3000) => {
-    console.log("🔴 toast.error called:", message);
-    window.dispatchEvent(new CustomEvent(TOAST_EVENT, {
-      detail: { message, statusCode: "error", autoRemoveTime: duration },
-    }));
+    window.dispatchEvent(
+      new CustomEvent(TOAST_EVENT, {
+        detail: { message, statusCode: 'error', autoRemoveTime: duration },
+      }),
+    )
   },
   warning: (message, duration = 3000) => {
-    window.dispatchEvent(new CustomEvent(TOAST_EVENT, {
-      detail: { message, statusCode: "no-response", autoRemoveTime: duration },
-    }));
+    window.dispatchEvent(
+      new CustomEvent(TOAST_EVENT, {
+        detail: { message, statusCode: 'no-response', autoRemoveTime: duration },
+      }),
+    )
   },
-};
+}
 
-export default Toast;
+export default Toast
 
-// --- Toast UI Component ---
 const getToastConfig = (status) => {
   switch (status) {
-    case "success":
+    case 'success':
       return {
-        bgColor: "bg-[#C4F4D0]",
-        borderColor: "border-[#C4F4D0]",
-        textColor: "text-gray-700",
-        icon: <CheckCircle size={20} className="text-green-600" />,
-      };
-    case "no-response":
+        accentBar: 'bg-[#63d471]',
+        border: 'border-[#63d471]/45',
+        icon: <CheckCircle size={19} className='text-[#63d471]' />,
+      }
+    case 'no-response':
       return {
-        bgColor: "bg-[#FFDFFD]",
-        borderColor: "border-[#FFDFFD]",
-        textColor: "text-gray-700",
-        icon: <XCircle size={20} className="text-pink-500" />,
-      };
-    case "error":
+        accentBar: 'bg-primary',
+        border: 'border-primary/55',
+        icon: <XCircle size={19} className='text-primary' />,
+      }
+    case 'error':
       return {
-        bgColor: "bg-[#F9CDCD]",
-        borderColor: "border-[#F9CDCD]",
-        textColor: "text-gray-700",
-        icon: <CircleAlert size={20} className="text-red-600" />,
-      };
+        accentBar: 'bg-primary',
+        border: 'border-primary/45',
+        icon: <CircleAlert size={19} className='text-primary' />,
+      }
     default:
       return {
-        bgColor: "bg-[#C4F4D0]",
-        borderColor: "border-[#C4F4D0]",
-        textColor: "text-gray-700",
-        icon: <CheckCircle size={20} className="text-green-600" />,
-      };
+        accentBar: 'bg-[#63d471]',
+        border: 'border-[#63d471]/45',
+        icon: <CheckCircle size={19} className='text-[#63d471]' />,
+      }
   }
-};
+}
 
-// --- ToastProvider (mount once in App) ---
 export function ToastProvider() {
-  const [data, setData] = useState(null);
-  const handleClose = useCallback(() => setData(null), []);
+  const [data, setData] = useState(null)
+  const handleClose = useCallback(() => setData(null), [])
 
   useEffect(() => {
-    console.log("✅ ToastProvider mounted, listening for events");
-    const handler = (e) => {
-      console.log("📨 Toast event received:", e.detail);
-      setData(e.detail);
-    };
-    window.addEventListener(TOAST_EVENT, handler);
-    return () => window.removeEventListener(TOAST_EVENT, handler);
-  }, []);
+    const handler = (event) => {
+      setData(event.detail)
+    }
 
-  const config = data ? getToastConfig(data.statusCode) : null;
+    window.addEventListener(TOAST_EVENT, handler)
+    return () => window.removeEventListener(TOAST_EVENT, handler)
+  }, [])
+
+  const config = data ? getToastConfig(data.statusCode) : null
 
   return (
-    <div className="fixed top-4 right-4 z-[9999]">
+    <div className='fixed right-4 top-4 z-[9999] max-w-[calc(100vw-2rem)]'>
       <AnimatePresence>
         {data && (
           <motion.div
             key={data.message}
             variants={toastAnimation}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className={`relative ${config.bgColor} ${config.borderColor} border rounded-lg h-[50px] min-w-[200px] max-w-[400px] w-fit shadow-lg`}
-            style={{ padding: "12px 24px 12px 16px" }}
+            initial='initial'
+            animate='animate'
+            exit='exit'
+            className={`dropdown-bg relative min-h-[58px] w-fit min-w-[260px] max-w-[420px] overflow-hidden rounded-[8px] border ${config.border} px-4 py-3 text-white shadow-[0_18px_34px_rgba(0,0,0,0.45)] ring-1 ring-white/8`}
           >
-            <div className="absolute top-0 right-0 w-0 h-0 border-l-[20px] border-l-transparent border-t-[20px] border-t-white"></div>
+            <div className={`absolute left-0 top-0 h-full w-1 ${config.accentBar}`} />
 
             <button
+              type='button'
               onClick={handleClose}
-              className={`absolute -top-2 -right-2 w-6 h-6 ${config.bgColor} border-2 border-white rounded-full flex items-center justify-center text-gray-600 hover:opacity-70 transition-opacity z-10`}
+              className='absolute right-2 top-2 z-10 grid size-7 place-items-center text-white/55 transition hover:text-white'
+              aria-label='Close toast'
             >
-              <X size={14} />
+              <X size={16} strokeWidth={2.4} />
             </button>
 
-            <div className="flex items-center gap-3 h-full">
-              <div className="flex-shrink-0">{config.icon}</div>
-              <p className={`${config.textColor} font-medium text-sm flex-1 truncate leading-tight`}>
+            <div className='flex min-w-0 items-center gap-3 pr-8'>
+              <div className='grid size-9 shrink-0 place-items-center rounded-[6px] bg-white/6'>
+                {config.icon}
+              </div>
+              <p className='min-w-0 flex-1 text-sm font-bold leading-snug text-white/90'>
                 {data.message}
               </p>
             </div>
+
             <AutoClose duration={data.autoRemoveTime} onClose={handleClose} />
           </motion.div>
         )}
       </AnimatePresence>
     </div>
-  );
+  )
 }
 
 function AutoClose({ duration, onClose }) {
   useEffect(() => {
     if (duration > 0) {
-      const timer = setTimeout(onClose, duration);
-      return () => clearTimeout(timer);
+      const timer = setTimeout(onClose, duration)
+      return () => clearTimeout(timer)
     }
-  }, [duration, onClose]);
-  return null;
+
+    return undefined
+  }, [duration, onClose])
+
+  return null
 }

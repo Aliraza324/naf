@@ -1,7 +1,10 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Link, useParams } from 'react-router-dom'
 import { ShieldCheck, Star } from 'lucide-react'
 import smokeImage from '../../assets/images/smoke.png'
+import toast from '../../utils/toast'
+import { addItemsToCart } from '../../features/cart/cartSlice'
 
 const thumbnails = [
     { id: 'front', image: smokeImage, label: 'Front view' },
@@ -10,9 +13,9 @@ const thumbnails = [
 ]
 
 const volumeTiers = [
-    { range: '1 - 10 pic', price: '$32.50' },
-    { range: '11 - 50 pic', price: '$29.00' },
-    { range: '51+ pic', price: '$26.50' },
+    { range: '1 - 10 pic', price: '$32.50', maxQuantity: 10 },
+    { range: '11 - 50 pic', price: '$29.00', maxQuantity: 50 },
+    { range: '51+ pic', price: '$26.50', maxQuantity: null },
 ]
 
 const packMatrix = [
@@ -33,15 +36,132 @@ const packMatrix = [
     },
 ]
 
-const ProductsDetails = () => {
-    const [selectedPacksByColor, setSelectedPacksByColor] = useState({})
-    const [selectedTier, setSelectedTier] = useState(null)
+const productDetails = {
+    id: 'enola-gaye-wp40-grenades-100-pack',
+    name: 'Enola Gaye WP40 Grenades 100 Pack',
+    image: smokeImage,
+}
 
-    const togglePack = (color, packId) => {
-        setSelectedPacksByColor((currentPacks) => ({
-            ...currentPacks,
-            [color]: currentPacks[color] === packId ? null : packId,
+const packOptions = [
+    { label: 'Pack ( 10 pic )', size: '10 pic' },
+    { label: 'Pack ( 20 pic )', size: '20 pic' },
+    { label: 'Pack ( 40 pic )', size: '40 pic' },
+    { label: 'Pack ( 80 pic )', size: '80 pic' },
+]
+
+const createInitialPackQuantities = () =>
+    packMatrix.reduce((quantities, row) => {
+        quantities[row.color] = row.packs.map(() => '0')
+        return quantities
+    }, {})
+
+const ProductsDetails = () => {
+    const dispatch = useDispatch()
+    const { slug } = useParams()
+    const [packQuantities, setPackQuantities] = useState(createInitialPackQuantities)
+    const [selectedTier, setSelectedTier] = useState(null)
+    const [quantityError, setQuantityError] = useState('')
+
+    const selectedTierDetails = volumeTiers.find((tier) => tier.range === selectedTier)
+    const maxQuantity = selectedTierDetails?.maxQuantity ?? null
+
+    const showQuantityError = (limit) => {
+        const message = `Selected tier allows a maximum quantity of ${limit} pieces.`
+        setQuantityError(message)
+        toast.error(message)
+    }
+
+    const handleTierSelect = (tier) => {
+        setSelectedTier(tier.range)
+
+        if (!tier.maxQuantity) {
+            setQuantityError('')
+            return
+        }
+
+        let hadOverLimitQuantity = false
+        const nextQuantities = Object.fromEntries(
+            Object.entries(packQuantities).map(([color, quantities]) => [
+                color,
+                quantities.map((quantity) => {
+                    if (Number(quantity) > tier.maxQuantity) {
+                        hadOverLimitQuantity = true
+                        return String(tier.maxQuantity)
+                    }
+
+                    return quantity
+                }),
+            ]),
+        )
+
+        if (hadOverLimitQuantity) {
+            setPackQuantities(nextQuantities)
+            showQuantityError(tier.maxQuantity)
+            return
+        }
+
+        setQuantityError('')
+    }
+
+    const handlePackQuantityChange = (color, packIndex, value) => {
+        const numericValue = value.replace(/\D/g, '')
+        const nextValue = numericValue ? String(Number(numericValue)) : '0'
+
+        if (maxQuantity && Number(nextValue) > maxQuantity) {
+            showQuantityError(maxQuantity)
+            return
+        }
+
+        setPackQuantities((currentQuantities) => ({
+            ...currentQuantities,
+            [color]: currentQuantities[color].map((quantity, index) =>
+                index === packIndex ? nextValue : quantity,
+            ),
         }))
+        setQuantityError('')
+    }
+
+    const handleAddToCart = (event) => {
+        event.preventDefault()
+
+        if (!selectedTier) {
+            toast.warning('Please select the Volume Tier first')
+            return
+        }
+
+        const cartItems = packMatrix.flatMap((row) =>
+            packQuantities[row.color].flatMap((quantity, index) => {
+                const numericQuantity = Number(quantity)
+
+                if (numericQuantity <= 0 || row.packs[index] === '0') {
+                    return []
+                }
+
+                return {
+                    productId: slug || productDetails.id,
+                    productName: productDetails.name,
+                    productImage: productDetails.image,
+                    color: row.color,
+                    size: packOptions[index].size,
+                    quantity: numericQuantity,
+                    unitPrice: Number(selectedTierDetails.price.replace(/[^0-9.]/g, '')),
+                    price: selectedTierDetails.price,
+                    volumeTier: selectedTierDetails.range,
+                    variants: {
+                        pack: packOptions[index].label,
+                        packQuantity: row.packs[index],
+                    },
+                }
+            }),
+        )
+
+        if (cartItems.length === 0) {
+            toast.warning('Please enter a quantity before adding to cart')
+            return
+        }
+
+        dispatch(addItemsToCart(cartItems))
+        toast.success('Product added to cart')
     }
 
     return (
@@ -95,7 +215,7 @@ const ProductsDetails = () => {
                     </p>
 
                     <h1 className='mt-4 max-w-[640px] text-[clamp(1rem,5vw,3rem)] font-black leading-[0.98] tracking-[-0.02em] text-white'>
-                        Enola Gaye WP40 Grenades 100 Pack
+                        {productDetails.name}
                     </h1>
 
                     <p className='mt-6 max-w-[520px] text-sm leading-6 text-white/45 sm:text-base'>
@@ -118,7 +238,7 @@ const ProductsDetails = () => {
                                     <div key={tier.range} className='grid grid-cols-2 gap-3'>
                                         <button
                                             type='button'
-                                            onClick={() => setSelectedTier(tier.range)}
+                                            onClick={() => handleTierSelect(tier)}
                                             className={`rounded-[9px] border bg-[#151515] px-4 py-4 text-center text-sm font-semibold transition hover:border-primary/70 hover:text-white ${isSelected
                                                     ? 'border-primary text-primary'
                                                     : 'border-white/10 text-white/85'
@@ -128,7 +248,7 @@ const ProductsDetails = () => {
                                         </button>
                                         <button
                                             type='button'
-                                            onClick={() => setSelectedTier(tier.range)}
+                                            onClick={() => handleTierSelect(tier)}
                                             className={`rounded-[9px] border bg-[#151515] px-4 py-4 text-center text-sm font-semibold transition hover:border-primary/70 hover:text-white ${isSelected
                                                     ? 'border-primary text-primary'
                                                     : 'border-white/10 text-white/85'
@@ -146,10 +266,9 @@ const ProductsDetails = () => {
                         <div className='min-w-[520px]'>
                             <div className='grid grid-cols-[1.2fr_repeat(4,0.9fr)] bg-[#1c1c1f] px-4 py-4 text-[8px] font-black uppercase tracking-[0.08em] text-white/50 sm:text-[9px]'>
                                 <span>Color / Packs</span>
-                                <span className='text-center'>Pack ( 10 pic )</span>
-                                <span className='text-center'>Pack ( 20 pic )</span>
-                                <span className='text-center'>Pack ( 40 pic )</span>
-                                <span className='text-center'>Pack ( 80 pic )</span>
+                                {packOptions.map((option) => (
+                                    <span key={option.label} className='text-center'>{option.label}</span>
+                                ))}
                             </div>
 
                             {packMatrix.map((row) => (
@@ -163,26 +282,27 @@ const ProductsDetails = () => {
                                     </div>
 
                                     {row.packs.map((pack, index) => {
-                                        const packId = `${row.color}-${index}`
+                                        const inputId = `${row.color}-${index}`
                                         const isAvailable = pack !== '0'
-                                        const isSelected = selectedPacksByColor[row.color] === packId
 
                                         return (
-                                            <button
-                                                key={packId}
-                                                type='button'
+                                            <input
+                                                key={inputId}
+                                                aria-label={`${row.color} pack ${index + 1} quantity`}
+                                                type='number'
+                                                inputMode='numeric'
+                                                min='0'
+                                                max={maxQuantity ?? undefined}
                                                 disabled={!isAvailable}
-                                                onClick={() => togglePack(row.color, packId)}
-                                                className={`rounded-[3px] border px-2 py-2 text-center font-semibold transition ${isSelected
-                                                        ? 'border-primary bg-[#1b0b0b] text-white'
-                                                        : 'border-transparent bg-white/8 text-white/45'
-                                                    } ${isAvailable
-                                                        ? 'cursor-pointer hover:border-primary/70 hover:text-white'
+                                                value={packQuantities[row.color][index]}
+                                                onChange={(event) =>
+                                                    handlePackQuantityChange(row.color, index, event.target.value)
+                                                }
+                                                className={`h-[34px] w-full rounded-[3px] border border-transparent bg-white/8 px-2 text-center font-semibold text-white/45 outline-none transition [appearance:textfield] focus:border-primary focus:text-white [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none ${isAvailable
+                                                        ? 'hover:border-primary/70 hover:text-white'
                                                         : 'cursor-not-allowed opacity-60'
                                                     }`}
-                                            >
-                                                {pack}
-                                            </button>
+                                            />
                                         )
                                     })}
                                 </div>
@@ -190,13 +310,20 @@ const ProductsDetails = () => {
                         </div>
                     </div>
 
+                    {quantityError && (
+                        <p className='mt-3 max-w-[560px] text-xs font-semibold text-primary'>
+                            {quantityError}
+                        </p>
+                    )}
+
                     <div className='mt-8 flex flex-col gap-4 sm:flex-row'>
-                        <Link
-                            to='/cart'
+                        <button
+                            type='button'
+                            onClick={handleAddToCart}
                             className='flex h-12 items-center justify-center rounded-[6px] border border-primary px-10 text-center text-xs font-black uppercase tracking-[0.12em] text-primary transition hover:bg-primary hover:text-white sm:h-14 sm:min-w-[190px]'
                         >
                             Add To Cart
-                        </Link>
+                        </button>
                         <Link
                             to='/checkout'
                             className='brand-red-gradient flex h-12 items-center justify-center rounded-[6px] px-10 text-xs font-black uppercase tracking-[0.12em] text-white shadow-[0_10px_26px_rgba(230,1,3,0.25)] transition active:translate-y-0.5 sm:h-14 sm:min-w-[190px]'
