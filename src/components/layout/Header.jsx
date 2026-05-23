@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   ChevronDown,
   Heart,
@@ -16,6 +16,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { announcementFade, dropdownMenu, mobileNavMenu } from '../../animations/animations'
 import { inventoryCategories } from '../../data/inventoryCategories'
 import { selectCartProductCount } from '../../features/cart/cartSlice'
+import {
+  selectIsAuthenticated,
+  selectUser,
+  logout,
+} from '../../features/auth/authSlice'
 
 const navItems = [
   { label: 'Home', href: '/' },
@@ -34,7 +39,11 @@ const getSubCategoryLabel = (subCategory) =>
   subCategory.count ? `${subCategory.name} (${subCategory.count})` : subCategory.name
 
 const Header = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const cartProductCount = useSelector(selectCartProductCount)
+  const isAuthenticated = useSelector(selectIsAuthenticated)
+  const user = useSelector(selectUser)
   const categoryMenuRef = useRef(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isAccountOpen, setIsAccountOpen] = useState(false)
@@ -186,66 +195,82 @@ const Header = () => {
           </Link>
 
           <div className='flex items-center justify-end gap-5 sm:gap-[26px]'>
-            <div className='relative hidden sm:block'>
-              <button
-                type='button'
-                onClick={() => setIsAccountOpen((value) => !value)}
-                className='grid size-9 place-items-center text-white transition hover:text-primary'
-                aria-label='Account menu'
-              >
-                <UserRound size={22} strokeWidth={2.15} />
-              </button>
+            {/* Account/Login Section */}
+            {isAuthenticated && user ? (
+              <div className='relative hidden sm:block'>
+                <button
+                  type='button'
+                  onClick={() => setIsAccountOpen((value) => !value)}
+                  className='grid size-9 place-items-center text-white transition hover:text-primary'
+                  aria-label='Account menu'
+                >
+                  <UserRound size={22} strokeWidth={2.15} />
+                </button>
 
-              <AnimatePresence>
-                {isAccountOpen && (
-                  <motion.div
-                    variants={dropdownMenu}
-                    initial='initial'
-                    animate='animate'
-                    exit='exit'
-                    className='dropdown-bg absolute right-0 top-12 z-[80] w-[min(78vw,284px)] rounded-[16px] p-5 shadow-2xl ring-1 ring-white/10'
-                  >
-                    <div className='mb-5 flex items-start justify-between'>
-                      <span className='text-[10px] text-white/55'>Dealer</span>
+                <AnimatePresence>
+                  {isAccountOpen && (
+                    <motion.div
+                      variants={dropdownMenu}
+                      initial='initial'
+                      animate='animate'
+                      exit='exit'
+                      className='dropdown-bg absolute right-0 top-12 z-[80] w-[min(78vw,284px)] rounded-[16px] p-5 shadow-2xl ring-1 ring-white/10'
+                    >
+                      <div className='mb-5 flex items-start justify-between'>
+                        <span className='text-[10px] text-white/55'>Dealer</span>
+                        <button
+                          type='button'
+                          onClick={() => setIsAccountOpen(false)}
+                          aria-label='Close account menu'
+                        >
+                          <X size={20} />
+                        </button>
+                      </div>
+
+                      <div className='flex min-w-0 items-center gap-3 border-b border-white/10 pb-5'>
+                        <span className='grid size-9 place-items-center rounded-full bg-primary text-xs font-black'>
+                          {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                        </span>
+                        <div className='min-w-0'>
+                          <p className='truncate text-xs font-bold'>{user.name || 'User'}</p>
+                          <p className='truncate text-[10px] text-white/65'>{user.email}</p>
+                        </div>
+                      </div>
+
+                      <nav className='grid gap-5 border-b border-white/10 py-5 text-sm font-semibold'>
+                        {['Dashboard', 'Browse Products', 'My Orders', 'Payments', 'Setting'].map(
+                          (item) => (
+                            <Link key={item} to='#account' className='transition hover:text-primary'>
+                              {item}
+                            </Link>
+                          ),
+                        )}
+                      </nav>
+
                       <button
                         type='button'
-                        onClick={() => setIsAccountOpen(false)}
-                        aria-label='Close account menu'
+                        onClick={() => {
+                          dispatch(logout())
+                          setIsAccountOpen(false)
+                        }}
+                        className='mt-5 text-sm font-semibold transition hover:text-primary'
                       >
-                        <X size={20} />
+                        Sign Out
                       </button>
-                    </div>
-
-                    <div className='flex min-w-0 items-center gap-3 border-b border-white/10 pb-5'>
-                      <span className='grid size-9 place-items-center rounded-full bg-primary text-xs font-black'>
-                        N
-                      </span>
-                      <div className='min-w-0'>
-                        <p className='truncate text-xs font-bold'>User Name</p>
-                        <p className='truncate text-[10px] text-white/65'>Nafuser@gmail.com</p>
-                      </div>
-                    </div>
-
-                    <nav className='grid gap-5 border-b border-white/10 py-5 text-sm font-semibold'>
-                      {['Dashboard', 'Browse Products', 'My Orders', 'Payments', 'Setting'].map(
-                        (item) => (
-                          <Link key={item} to='#account' className='transition hover:text-primary'>
-                            {item}
-                          </Link>
-                        ),
-                      )}
-                    </nav>
-
-                    <button
-                      type='button'
-                      className='mt-5 text-sm font-semibold transition hover:text-primary'
-                    >
-                      Sign Out
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => navigate('/login')}
+                className='hidden sm:block px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors text-sm'
+              >
+                LOGIN
+              </motion.button>
+            )}
 
             <button
               aria-label='Wishlist'
@@ -420,6 +445,23 @@ const Header = () => {
                   ),
                 )}
               </nav>
+
+              {/* Mobile Auth Section */}
+              {!isAuthenticated && (
+                <div className='mt-3 border-t border-white/8 pt-4'>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => {
+                      navigate('/login')
+                      setIsMenuOpen(false)
+                    }}
+                    className='w-full px-3 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors text-sm'
+                  >
+                    LOGIN
+                  </motion.button>
+                </div>
+              )}
 
               <div className='mt-2 grid gap-2 border-t border-white/8 pt-4'>
                 {inventoryCategories.map((category) => (
