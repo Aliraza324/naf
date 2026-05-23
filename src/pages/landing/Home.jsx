@@ -16,6 +16,9 @@ const Home = () => {
       <Performance />
       <PopularBrand/>
       <Blogs />
+
+
+      
     </main>
   )
 }
