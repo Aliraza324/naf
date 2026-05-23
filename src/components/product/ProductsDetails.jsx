@@ -94,7 +94,7 @@ const ProductsDetails = () => {
                         In Stock - Ready For Deployment
                     </p>
 
-                    <h1 className='mt-4 max-w-[640px] text-[clamp(2rem,5vw,3.7rem)] font-black leading-[0.98] tracking-[-0.02em] text-white'>
+                    <h1 className='mt-4 max-w-[640px] text-[clamp(1rem,5vw,3rem)] font-black leading-[0.98] tracking-[-0.02em] text-white'>
                         Enola Gaye WP40 Grenades 100 Pack
                     </h1>
 
@@ -197,12 +197,12 @@ const ProductsDetails = () => {
                         >
                             Add To Cart
                         </Link>
-                        <button
-                            type='button'
-                            className='brand-red-gradient h-12 rounded-[6px] px-10 text-xs font-black uppercase tracking-[0.12em] text-white shadow-[0_10px_26px_rgba(230,1,3,0.25)] transition active:translate-y-0.5 sm:h-14 sm:min-w-[190px]'
+                        <Link
+                            to='/checkout'
+                            className='brand-red-gradient flex h-12 items-center justify-center rounded-[6px] px-10 text-xs font-black uppercase tracking-[0.12em] text-white shadow-[0_10px_26px_rgba(230,1,3,0.25)] transition active:translate-y-0.5 sm:h-14 sm:min-w-[190px]'
                         >
                             Buy Now
-                        </button>
+                        </Link>
                     </div>
 
                     <p className='mt-8 flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.18em] text-white/40'>

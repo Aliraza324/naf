@@ -144,21 +144,23 @@ const Blogs = () => {
       initial="initial"
       whileInView="animate"
       viewport={{ once: true, amount: 0.15 }}
-      style={styles.section}
+      className="bg-page-soft py-[clamp(42px,7vw,60px)] px-[clamp(1rem,5vw,5rem)] font-body overflow-hidden"
     >
       {/* Header Row */}
-      <motion.div variants={fadeInUp} style={styles.header}>
-        <h2 style={styles.sectionTitle}>LATEST BLOG</h2>
-        <div style={styles.navButtons}>
+      <motion.div variants={fadeInUp} className="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <h2 className="font-display text-[clamp(1.4rem,2.5vw,1.75rem)] font-bold text-white m-0 tracking-[0.04em] uppercase">
+          LATEST BLOG
+        </h2>
+        <div className="flex gap-2">
           <button
-            style={styles.navBtn}
+            className="w-9 h-9 rounded-full border border-white/20 bg-white/5 text-white text-[22px] flex items-center justify-center cursor-pointer leading-none transition-colors hover:border-white/40 hover:bg-white/10"
             onClick={() => slide('left')}
             aria-label="Previous"
           >
             ‹
           </button>
           <button
-            style={styles.navBtn}
+            className="w-9 h-9 rounded-full border border-white/20 bg-white/5 text-white text-[22px] flex items-center justify-center cursor-pointer leading-none transition-colors hover:border-white/40 hover:bg-white/10"
             onClick={() => slide('right')}
             aria-label="Next"
           >
@@ -168,11 +170,11 @@ const Blogs = () => {
       </motion.div>
 
       {/* Slider viewport */}
-      <div style={styles.viewport}>
+      <div className="overflow-hidden w-full">
         <motion.div 
           variants={staggerContainer(0.08, 0.05)}
+          className="grid gap-[clamp(16px,3vw,20px)] transition-all duration-[350ms] ease-in-out will-change-[opacity,transform]"
           style={{
-            ...styles.track,
             gridTemplateColumns: `repeat(${cardsPerView}, minmax(0, 1fr))`,
             ...slideStyle,
           }}
@@ -187,170 +189,41 @@ const Blogs = () => {
 };
 
 const BlogCard = ({ blog }) => {
-  const [hovered, setHovered] = useState(false);
-
   return (
     <motion.article
       variants={fadeInUp}
-      style={styles.card}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      className="group cursor-pointer min-w-0"
     >
       {/* Image */}
-      <div style={styles.imageWrapper}>
+      <div className="relative w-full aspect-[4/3] overflow-hidden rounded-[6px] bg-[#111]">
         <img
           src={blog.image}
           alt={blog.title}
-          style={{
-            ...styles.image,
-            transform: hovered ? 'scale(1.07)' : 'scale(1)',
-          }}
+          className="w-full h-full object-cover block transition-transform duration-[400ms] ease-in-out group-hover:scale-[1.07]"
         />
-        <div style={{ ...styles.imageOverlay, opacity: hovered ? 0.38 : 0 }} />
-        <span style={styles.badge}>{blog.category}</span>
+        <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 pointer-events-none group-hover:opacity-[0.38]" />
+        <span className="absolute top-2.5 left-2.5 bg-black/65 text-white text-[9px] font-bold tracking-[0.12em] uppercase px-2 py-1 rounded-[3px] backdrop-blur-[4px]">
+          {blog.category}
+        </span>
       </div>
 
       {/* Text */}
-      <div style={styles.content}>
-        <h3 style={styles.title}>{blog.title}</h3>
-        <p style={styles.excerpt}>{blog.excerpt}</p>
+      <div className="pt-4">
+        <h3 className="font-display text-[clamp(1rem,5vw,1.15rem)] font-bold text-white mb-2 leading-[1.3] tracking-[0.01em] uppercase">
+          {blog.title}
+        </h3>
+        <p className="text-[clamp(0.82rem,4vw,0.9rem)] text-text-muted leading-[1.6] mb-3">
+          {blog.excerpt}
+        </p>
         <a
           href={blog.link}
-          style={{
-            ...styles.readMore,
-            color: hovered ? '#ff2527' : '#e60103',
-            gap: hovered ? '10px' : '6px',
-          }}
+          className="text-[0.72rem] font-bold tracking-[0.1em] uppercase no-underline inline-flex items-center transition-all duration-200 text-primary gap-1.5 group-hover:text-primary-hover group-hover:gap-2.5"
         >
           READ MORE&nbsp;&nbsp;→
         </a>
       </div>
     </motion.article>
   );
-};
-
-const styles = {
-  section: {
-    backgroundColor: '#0a0a08',
-    padding: 'clamp(42px, 7vw, 60px) clamp(1rem, 5vw, 5rem)',
-    fontFamily: 'Inter, ui-sans-serif, system-ui, sans-serif',
-    overflow: 'hidden',
-  },
-  header: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: '16px',
-    flexWrap: 'wrap',
-    marginBottom: '32px',
-  },
-  sectionTitle: {
-    fontFamily: 'Oswald, Impact, "Arial Narrow Bold", sans-serif',
-    fontSize: 'clamp(1.4rem, 2.5vw, 1.75rem)',
-    fontWeight: 700,
-    color: '#ffffff',
-    margin: 0,
-    letterSpacing: '0.04em',
-    textTransform: 'uppercase',
-  },
-  navButtons: {
-    display: 'flex',
-    gap: '8px',
-  },
-  navBtn: {
-    width: '36px',
-    height: '36px',
-    borderRadius: '50%',
-    border: '1px solid rgba(255,255,255,0.2)',
-    background: 'rgba(255,255,255,0.05)',
-    color: '#ffffff',
-    fontSize: '22px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    cursor: 'pointer',
-    lineHeight: 1,
-    transition: 'border-color 0.2s, background 0.2s',
-  },
-  viewport: {
-    overflow: 'hidden',
-    width: '100%',
-  },
-  track: {
-    display: 'grid',
-    gap: 'clamp(16px, 3vw, 20px)',
-    transition: 'opacity 0.35s ease, transform 0.35s ease',
-    willChange: 'opacity, transform',
-  },
-  card: {
-    cursor: 'pointer',
-    minWidth: 0,
-  },
-  imageWrapper: {
-    position: 'relative',
-    width: '100%',
-    aspectRatio: '4/3',
-    overflow: 'hidden',
-    borderRadius: '6px',
-    backgroundColor: '#111',
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    display: 'block',
-    transition: 'transform 0.4s ease',
-  },
-  imageOverlay: {
-    position: 'absolute',
-    inset: 0,
-    backgroundColor: '#000',
-    transition: 'opacity 0.3s ease',
-    pointerEvents: 'none',
-  },
-  badge: {
-    position: 'absolute',
-    top: '10px',
-    left: '10px',
-    backgroundColor: 'rgba(0,0,0,0.65)',
-    color: '#ffffff',
-    fontSize: '9px',
-    fontWeight: 700,
-    letterSpacing: '0.12em',
-    textTransform: 'uppercase',
-    padding: '4px 8px',
-    borderRadius: '3px',
-    backdropFilter: 'blur(4px)',
-  },
-  content: {
-    padding: '16px 0 0',
-  },
-  title: {
-    fontFamily: 'Oswald, Impact, "Arial Narrow Bold", sans-serif',
-    fontSize: 'clamp(1rem, 5vw, 1.15rem)',
-    fontWeight: 700,
-    color: '#ffffff',
-    margin: '0 0 8px',
-    lineHeight: 1.3,
-    letterSpacing: '0.01em',
-    textTransform: 'uppercase',
-  },
-  excerpt: {
-    fontSize: 'clamp(0.82rem, 4vw, 0.9rem)',
-    color: '#a7a28b',
-    lineHeight: 1.6,
-    margin: '0 0 12px',
-  },
-  readMore: {
-    fontSize: '0.72rem',
-    fontWeight: 700,
-    letterSpacing: '0.1em',
-    textTransform: 'uppercase',
-    textDecoration: 'none',
-    display: 'inline-flex',
-    alignItems: 'center',
-    transition: 'color 0.2s, gap 0.2s',
-  },
 };
 
 export default Blogs;
