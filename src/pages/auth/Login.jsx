@@ -99,8 +99,8 @@ const Login = () => {
   }
 
   return (
-    <main className='min-h-screen bg-[#e5e7eb] text-white'>
-      <div className='mx-auto flex min-h-[calc(100vh-1rem)] max-w-[1420px] overflow-hidden bg-black shadow-2xl'>
+    <main className='bg-[#e5e7eb] text-white'>
+      <div className='mx-auto flex max-w-7xl overflow-hidden bg-black shadow-2xl'>
         <section className='relative hidden flex-1 overflow-hidden lg:block'>
           <img
             src={authImg}
