@@ -4,6 +4,8 @@ import Product from '../pages/landing/Product'
 import ProductDetails from '../pages/landing/ProductDetails'
 import AddToCart from '../pages/landing/AddToCart'
 import BuyNow from '../pages/landing/BuyNow'
+import Blog from '../pages/landing/Blog'
+import BlogsDetails from '../pages/landing/BlogsDetails'
 
 const landingRoutes = [
   {
@@ -26,7 +28,14 @@ const landingRoutes = [
     path: '/checkout',
     element: createElement(BuyNow),
   },
+  {
+    path: '/blog',
+    element: createElement(Blog),
+  },
+  {
+    path: '/blog/:slug',
+    element: createElement(BlogsDetails),
+  },
 ]
 
 export default landingRoutes
-
