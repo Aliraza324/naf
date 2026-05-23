@@ -15,7 +15,7 @@ import logo from '../../assets/images/logo.svg'
 import { motion, AnimatePresence } from 'framer-motion'
 import { announcementFade, dropdownMenu, mobileNavMenu } from '../../animations/animations'
 import { inventoryCategories } from '../../data/inventoryCategories'
-import { selectCartTotalQuantity } from '../../features/cart/cartSlice'
+import { selectCartProductCount } from '../../features/cart/cartSlice'
 
 const navItems = [
   { label: 'Home', href: '/' },
@@ -34,7 +34,7 @@ const getSubCategoryLabel = (subCategory) =>
   subCategory.count ? `${subCategory.name} (${subCategory.count})` : subCategory.name
 
 const Header = () => {
-  const cartTotalQuantity = useSelector(selectCartTotalQuantity)
+  const cartProductCount = useSelector(selectCartProductCount)
   const categoryMenuRef = useRef(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isAccountOpen, setIsAccountOpen] = useState(false)
@@ -261,7 +261,7 @@ const Header = () => {
             >
               <ShoppingCart size={24} strokeWidth={2.15} />
               <span className='absolute -right-1 top-0 grid size-4 place-items-center rounded-full bg-primary text-[9px] font-black text-white'>
-                {cartTotalQuantity}
+                {cartProductCount}
               </span>
             </Link>
 

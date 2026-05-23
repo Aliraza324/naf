@@ -13,9 +13,9 @@ const thumbnails = [
 ]
 
 const volumeTiers = [
-    { range: '1 - 10 pic', price: '$32.50', maxQuantity: 10 },
-    { range: '11 - 50 pic', price: '$29.00', maxQuantity: 50 },
-    { range: '51+ pic', price: '$26.50', maxQuantity: null },
+    { range: '1 - 10 pic', price: '$32.50', minQuantity: 1, maxQuantity: 10 },
+    { range: '11 - 50 pic', price: '$29.00', minQuantity: 11, maxQuantity: 50 },
+    { range: '51+ pic', price: '$26.50', minQuantity: 51, maxQuantity: null },
 ]
 
 const packMatrix = [
@@ -55,6 +55,23 @@ const createInitialPackQuantities = () =>
         return quantities
     }, {})
 
+const getTotalQuantity = (quantities) =>
+    Object.values(quantities).reduce(
+        (total, rowQuantities) =>
+            total + rowQuantities.reduce((rowTotal, quantity) => rowTotal + Number(quantity), 0),
+        0,
+    )
+
+const getTierQuantityMessage = (tier) => {
+    if (!tier) return ''
+
+    if (tier.maxQuantity) {
+        return `Selected tier requires ${tier.minQuantity} to ${tier.maxQuantity} pieces.`
+    }
+
+    return `Selected tier requires at least ${tier.minQuantity} pieces.`
+}
+
 const ProductsDetails = () => {
     const dispatch = useDispatch()
     const { slug } = useParams()
@@ -65,38 +82,22 @@ const ProductsDetails = () => {
     const selectedTierDetails = volumeTiers.find((tier) => tier.range === selectedTier)
     const maxQuantity = selectedTierDetails?.maxQuantity ?? null
 
-    const showQuantityError = (limit) => {
-        const message = `Selected tier allows a maximum quantity of ${limit} pieces.`
+    const showQuantityError = (message) => {
         setQuantityError(message)
         toast.error(message)
     }
 
     const handleTierSelect = (tier) => {
         setSelectedTier(tier.range)
+        const totalQuantity = getTotalQuantity(packQuantities)
 
-        if (!tier.maxQuantity) {
-            setQuantityError('')
+        if (tier.maxQuantity && totalQuantity > tier.maxQuantity) {
+            showQuantityError(getTierQuantityMessage(tier))
             return
         }
 
-        let hadOverLimitQuantity = false
-        const nextQuantities = Object.fromEntries(
-            Object.entries(packQuantities).map(([color, quantities]) => [
-                color,
-                quantities.map((quantity) => {
-                    if (Number(quantity) > tier.maxQuantity) {
-                        hadOverLimitQuantity = true
-                        return String(tier.maxQuantity)
-                    }
-
-                    return quantity
-                }),
-            ]),
-        )
-
-        if (hadOverLimitQuantity) {
-            setPackQuantities(nextQuantities)
-            showQuantityError(tier.maxQuantity)
+        if (totalQuantity > 0 && totalQuantity < tier.minQuantity) {
+            showQuantityError(getTierQuantityMessage(tier))
             return
         }
 
@@ -107,17 +108,20 @@ const ProductsDetails = () => {
         const numericValue = value.replace(/\D/g, '')
         const nextValue = numericValue ? String(Number(numericValue)) : '0'
 
-        if (maxQuantity && Number(nextValue) > maxQuantity) {
-            showQuantityError(maxQuantity)
+        const nextQuantities = {
+            ...packQuantities,
+            [color]: packQuantities[color].map((quantity, index) =>
+                index === packIndex ? nextValue : quantity,
+            ),
+        }
+        const nextTotalQuantity = getTotalQuantity(nextQuantities)
+
+        if (maxQuantity && nextTotalQuantity > maxQuantity) {
+            showQuantityError(getTierQuantityMessage(selectedTierDetails))
             return
         }
 
-        setPackQuantities((currentQuantities) => ({
-            ...currentQuantities,
-            [color]: currentQuantities[color].map((quantity, index) =>
-                index === packIndex ? nextValue : quantity,
-            ),
-        }))
+        setPackQuantities(nextQuantities)
         setQuantityError('')
     }
 
@@ -145,6 +149,7 @@ const ProductsDetails = () => {
                     size: packOptions[index].size,
                     quantity: numericQuantity,
                     unitPrice: Number(selectedTierDetails.price.replace(/[^0-9.]/g, '')),
+                    packagePrice: Number(selectedTierDetails.price.replace(/[^0-9.]/g, '')),
                     price: selectedTierDetails.price,
                     volumeTier: selectedTierDetails.range,
                     variants: {
@@ -157,6 +162,16 @@ const ProductsDetails = () => {
 
         if (cartItems.length === 0) {
             toast.warning('Please enter a quantity before adding to cart')
+            return
+        }
+
+        const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0)
+        const isBelowTierMinimum = totalQuantity < selectedTierDetails.minQuantity
+        const isAboveTierMaximum =
+            selectedTierDetails.maxQuantity && totalQuantity > selectedTierDetails.maxQuantity
+
+        if (isBelowTierMinimum || isAboveTierMaximum) {
+            showQuantityError(getTierQuantityMessage(selectedTierDetails))
             return
         }
 

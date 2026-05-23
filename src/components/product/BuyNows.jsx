@@ -1,8 +1,9 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Check, ChevronDown, Lock, Shield, Truck, Plane } from 'lucide-react'
-import smokeImage from '../../assets/images/smoke.png'
 import PaymentMethod from './PaymentMethod'
+import { selectCartItems, selectCartSubtotal } from '../../features/cart/cartSlice'
 
 const Input = ({ label, className = '', ...props }) => (
   <div className={`flex flex-col gap-2 ${className}`}>
@@ -36,9 +37,53 @@ const Select = ({ label, options, className = '', ...props }) => (
   </div>
 )
 
+const taxRate = 0.08
+
+const formatCurrency = (value) =>
+  new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(value)
+
+const groupCartItems = (items) =>
+  Object.values(
+    items.reduce((groups, item) => {
+      const groupKey = [item.productId, item.volumeTier, item.price].join('|')
+
+      if (!groups[groupKey]) {
+        groups[groupKey] = {
+          key: groupKey,
+          productName: item.productName,
+          productImage: item.productImage,
+          packagePrice: item.packagePrice ?? item.unitPrice,
+          volumeTier: item.volumeTier,
+          colors: new Set(),
+          sizes: new Set(),
+          quantity: 0,
+        }
+      }
+
+      groups[groupKey].colors.add(item.color)
+      groups[groupKey].sizes.add(item.size)
+      groups[groupKey].quantity += item.quantity
+      return groups
+    }, {}),
+  ).map((group) => ({
+    ...group,
+    colors: [...group.colors].filter(Boolean).join(', '),
+    sizes: [...group.sizes].filter(Boolean).join(', '),
+  }))
+
 const BuyNows = () => {
   const [shippingMethod, setShippingMethod] = useState('standard')
   const [sameBilling, setSameBilling] = useState(true)
+  const cartItems = useSelector(selectCartItems)
+  const subtotal = useSelector(selectCartSubtotal)
+  const groupedItems = groupCartItems(cartItems)
+  const shipping = shippingMethod === 'standard' ? 9.99 : 24.99
+  const activeShipping = cartItems.length > 0 ? shipping : 0
+  const tax = subtotal * taxRate
+  const total = subtotal + activeShipping + tax
 
   return (
     <main className='bg-page min-h-screen px-4 py-8 lg:p-12 text-white flex justify-center'>
@@ -150,17 +195,28 @@ const BuyNows = () => {
           <div className='bg-[#131313] rounded-[12px] p-6 lg:p-7 border border-white/5'>
             <h2 className='text-[11px] font-black uppercase tracking-[0.2em] text-white/50 mb-7'>Order Summary</h2>
             
-            {/* Item */}
-            <div className='flex gap-4 items-center mb-8'>
-              <div className='size-[72px] bg-[#1a1a1b] rounded-[6px] border border-white/5 p-2 relative flex-shrink-0'>
-                <span className='absolute -top-2.5 -right-2.5 bg-primary text-white text-[10px] font-bold size-[22px] rounded-full flex items-center justify-center shadow-md'>2</span>
-                <img src={smokeImage} alt='Tactical Gloves' className='w-full h-full object-contain' />
-              </div>
-              <div className='min-w-0'>
-                <h3 className='text-sm font-bold text-white truncate'>Alpha Tactical Gloves</h3>
-                <p className='text-[10px] font-medium text-white/40 mt-1 uppercase tracking-wider'>Color: Black | Size: XL</p>
-                <p className='text-sm font-bold text-white mt-2'>$120.00</p>
-              </div>
+            <div className='mb-8 grid gap-4'>
+              {groupedItems.length > 0 ? (
+                groupedItems.map((item) => (
+                  <div key={item.key} className='flex gap-4 items-center'>
+                    <div className='size-[72px] bg-[#1a1a1b] rounded-[6px] border border-white/5 p-2 relative flex-shrink-0'>
+                      <span className='absolute -top-2.5 -right-2.5 bg-primary text-white text-[10px] font-bold size-[22px] rounded-full flex items-center justify-center shadow-md'>
+                        {item.quantity}
+                      </span>
+                      <img src={item.productImage} alt={item.productName} className='w-full h-full object-contain' />
+                    </div>
+                    <div className='min-w-0'>
+                      <h3 className='text-sm font-bold text-white truncate'>{item.productName}</h3>
+                      <p className='text-[10px] font-medium text-white/40 mt-1 uppercase tracking-wider'>
+                        {item.colors} | {item.sizes} | {item.volumeTier}
+                      </p>
+                      <p className='text-sm font-bold text-white mt-2'>{formatCurrency(item.packagePrice)}</p>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p className='text-sm text-white/50'>Your cart is empty.</p>
+              )}
             </div>
             
             {/* Discount Code */}
@@ -184,25 +240,21 @@ const BuyNows = () => {
             <div className='space-y-4 text-xs font-medium'>
               <div className='flex justify-between text-white/60'>
                 <span>Subtotal</span>
-                <span className='text-white'>$365.50</span>
+                <span className='text-white'>{formatCurrency(subtotal)}</span>
               </div>
               <div className='flex justify-between text-white/60'>
-                <span>Shipping (Standard)</span>
-                <span className='text-white'>$9.99</span>
+                <span>Shipping ({shippingMethod === 'standard' ? 'Standard' : 'Express'})</span>
+                <span className='text-white'>{formatCurrency(activeShipping)}</span>
               </div>
               <div className='flex justify-between text-white/60'>
                 <span>Tax (Calculated)</span>
-                <span className='text-white'>$29.24</span>
-              </div>
-              <div className='flex justify-between text-primary font-bold'>
-                <span>Tactical Discount</span>
-                <span>-$15.00</span>
+                <span className='text-white'>{formatCurrency(tax)}</span>
               </div>
             </div>
             
             <div className='flex justify-between items-center mt-7 pt-7 border-t border-white/5'>
               <span className='font-bold text-lg'>Total</span>
-              <span className='text-primary font-black text-3xl'>$389.73</span>
+              <span className='text-primary font-black text-3xl'>{formatCurrency(total)}</span>
             </div>
             
             <button 
