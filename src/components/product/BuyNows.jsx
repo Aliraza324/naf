@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Check, ChevronDown, Lock, Shield, Truck, Plane } from 'lucide-react'
 import smokeImage from '../../assets/images/smoke.png'
+import PaymentMethod from './PaymentMethod'
 
 const Input = ({ label, className = '', ...props }) => (
   <div className={`flex flex-col gap-2 ${className}`}>
@@ -138,6 +139,9 @@ const BuyNows = () => {
               </button>
             </div>
           </section>
+
+          {/* STEP 4: Payment Method */}
+          <PaymentMethod />
 
         </div>
 
