@@ -6,6 +6,7 @@ import Footer from './components/layout/Footer'
 import landingRoutes from './routes/landing'
 import { ToastProvider } from './components/utils/Toast'
 import PageLoader from './components/utils/PageLoader'
+import TopToScroll from './utils/TopToScroll'
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -20,6 +21,7 @@ const App = () => {
   return (
     <>
       <AnimatePresence>{isLoading && <PageLoader />}</AnimatePresence>
+      <TopToScroll />
       <div className='min-h-screen bg-page text-text flex flex-col justify-between'>
         <div>
           <Header />

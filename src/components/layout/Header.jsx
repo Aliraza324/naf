@@ -251,8 +251,8 @@ const Header = () => {
               <Heart size={23} strokeWidth={2.1} />
             </button>
 
-            <button
-              type='button'
+            <Link
+              to='/cart'
               aria-label='Cart'
               className='relative grid size-9 place-items-center text-white transition hover:text-primary'
             >
@@ -260,7 +260,7 @@ const Header = () => {
               <span className='absolute -right-1 top-0 grid size-4 place-items-center rounded-full bg-primary text-[9px] font-black text-white'>
                 0
               </span>
-            </button>
+            </Link>
 
             <button
               type='button'
