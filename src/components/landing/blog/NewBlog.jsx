@@ -25,7 +25,7 @@ const NewBlog = () => {
           Join the exclusive frequency. Receive priority intel on new drops, limited edition releases, and tactical operational guides.
         </p>
 
-        {/* Subscription Form */}
+        {/* Subscription Form eeeeeeeeeee*/}
         <form 
           className='mx-auto mb-8 flex w-full max-w-[560px] flex-col gap-4 sm:flex-row'
           onSubmit={(e) => e.preventDefault()}
