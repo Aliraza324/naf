@@ -32,14 +32,7 @@ const HeroDetails = ({ blog }) => {
         </div>
       </div>
 
-      {/* Scroll to Top Button */}
-      <button 
-        type='button'
-        className='brand-red-gradient absolute bottom-8 right-5 z-10 flex size-10 items-center justify-center rounded-[6px] text-white transition hover:scale-105 active:scale-95 lg:right-10'
-        aria-label='Scroll to top'
-      >
-        <ChevronsUp size={20} strokeWidth={3} />
-      </button>
+   
     </section>
   )
 }

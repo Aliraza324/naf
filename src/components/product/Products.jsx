@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import smokeGrenade from '../../assets/images/smoke.png'
+import { inventoryCategories } from '../../data/inventoryCategories'
 
 const productGroups = {
     'grenades-smoke': {
@@ -19,9 +20,42 @@ const productGroups = {
 
 const fallbackGroup = productGroups['grenades-smoke']
 
+const findCategoryBySlug = (slug) => {
+    for (const category of inventoryCategories) {
+        const subCategory = category.subCategories.find((item) => item.slug === slug)
+
+        if (subCategory) {
+            return { category, subCategory }
+        }
+    }
+
+    return null
+}
+
+const createDynamicGroup = (slug) => {
+    const categoryMatch = findCategoryBySlug(slug)
+
+    if (!categoryMatch) {
+        return fallbackGroup
+    }
+
+    const { category, subCategory } = categoryMatch
+
+    return {
+        breadcrumb: ['Inventory', category.name, subCategory.name],
+        title: `${subCategory.name} Products`,
+        products: fallbackGroup.products.map((product, index) => ({
+            ...product,
+            id: `${slug}-${index + 1}`,
+            category: `${category.name} - ${subCategory.name}`,
+            title: `${subCategory.name} New Products`,
+        })),
+    }
+}
+
 const Products = () => {
     const { slug = 'grenades-smoke' } = useParams()
-    const group = productGroups[slug] ?? fallbackGroup
+    const group = productGroups[slug] ?? createDynamicGroup(slug)
     const [firstCrumb, secondCrumb, activeCrumb] = group.breadcrumb
 
     return (
