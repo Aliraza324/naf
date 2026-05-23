@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@700&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -173,6 +173,10 @@
 
   .brand-red-gradient {
     background-image: linear-gradient(to right, #e80c0c, #8b0505);
+  }
+
+  .dropdown-bg {
+    background-color: #171717;
   }
 
   @keyframes marquee {
