@@ -1,14 +1,14 @@
 import PopularBrand from '../../components/landing/home/PopularBrand'
-import NewProduct from '../../components/product/NewProduct'
 import ProductsDetails from '../../components/product/ProductsDetails'
 import ProductSpecifications from '../../components/product/ProductSpecifications'
+import RelatedProduct from '../../components/product/RelatedProduct'
 
 const ProductDetails = () => {
   return (
     <>
       <ProductsDetails />
       <ProductSpecifications />
-      <NewProduct />
+      <RelatedProduct />
       <PopularBrand/>
 
     </>

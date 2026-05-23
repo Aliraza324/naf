@@ -20,7 +20,7 @@ import { selectCartTotalQuantity } from '../../features/cart/cartSlice'
 const navItems = [
   { label: 'Home', href: '/' },
   { label: 'New Drops', href: '#new-drops' },
-  { label: 'Blog', href: '#blog' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Contact Us', href: '#contact-us' },
 ]
 

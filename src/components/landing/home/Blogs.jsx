@@ -1,85 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import blogone from '../../../assets/images/blogone.png';
-import blogtwo from '../../../assets/images/blogtwo.png';
-import blogthree from '../../../assets/images/blogthree.png';
-import blogfour from '../../../assets/images/blogfour.png';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { fadeInUp, staggerContainer } from '../../../animations/animations';
+import { blogsData } from '../../../data/blogsData';
 
-const blogs = [
-  {
-    id: 1,
-    category: 'MAINTENANCE',
-    image: blogone,
-    title: 'MASTERING YOUR MARKER: PRO MAINTENANCE GUIDE',
-    excerpt:
-      'Ensure peak performance in every skirmish with our comprehensive internal maintenance walkthrough.',
-    link: '#',
-  },
-  {
-    id: 2,
-    category: 'STRATEGY',
-    image: blogtwo,
-    title: 'STEALTH OPS: THE ART OF THE FLANK',
-    excerpt:
-      'Learn the movement techniques used by elite bushballers to disappear on the field.',
-    link: '#',
-  },
-  {
-    id: 3,
-    category: 'SUSTAINABILITY',
-    image: blogthree,
-    title: 'THE FUTURE OF PAINT: OUR ECO COMMITMENT',
-    excerpt:
-      "How we're leading the charge in 100% biodegradable, non-toxic field paint.",
-    link: '#',
-  },
-  {
-    id: 4,
-    category: 'PRO NEWS',
-    image: blogfour,
-    title: '2024 WORLD CUP PREVIEW: GEAR TRENDS',
-    excerpt:
-      "A first look at the equipment professional teams are bringing to this year's cup.",
-    link: '#',
-  },
-  {
-    id: 5,
-    category: 'TACTICS',
-    image: blogtwo,
-    title: 'BUNKER CONTROL: DOMINATING THE FIELD',
-    excerpt:
-      'Master the art of bunker-to-bunker movement and control choke points like a pro.',
-    link: '#',
-  },
-  {
-    id: 6,
-    category: 'GEAR REVIEW',
-    image: blogone,
-    title: 'TOP 5 MARKERS OF 2024: FULL BREAKDOWN',
-    excerpt:
-      'We tested the industry\'s best markers so you don\'t have to — here\'s the verdict.',
-    link: '#',
-  },
-  {
-    id: 7,
-    category: 'TRAINING',
-    image: blogthree,
-    title: 'OFF-SEASON DRILLS FOR PAINTBALL ATHLETES',
-    excerpt:
-      'Stay sharp between events with these proven drills used by national-level teams.',
-    link: '#',
-  },
-  {
-    id: 8,
-    category: 'COMMUNITY',
-    image: blogfour,
-    title: 'MEET THE TEAM: NAF ATHLETE SPOTLIGHT',
-    excerpt:
-      'Get to know the faces behind the masks — our sponsored athletes share their stories.',
-    link: '#',
-  },
-];
+// Use centralized mock data
+const blogs = blogsData;
 
 const getCardsPerView = () => {
   if (typeof window === 'undefined') return 4;
@@ -194,34 +120,33 @@ const BlogCard = ({ blog }) => {
       variants={fadeInUp}
       className="group cursor-pointer min-w-0"
     >
-      {/* Image */}
-      <div className="relative w-full aspect-[4/3] overflow-hidden rounded-[6px] bg-[#111]">
-        <img
-          src={blog.image}
-          alt={blog.title}
-          className="w-full h-full object-cover block transition-transform duration-[400ms] ease-in-out group-hover:scale-[1.07]"
-        />
-        <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 pointer-events-none group-hover:opacity-[0.38]" />
-        <span className="absolute top-2.5 left-2.5 bg-black/65 text-white text-[9px] font-bold tracking-[0.12em] uppercase px-2 py-1 rounded-[3px] backdrop-blur-[4px]">
-          {blog.category}
-        </span>
-      </div>
+      <Link to={`/blog/${blog.slug}`} className="block">
+        {/* Image */}
+        <div className="relative w-full aspect-[4/3] overflow-hidden rounded-[6px] bg-[#111]">
+          <img
+            src={blog.image}
+            alt={blog.title}
+            className="w-full h-full object-cover block transition-transform duration-[400ms] ease-in-out group-hover:scale-[1.07]"
+          />
+          <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 pointer-events-none group-hover:opacity-[0.38]" />
+          <span className="absolute top-2.5 left-2.5 bg-black/65 text-white text-[9px] font-bold tracking-[0.12em] uppercase px-2 py-1 rounded-[3px] backdrop-blur-[4px]">
+            {blog.category}
+          </span>
+        </div>
 
-      {/* Text */}
-      <div className="pt-4">
-        <h3 className="font-display text-[clamp(1rem,5vw,1.15rem)] font-bold text-white mb-2 leading-[1.3] tracking-[0.01em] uppercase">
-          {blog.title}
-        </h3>
-        <p className="text-[clamp(0.82rem,4vw,0.9rem)] text-text-muted leading-[1.6] mb-3">
-          {blog.excerpt}
-        </p>
-        <a
-          href={blog.link}
-          className="text-[0.72rem] font-bold tracking-[0.1em] uppercase no-underline inline-flex items-center transition-all duration-200 text-primary gap-1.5 group-hover:text-primary-hover group-hover:gap-2.5"
-        >
-          READ MORE&nbsp;&nbsp;→
-        </a>
-      </div>
+        {/* Text */}
+        <div className="pt-4">
+          <h3 className="font-display text-[clamp(1rem,5vw,1.15rem)] font-bold text-white mb-2 leading-[1.3] tracking-[0.01em] uppercase">
+            {blog.title}
+          </h3>
+          <p className="text-[clamp(0.82rem,4vw,0.9rem)] text-text-muted leading-[1.6] mb-3">
+            {blog.excerpt}
+          </p>
+          <span className="text-[0.72rem] font-bold tracking-[0.1em] uppercase no-underline inline-flex items-center transition-all duration-200 text-primary gap-1.5 group-hover:text-primary-hover group-hover:gap-2.5">
+            READ MORE&nbsp;&nbsp;→
+          </span>
+        </div>
+      </Link>
     </motion.article>
   );
 };
