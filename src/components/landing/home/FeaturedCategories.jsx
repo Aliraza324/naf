@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { featuredCategories } from '../../../data/featuredCategories'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -89,16 +90,20 @@ const FeaturedCategories = () => {
           {visibleCategories.map((category, index) => {
             const isHighlighted = hoveredId === category.id || (hoveredId === null && category.featured)
             return (
-              <motion.article
-                variants={fadeInUp}
+              <Link
                 key={`${category.id}-${index}`}
-                onMouseEnter={() => setHoveredId(category.id)}
-                onMouseLeave={() => setHoveredId(null)}
-                className={`relative rounded-[7px] border bg-surface px-4 pb-5 pt-4 transition-all duration-300 ${
-                  isHighlighted
-                    ? 'border-primary shadow-[0_0_34px_rgba(230,1,3,0.12)]'
-                    : 'border-white/7'
-                }`}
+                to={`/products/${category.productSlug}`}
+                className='group'
+              >
+                <motion.article
+                  variants={fadeInUp}
+                  onMouseEnter={() => setHoveredId(category.id)}
+                  onMouseLeave={() => setHoveredId(null)}
+                  className={`relative rounded-[7px] border bg-surface px-4 pb-5 pt-4 transition-all duration-300 cursor-pointer h-full ${
+                    isHighlighted
+                      ? 'border-primary shadow-[0_0_34px_rgba(230,1,3,0.12)]'
+                      : 'border-white/7'
+                  }`}
               >
                 <AnimatePresence>
                   {isHighlighted && (
@@ -161,6 +166,7 @@ const FeaturedCategories = () => {
                   ))}
                 </dl>
               </motion.article>
+            </Link>
             )
           })}
         </div>
