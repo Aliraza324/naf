@@ -6,6 +6,7 @@ import AddToCart from '../pages/landing/AddToCart'
 import BuyNow from '../pages/landing/BuyNow'
 import Blog from '../pages/landing/Blog'
 import BlogsDetails from '../pages/landing/BlogsDetails'
+import NewDrops from '../pages/landing/NewDrops'
 
 const landingRoutes = [
   {
@@ -36,6 +37,10 @@ const landingRoutes = [
     path: '/blog/:slug',
     element: createElement(BlogsDetails),
   },
+  {
+    path: '/new-drops',
+    element: createElement(NewDrops),
+  }
 ]
 
 export default landingRoutes
