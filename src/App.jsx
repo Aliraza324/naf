@@ -17,7 +17,13 @@ const App = () => {
   const location = useLocation()
 
   // Check if current route is an auth route
-  const isAuthRoute = ['/login', '/register'].includes(location.pathname)
+  const isAuthRoute = [
+    '/login',
+    '/register',
+    '/forgot-password',
+    '/verify-account',
+    '/create-new-password',
+  ].includes(location.pathname)
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1500)

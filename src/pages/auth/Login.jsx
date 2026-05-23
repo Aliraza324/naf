@@ -1,11 +1,26 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Eye, EyeOff, Lock } from 'lucide-react'
+import {
+  ArrowRight,
+  BriefcaseBusiness,
+  Eye,
+  EyeOff,
+  Heart,
+  Lock,
+  Mail,
+  ShieldCheck,
+} from 'lucide-react'
 import { loginSuccess, selectAuthLoading, selectAuthError } from '../../features/auth/authSlice'
 import authImg from '../../assets/images/auth.png'
 import logo from '../../assets/images/logo.svg'
+
+const accessFeatures = [
+  { label: 'Quality', value: 'Elite Quality', icon: Heart },
+  { label: 'Process', value: 'Fast Access', icon: ArrowRight },
+  { label: 'Delivery', value: 'Fast', icon: BriefcaseBusiness },
+]
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -41,12 +56,13 @@ const Login = () => {
     return Object.keys(errors).length === 0
   }
 
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target
+  const handleInputChange = (event) => {
+    const { name, value, type, checked } = event.target
     setFormData((prev) => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value,
     }))
+
     if (validationErrors[name]) {
       setValidationErrors((prev) => ({
         ...prev,
@@ -55,8 +71,8 @@ const Login = () => {
     }
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const handleSubmit = async (event) => {
+    event.preventDefault()
 
     if (!validateForm()) {
       setSuccessMessage('')
@@ -83,234 +99,199 @@ const Login = () => {
   }
 
   return (
-    <div className="h-screen bg-black text-white flex">
-      {/* Left Side - Background Image */}
-      <div
-        className="hidden lg:block lg:w-1/2 h-full bg-cover bg-center relative"
-        style={{
-          backgroundImage: `url(${authImg})`,
-        }}
-      >
-        <div className="absolute inset-0 bg-black/40" />
-      </div>
+    <main className='min-h-screen bg-[#e5e7eb] text-white'>
+      <div className='mx-auto flex min-h-[calc(100vh-1rem)] max-w-[1420px] overflow-hidden bg-black shadow-2xl'>
+        <section className='relative hidden flex-1 overflow-hidden lg:block'>
+          <img
+            src={authImg}
+            alt='Paintball operator'
+            className='absolute inset-0 h-full w-full object-cover object-center'
+          />
+        
 
-      {/* Right Side - Login Form */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="w-full lg:w-1/2 h-full flex flex-col items-center justify-center p-6 sm:p-8 lg:p-12"
-      >
-        <div className="w-full max-w-md">
-          {/* Logo */}
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex justify-center mb-6"
+            transition={{ duration: 0.45 }}
+            className='relative z-10 flex min-h-[calc(100vh-1rem)] max-w-[690px] flex-col justify-center px-14 py-12 xl:px-[70px]'
           >
-            <img src={logo} alt="NAF Logo" className="h-10 w-auto" />
-          </motion.div>
+            <p className='mb-6 flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.38em] text-primary'>
+              <span className='h-px w-12 bg-primary' />
+              Deployment Status: Ready
+            </p>
 
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: -15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-center mb-8"
-          >
-            <h1 className="text-2xl font-bold mb-1">Elite Dealer Login</h1>
-            <p className="text-gray-400 text-sm">Authentication required to proceed</p>
-          </motion.div>
+            <h1 className='font-display text-[clamp(3.4rem,5.1vw,5.2rem)] font-black uppercase leading-[1.04] text-white'>
+              Access The
+              <span className='block text-primary'>NAF</span>
+              <span className='block'>Powerhouse</span>
+            </h1>
 
-          {/* Form Card */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="border-2 border-red-600 rounded-2xl p-6 bg-black/50 backdrop-blur-sm"
-          >
-            <form onSubmit={handleSubmit} className="space-y-5">
-              {/* Credential Identifier Section */}
-              <div>
-                <label className="text-xs font-black text-red-600 mb-2 block tracking-wider">
-                  CREDENTIAL IDENTIFIER
-                </label>
-                <div className="relative">
-                  <div className="absolute left-3 top-3 w-5 h-5 text-gray-500">
-                    <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
+            <p className='mt-7 max-w-[520px] text-base leading-7 text-white/70'>
+              Access your elite dealer portal and manage tactical inventory,
+              orders, deployments, and exclusive member pricing.
+            </p>
+
+            <div className='mt-12 grid max-w-[560px] grid-cols-3 gap-5'>
+              {accessFeatures.map((feature) => {
+                const Icon = feature.icon
+
+                return (
+                  <div
+                    key={feature.label}
+                    className='flex min-h-[62px] items-center gap-3 rounded-[7px] border border-primary/20 bg-black/45 px-4 backdrop-blur-sm'
+                  >
+                    <span className='grid size-8 shrink-0 place-items-center rounded-full bg-primary/10 text-primary'>
+                      <Icon size={15} strokeWidth={2.5} />
+                    </span>
+                    <div>
+                      <p className='text-[8px] font-black uppercase tracking-[0.18em] text-primary'>
+                        {feature.label}
+                      </p>
+                      <p className='mt-1 text-xs font-black text-white'>{feature.value}</p>
+                    </div>
                   </div>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="OPERATOR EMAIL"
-                    className={`w-full pl-9 pr-3 py-2 bg-gray-900 border rounded text-white placeholder-gray-600 text-sm focus:outline-none transition-all ${
-                      validationErrors.email
-                        ? 'border-red-500 focus:border-red-600'
-                        : 'border-gray-700 focus:border-red-600'
-                    }`}
-                  />
-                </div>
-                {validationErrors.email && (
-                  <p className="text-red-500 text-xs mt-1">{validationErrors.email}</p>
-                )}
-              </div>
-
-              {/* Encryption Key Section */}
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <label className="text-xs font-black text-red-600 tracking-wider">ENCRYPTION KEY</label>
-                  <button
-                    type="button"
-                    onClick={() => navigate('/forgot-password')}
-                    className="text-xs text-gray-400 hover:text-red-600 transition-colors"
-                  >
-                    FORGOT?
-                  </button>
-                </div>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-3 w-5 h-5 text-gray-500" />
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    id="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    placeholder="••••••••"
-                    className={`w-full pl-9 pr-9 py-2 bg-gray-900 border rounded text-white placeholder-gray-600 text-sm focus:outline-none transition-all ${
-                      validationErrors.password
-                        ? 'border-red-500 focus:border-red-600'
-                        : 'border-gray-700 focus:border-red-600'
-                    }`}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-3 text-gray-500 hover:text-gray-300 transition-colors"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="w-5 h-5" />
-                    ) : (
-                      <Eye className="w-5 h-5" />
-                    )}
-                  </button>
-                </div>
-                {validationErrors.password && (
-                  <p className="text-red-500 text-xs mt-1">{validationErrors.password}</p>
-                )}
-              </div>
-
-              {/* Checkbox */}
-              <div className="flex items-center gap-2 pt-1">
-                <input
-                  type="checkbox"
-                  id="rememberMe"
-                  name="rememberMe"
-                  checked={formData.rememberMe}
-                  onChange={handleInputChange}
-                  className="w-4 h-4 accent-red-600 cursor-pointer"
-                />
-                <label htmlFor="rememberMe" className="text-sm text-gray-400 cursor-pointer">
-                  Maintain persistent session
-                </label>
-              </div>
-
-              {/* Error Message */}
-              {error && (
-                <div className="p-2 bg-red-900/20 border border-red-600 rounded text-red-400 text-xs">
-                  {error}
-                </div>
-              )}
-
-              {/* Success Message */}
-              {successMessage && (
-                <div className="p-2 bg-green-900/20 border border-green-600 rounded text-green-400 text-xs">
-                  {successMessage}
-                </div>
-              )}
-
-              {/* Login Button */}
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                type="submit"
-                disabled={loading}
-                className="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm"
-              >
-                {loading ? 'AUTHENTICATING...' : 'Login To NAF'}
-              </motion.button>
-
-              {/* Initialize New Account */}
-              <motion.button
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
-                type="button"
-                onClick={() => navigate('/register')}
-                className="w-full py-2.5 bg-gray-900 hover:bg-gray-800 text-white rounded transition-colors text-sm border border-gray-800"
-              >
-                Initialize New Account
-              </motion.button>
-
-              {/* Divider */}
-              <div className="my-4 flex items-center gap-3">
-                <div className="flex-1 h-px bg-gray-700" />
-                <span className="text-xs text-gray-600 tracking-widest">ALTERNATE UPLINKS</span>
-                <div className="flex-1 h-px bg-gray-700" />
-              </div>
-
-              {/* Google Login */}
-              <motion.button
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
-                type="button"
-                className="w-full py-2.5 border border-gray-700 rounded text-white hover:bg-gray-900 transition-colors flex items-center justify-center gap-2 text-sm"
-              >
-                <svg className="w-5 h-5" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                  />
-                  <path
-                    fill="currentColor"
-                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                  />
-                  <path
-                    fill="currentColor"
-                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                  />
-                  <path
-                    fill="currentColor"
-                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                  />
-                </svg>
-              </motion.button>
-            </form>
+                )
+              })}
+            </div>
           </motion.div>
+        </section>
 
-          {/* Security Footer */}
+        <section className='flex min-h-[calc(100vh-1rem)] w-full items-center justify-center bg-[#070707] px-5 py-8 sm:px-8 lg:w-[42%] lg:min-w-[470px]'>
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="text-center mt-6"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.1 }}
+            className='w-full max-w-[350px]'
           >
-            <p className="text-xs text-gray-600 tracking-widest">
-              ⚔ PROTECTED BY ELITE TACTICAL SECURITY PROTOCOLS
+            <div className='mb-7 text-center'>
+              <img src={logo} alt='NAF Power logo' className='mx-auto h-9 w-auto object-contain' />
+              <h2 className='mt-6 text-xl font-black leading-none text-white'>
+                Elite Dealer Login
+              </h2>
+              <p className='mt-2 text-xs text-white/35'>Authentication required to proceed</p>
+            </div>
+
+            <div className='rounded-[18px] border border-primary/70 bg-[#0b0b0c] p-6 shadow-[0_0_0_1px_rgba(230,1,3,0.2),0_0_30px_rgba(230,1,3,0.16)] sm:p-7'>
+              <form onSubmit={handleSubmit} className='space-y-5'>
+                <div>
+                  <label
+                    htmlFor='email'
+                    className='mb-2.5 block text-[9px] font-black uppercase tracking-[0.28em] text-primary'
+                  >
+                    Credential Identifier
+                  </label>
+                  <div className='relative'>
+                    <Mail className='absolute left-4 top-1/2 size-3.5 -translate-y-1/2 text-white/28' />
+                    <input
+                      type='email'
+                      id='email'
+                      name='email'
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder='OPERATOR EMAIL'
+                      className={`h-11 w-full rounded-[6px] border bg-[#111113] pl-10 pr-4 text-xs font-semibold uppercase text-white outline-none transition placeholder:text-white/22 ${
+                        validationErrors.email
+                          ? 'border-primary focus:border-primary'
+                          : 'border-white/10 focus:border-primary/80'
+                      }`}
+                    />
+                  </div>
+                  {validationErrors.email && (
+                    <p className='mt-2 text-xs text-primary'>{validationErrors.email}</p>
+                  )}
+                </div>
+
+                <div>
+                  <div className='mb-2.5 flex items-center justify-between gap-4'>
+                    <label
+                      htmlFor='password'
+                      className='text-[9px] font-black uppercase tracking-[0.28em] text-primary'
+                    >
+                      Encryption Key
+                    </label>
+                    <button
+                      type='button'
+                      onClick={() => navigate('/forgot-password')}
+                      className='text-[8px] font-black uppercase tracking-[0.16em] text-white/35 transition hover:text-primary'
+                    >
+                      Forgot?
+                    </button>
+                  </div>
+                  <div className='relative'>
+                    <Lock className='absolute left-4 top-1/2 size-3.5 -translate-y-1/2 text-white/28' />
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      id='password'
+                      name='password'
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      placeholder='************'
+                      className={`h-11 w-full rounded-[6px] border bg-[#111113] pl-10 pr-11 text-xs font-semibold text-white outline-none transition placeholder:text-white/22 ${
+                        validationErrors.password
+                          ? 'border-primary focus:border-primary'
+                          : 'border-white/10 focus:border-primary/80'
+                      }`}
+                    />
+                    <button
+                      type='button'
+                      onClick={() => setShowPassword(!showPassword)}
+                      className='absolute right-4 top-1/2 -translate-y-1/2 text-white/28 transition hover:text-white'
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
+                    </button>
+                  </div>
+                  {validationErrors.password && (
+                    <p className='mt-2 text-xs text-primary'>{validationErrors.password}</p>
+                  )}
+                </div>
+
+                <div className='flex items-center gap-3'>
+                  <input
+                    type='checkbox'
+                    id='rememberMe'
+                    name='rememberMe'
+                    checked={formData.rememberMe}
+                    onChange={handleInputChange}
+                    className='size-4 cursor-pointer appearance-none rounded-[2px] border border-white/35 bg-transparent checked:border-primary checked:bg-primary'
+                  />
+                  <label htmlFor='rememberMe' className='cursor-pointer text-[11px] text-white/45'>
+                    Maintain persistent session
+                  </label>
+                </div>
+
+                {error && (
+                  <div className='rounded-[6px] border border-primary/40 bg-primary/10 p-3 text-xs text-primary'>
+                    {error}
+                  </div>
+                )}
+
+                {successMessage && (
+                  <div className='rounded-[6px] border border-[#20db65]/40 bg-[#20db65]/10 p-3 text-xs text-[#20db65]'>
+                    {successMessage}
+                  </div>
+                )}
+
+                <button
+                  type='submit'
+                  disabled={loading}
+                  className='h-11 w-full rounded-[6px] bg-primary text-xs font-black text-white shadow-[0_0_22px_rgba(230,1,3,0.38)] transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-55'
+                >
+                  {loading ? 'Authenticating...' : 'Login To NAF'}
+                </button>
+
+               
+              </form>
+            </div>
+
+            <p className='mt-7 flex items-center justify-center gap-3 text-center text-[8px] font-black uppercase tracking-[0.22em] text-white/28'>
+              <ShieldCheck size={13} className='shrink-0 text-primary' />
+              Protected By Elite Tactical Security Protocols
             </p>
           </motion.div>
-        </div>
-      </motion.div>
-    </div>
+        </section>
+      </div>
+    </main>
   )
 }
 
