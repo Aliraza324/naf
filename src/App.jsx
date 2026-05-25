@@ -42,7 +42,7 @@ const App = () => {
           {!isAuthRoute && (isDashboardRoute ? <DashboardHeader /> : <Header />)}
           {routes}
         </div>
-        {!isAuthRoute && !isDashboardRoute && <Footer />}
+        {!isAuthRoute && <Footer />}
         <ToastProvider />
       </div>
     </>

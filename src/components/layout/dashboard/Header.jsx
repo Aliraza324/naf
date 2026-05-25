@@ -43,10 +43,34 @@ const Header = () => {
   const cartProductCount = useSelector(selectCartProductCount)
   const cartSubtotal = useSelector(selectCartSubtotal)
   const [isProfileOpen, setIsProfileOpen] = useState(false)
+  const [isTopBarVisible, setIsTopBarVisible] = useState(true)
 
   const userName = user?.name || 'User Name'
   const userEmail = user?.email || 'Nafuser@gmail.com'
   const userAvatar = user?.avatar || user?.image || userIcon
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      const scrollDelta = currentScrollY - lastScrollY
+
+      if (currentScrollY <= 0) {
+        setIsTopBarVisible(true)
+      } else if (scrollDelta > 12) {
+        setIsTopBarVisible(false)
+      } else if (scrollDelta < -12) {
+        setIsTopBarVisible(true)
+      }
+
+      lastScrollY = currentScrollY
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   useEffect(() => {
     if (!isProfileOpen) return undefined
@@ -79,9 +103,13 @@ const Header = () => {
   }
 
   return (
-    <header className="relative z-50 border-b border-white/8 bg-black font-body text-white">
-      <div className="border-b border-white/8 bg-[#111]">
-        <div className="mx-auto flex min-h-9 max-w-[1560px] flex-col items-center justify-center gap-1 px-4 py-1.5 text-center sm:min-h-10 sm:flex-row sm:gap-8 sm:px-6 lg:px-10">
+    <header className="sticky top-0 z-[120] w-full overflow-x-visible border-b border-white/8 bg-black font-body text-white">
+      <div
+        className={`w-full overflow-visible border-b border-white/8 bg-[#111] transition-[max-height,opacity,transform] duration-300 ease-out ${
+          isTopBarVisible ? 'max-h-16 opacity-100 translate-y-0' : 'max-h-0 opacity-0 -translate-y-full'
+        }`}
+      >
+        <div className="w-full flex min-h-9 flex-col items-center justify-center gap-1 px-4 py-1.5 text-center sm:min-h-10 sm:flex-row sm:gap-8 sm:px-6 lg:px-10 overflow-visible">
           <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/85 sm:text-[11px]">
             Eco-friendly tactical paintballs now available
           </p>
@@ -95,8 +123,8 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="bg-black">
-        <div className="mx-auto grid min-h-[82px] max-w-[1560px] grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-3 sm:gap-4 sm:px-6 lg:min-h-[88px] lg:px-10">
+      <div className="w-full bg-black overflow-visible">
+        <div className="w-full grid min-h-[82px] grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-3 sm:gap-4 sm:px-6 lg:min-h-[88px] lg:px-10 overflow-visible">
           <Link to="/" className="flex min-w-0 items-center">
             <img
               src={logo}
