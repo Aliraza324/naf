@@ -4,6 +4,7 @@ const categories = ['BBS', 'Guns', 'Goggles & masks', 'Tactical Gear', 'Optics',
 
 const products = [
   {
+    id: 'vortex-nv-400',
     badge: 'ELITE-GRADE', badgeColor: 'bg-red-600',
     category: 'OPTICS / GEN-3', categoryColor: 'text-red-500',
     name: 'Vortex NV-400 Tactical Night Vision',
@@ -14,6 +15,7 @@ const products = [
     img: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&q=80',
   },
   {
+    id: 'kevlar-x-pro',
     badge: 'NEW OPS', badgeColor: 'bg-green-600',
     category: 'BALLISTICS / ARMOR', categoryColor: 'text-red-500',
     name: 'Kevlar-X Pro Plate Carrier - MC Black',
@@ -24,6 +26,7 @@ const products = [
     img: 'https://images.unsplash.com/photo-1609220136736-443140cffec6?w=400&q=80',
   },
   {
+    id: 'trijicon-rmr',
     badge: null,
     category: 'OPTICS / SIGHTING', categoryColor: 'text-red-500',
     name: 'Trijicon RMR Type 2 Red Dot Sight',
@@ -34,6 +37,7 @@ const products = [
     img: 'https://images.unsplash.com/photo-1595590424283-b8f17842773f?w=400&q=80',
   },
   {
+    id: 'comtac-vi',
     badge: null,
     category: 'COMMS / AUDIO', categoryColor: 'text-red-500',
     name: 'COMTAC VI Tactical Headset Dual-Lead',
@@ -44,6 +48,7 @@ const products = [
     img: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=400&q=80',
   },
   {
+    id: 'ops-core-fast',
     badge: 'ELITE-GRADE', badgeColor: 'bg-red-600',
     category: 'BALLISTICS / HELMETS', categoryColor: 'text-red-500',
     name: 'Ops-Core FAST SF Ballistic Helmet',
@@ -54,6 +59,7 @@ const products = [
     img: 'https://images.unsplash.com/photo-1561037404-61cd46aa615b?w=400&q=80',
   },
   {
+    id: 'surefire-m600df',
     badge: null,
     category: 'ILLUMINATION', categoryColor: 'text-red-500',
     name: 'SureFire M600DF Scout Light Weapon Light',
@@ -65,7 +71,7 @@ const products = [
   },
 ]
 
-export default function MainShop() {
+export default function MainShop({ selectedProductId = null }) {
   const [selectedCategories, setSelectedCategories] = useState([])
   const [priceRange, setPriceRange] = useState(75)
   const [availability, setAvailability] = useState('inStock')
@@ -172,41 +178,58 @@ export default function MainShop() {
           </div>
         </div>
 
+        {selectedProductId && (
+          <div className="mb-4 rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-100">
+            Selected product: <span className="font-semibold">{selectedProductId}</span>
+          </div>
+        )}
+
         {/* Product Grid */}
         <div className="grid grid-cols-3 gap-4 mb-8">
-          {products.map((product, i) => (
-            <div key={i} className="bg-neutral-900 rounded-xl overflow-hidden border border-neutral-800 hover:border-neutral-600 transition-all duration-300 group">
-              {/* Image */}
-              <div className="relative overflow-hidden bg-neutral-800">
-                <img
-                  src={product.img}
-                  alt={product.name}
-                  className="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                {product.badge && (
-                  <span className={`absolute top-3 right-3 ${product.badgeColor} text-white text-[10px] font-bold tracking-widest px-2 py-1 rounded uppercase`}>
-                    {product.badge}
-                  </span>
-                )}
-              </div>
+          {products.map((product, i) => {
+            const isHighlighted = product.id === selectedProductId
 
-              {/* Info */}
-              <div className="p-4">
-                <p className={`text-[10px] font-bold tracking-widest uppercase mb-1 ${product.categoryColor}`}>{product.category}</p>
-                <h3 className="text-white font-semibold text-sm mb-3 leading-snug min-h-[2.5rem]">{product.name}</h3>
-                <p className="text-white font-bold text-base mb-2">{product.price}</p>
-                <div className="flex items-center justify-between">
-                  <span className={`text-xs font-semibold flex items-center gap-1 ${product.stockColor}`}>
-                    <span className="text-[10px]">{product.stockIcon}</span>
-                    {product.stock}
-                  </span>
-                  <button className={`${product.orderBg} text-white text-xs font-bold tracking-widest uppercase px-4 py-2 rounded transition-colors`}>
-                    ORDER
-                  </button>
+            return (
+              <div
+                key={i}
+                className={`bg-neutral-900 rounded-xl overflow-hidden border transition-all duration-300 group ${
+                  isHighlighted
+                    ? 'border-red-500 shadow-[0_0_0_1px_rgba(239,68,68,0.5)]'
+                    : 'border-neutral-800 hover:border-neutral-600'
+                }`}
+              >
+                {/* Image */}
+                <div className="relative overflow-hidden bg-neutral-800">
+                  <img
+                    src={product.img}
+                    alt={product.name}
+                    className="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  {product.badge && (
+                    <span className={`absolute top-3 right-3 ${product.badgeColor} text-white text-[10px] font-bold tracking-widest px-2 py-1 rounded uppercase`}>
+                      {product.badge}
+                    </span>
+                  )}
+                </div>
+
+                {/* Info */}
+                <div className="p-4">
+                  <p className={`text-[10px] font-bold tracking-widest uppercase mb-1 ${product.categoryColor}`}>{product.category}</p>
+                  <h3 className="text-white font-semibold text-sm mb-3 leading-snug min-h-[2.5rem]">{product.name}</h3>
+                  <p className="text-white font-bold text-base mb-2">{product.price}</p>
+                  <div className="flex items-center justify-between">
+                    <span className={`text-xs font-semibold flex items-center gap-1 ${product.stockColor}`}>
+                      <span className="text-[10px]">{product.stockIcon}</span>
+                      {product.stock}
+                    </span>
+                    <button className={`${product.orderBg} text-white text-xs font-bold tracking-widest uppercase px-4 py-2 rounded transition-colors`}>
+                      ORDER
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         {/* Pagination */}

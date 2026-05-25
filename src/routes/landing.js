@@ -19,6 +19,10 @@ const landingRoutes = [
     element: createElement(Product),
   },
   {
+    path: '/product-details',
+    element: createElement(ProductDetails),
+  },
+  {
     path: '/product-details/:slug',
     element: createElement(ProductDetails),
   },

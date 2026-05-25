@@ -13,7 +13,7 @@ import {
 
 const menuItems = [
   { label: 'Dashboard', href: '/dashboard' },
-  { label: 'Browse Products', href: '/product' },
+  { label: 'Browse Products', href: '/dashboard/all-products' },
   { label: 'My Orders', href: '#orders' },
   { label: 'Payments', href: '#payments' },
   { label: 'Setting', href: '#setting' },

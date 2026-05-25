@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const orders = [
   { id: '#NAF-88291-TX', timestamp: 'OCT 24, 2023 | 14:22', status: 'IN TRANSIT', statusColor: 'border border-red-500 text-red-500', value: '$12,450.00' },
@@ -8,6 +9,7 @@ const orders = [
 
 const products = [
   {
+    id: 'vortex-nv-400',
     badge: 'ELITE-GRADE',
     badgeColor: 'bg-red-600',
     category: 'OPTICS / GEN-3',
@@ -17,6 +19,7 @@ const products = [
     img: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&q=80',
   },
   {
+    id: 'kevlar-x-pro',
     badge: 'NEW OPS',
     badgeColor: 'bg-green-600',
     category: 'BALLISTICS / ARMOR',
@@ -26,6 +29,7 @@ const products = [
     img: 'https://images.unsplash.com/photo-1609220136736-443140cffec6?w=400&q=80',
   },
   {
+    id: 'trijicon-rmr',
     badge: null,
     category: 'OPTICS / SIGHTING',
     categoryColor: 'text-red-500',
@@ -37,6 +41,11 @@ const products = [
 
 export default function RecentOrder() {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const navigate = useNavigate()
+
+  const handleOrderClick = () => {
+    navigate('/product-details')
+  }
 
   return (
     <div className="max-w-6xl mx-auto text-white font-sans">
@@ -128,7 +137,11 @@ export default function RecentOrder() {
                 <h3 className="text-white font-semibold text-sm mb-3 leading-snug">{product.name}</h3>
                 <div className="flex items-center justify-between">
                   <span className="text-white font-bold">{product.price}</span>
-                  <button className="bg-red-600 hover:bg-red-700 text-white text-xs font-bold tracking-widest uppercase px-4 py-2 rounded transition-colors">
+                  <button
+                    type="button"
+                    onClick={handleOrderClick}
+                    className="bg-red-600 hover:bg-red-700 text-white text-xs font-bold tracking-widest uppercase px-4 py-2 rounded transition-colors"
+                  >
                     Order
                   </button>
                 </div>
