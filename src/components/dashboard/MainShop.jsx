@@ -85,15 +85,16 @@ export default function MainShop({ selectedProductId = null }) {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white flex font-sans">
+    <div className="min-h-screen bg-neutral-950 text-white font-sans lg:flex py-6 px-4 rounded-lg">
       {/* Sidebar */}
-      <aside className="w-56 shrink-0 bg-neutral-900 border-r border-neutral-800 p-5 flex flex-col gap-6">
-        {/* Categories */}
-        <div>
-          <p className="text-[10px] font-bold tracking-widest text-red-500 uppercase mb-3">Categories</p>
-          <div className="flex flex-col gap-2">
-            {categories.map(cat => (
-              <label key={cat} className="flex items-center gap-2 cursor-pointer group">
+      <aside className="w-full border-b border-neutral-800 bg-neutral-900 p-4 sm:p-5 lg:w-56 lg:shrink-0 lg:border-b-0 lg:border-r lg:p-5">
+        <div className="grid gap-6 sm:grid-cols-3 lg:grid-cols-1">
+          {/* Categories */}
+          <div>
+            <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-red-500">Categories</p>
+            <div className="flex flex-col gap-2">
+              {categories.map(cat => (
+                <label key={cat} className="flex items-center gap-2 cursor-pointer group">
                 <div
                   onClick={() => toggleCategory(cat)}
                   className={`w-4 h-4 rounded-sm border flex items-center justify-center shrink-0 transition-colors ${
@@ -116,16 +117,16 @@ export default function MainShop({ selectedProductId = null }) {
 
         {/* Price Range */}
         <div>
-          <p className="text-[10px] font-bold tracking-widest text-red-500 uppercase mb-3">Price Range</p>
+          <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-red-500">Price Range</p>
           <input
             type="range"
             min={0}
             max={100}
             value={priceRange}
             onChange={e => setPriceRange(e.target.value)}
-            className="w-full accent-red-600 h-1"
+            className="h-1 w-full accent-red-600"
           />
-          <div className="flex justify-between text-xs text-neutral-400 mt-1">
+          <div className="mt-1 flex justify-between text-xs text-neutral-400">
             <span>$0</span>
             <span>$15,000+</span>
           </div>
@@ -133,42 +134,43 @@ export default function MainShop({ selectedProductId = null }) {
 
         {/* Availability */}
         <div>
-          <p className="text-[10px] font-bold tracking-widest text-red-500 uppercase mb-3">Availability</p>
+          <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-red-500">Availability</p>
           <div className="flex flex-col gap-2">
             {[['inStock', 'In Stock Only'], ['backordered', 'Show Backordered']].map(([val, label]) => (
               <label key={val} className="flex items-center gap-2 cursor-pointer group">
                 <div
                   onClick={() => setAvailability(val)}
-                  className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
+                  className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
                     availability === val ? 'border-red-500' : 'border-neutral-600'
                   }`}
                 >
-                  {availability === val && <div className="w-2 h-2 rounded-full bg-red-500" />}
+                  {availability === val && <div className="h-2 w-2 rounded-full bg-red-500" />}
                 </div>
-                <span className="text-sm text-neutral-300 group-hover:text-white transition-colors">{label}</span>
+                <span className="text-sm text-neutral-300 transition-colors group-hover:text-white">{label}</span>
               </label>
             ))}
           </div>
         </div>
+        </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-4 sm:p-6 lg:p-8">
         {/* Header */}
-        <div className="flex items-start justify-between mb-6">
+        <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
-            <div className="flex items-center gap-3 mb-1">
-              <div className="w-1 h-6 bg-red-600 rounded-full" />
-              <h1 className="text-2xl font-bold text-white">All products</h1>
+            <div className="mb-1 flex items-center gap-3">
+              <div className="h-6 w-1 rounded-full bg-red-600" />
+              <h1 className="text-xl font-bold text-white sm:text-2xl">All products</h1>
             </div>
-            <p className="text-neutral-400 text-sm ml-4">Displaying 42 tactical assets ready for enlistment</p>
+            <p className="ml-4 text-sm text-neutral-400">Displaying 42 tactical assets ready for enlistment</p>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="text-xs text-neutral-400 tracking-widest uppercase">Sort By:</span>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+            <span className="text-xs uppercase tracking-widest text-neutral-400">Sort By:</span>
             <select
               value={sortBy}
               onChange={e => setSortBy(e.target.value)}
-              className="bg-neutral-800 border border-neutral-700 text-white text-sm rounded px-3 py-2 appearance-none pr-8 cursor-pointer focus:outline-none focus:border-red-500"
+              className="cursor-pointer rounded border border-neutral-700 bg-neutral-800 px-3 py-2 pr-8 text-sm text-white focus:border-red-500 focus:outline-none"
             >
               <option>Highest Value</option>
               <option>Lowest Value</option>
@@ -185,14 +187,14 @@ export default function MainShop({ selectedProductId = null }) {
         )}
 
         {/* Product Grid */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
+        <div className="mb-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {products.map((product, i) => {
             const isHighlighted = product.id === selectedProductId
 
             return (
               <div
                 key={i}
-                className={`bg-neutral-900 rounded-xl overflow-hidden border transition-all duration-300 group ${
+                className={`overflow-hidden rounded-xl border bg-neutral-900 transition-all duration-300 group ${
                   isHighlighted
                     ? 'border-red-500 shadow-[0_0_0_1px_rgba(239,68,68,0.5)]'
                     : 'border-neutral-800 hover:border-neutral-600'
@@ -203,10 +205,10 @@ export default function MainShop({ selectedProductId = null }) {
                   <img
                     src={product.img}
                     alt={product.name}
-                    className="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   {product.badge && (
-                    <span className={`absolute top-3 right-3 ${product.badgeColor} text-white text-[10px] font-bold tracking-widest px-2 py-1 rounded uppercase`}>
+                    <span className={`absolute right-3 top-3 rounded px-2 py-1 text-[10px] font-bold uppercase tracking-widest text-white ${product.badgeColor}`}>
                       {product.badge}
                     </span>
                   )}
@@ -214,15 +216,15 @@ export default function MainShop({ selectedProductId = null }) {
 
                 {/* Info */}
                 <div className="p-4">
-                  <p className={`text-[10px] font-bold tracking-widest uppercase mb-1 ${product.categoryColor}`}>{product.category}</p>
-                  <h3 className="text-white font-semibold text-sm mb-3 leading-snug min-h-[2.5rem]">{product.name}</h3>
-                  <p className="text-white font-bold text-base mb-2">{product.price}</p>
-                  <div className="flex items-center justify-between">
-                    <span className={`text-xs font-semibold flex items-center gap-1 ${product.stockColor}`}>
+                  <p className={`mb-1 text-[10px] font-bold uppercase tracking-widest ${product.categoryColor}`}>{product.category}</p>
+                  <h3 className="mb-3 min-h-10 text-sm font-semibold leading-snug text-white">{product.name}</h3>
+                  <p className="mb-2 text-base font-bold text-white">{product.price}</p>
+                  <div className="flex items-center justify-between gap-3">
+                    <span className={`flex items-center gap-1 text-xs font-semibold ${product.stockColor}`}>
                       <span className="text-[10px]">{product.stockIcon}</span>
                       {product.stock}
                     </span>
-                    <button className={`${product.orderBg} text-white text-xs font-bold tracking-widest uppercase px-4 py-2 rounded transition-colors`}>
+                    <button className={`${product.orderBg} rounded px-4 py-2 text-xs font-bold uppercase tracking-widest text-white transition-colors`}>
                       ORDER
                     </button>
                   </div>
@@ -233,7 +235,7 @@ export default function MainShop({ selectedProductId = null }) {
         </div>
 
         {/* Pagination */}
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex items-center justify-center gap-2 overflow-x-auto pb-1">
           <button
             onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
             className="w-8 h-8 rounded bg-neutral-800 border border-neutral-700 flex items-center justify-center hover:bg-neutral-700 transition-colors"

@@ -17,17 +17,17 @@ const Footer = () => {
             viewport={{ once: true, amount: 0.15 }}
             className="bg-[#050505] text-white border-t border-white/5 px-4 pt-12 pb-8 sm:pt-16 lg:px-6 overflow-hidden"
         >
-            <div className="mx-auto max-w-[1180px]">
+            <div className="mx-auto max-w-full">
                 {/* Main Grid */}
                 <motion.div
                     variants={staggerContainer(0.1, 0.05)}
-                    className="grid grid-cols-1 gap-y-10 md:grid-cols-12 md:gap-x-8 md:gap-y-12 lg:gap-x-12"
+                    className="grid grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-8 md:gap-y-12 lg:grid-cols-12 lg:gap-x-12"
                 >
 
                     {/* Column 1: Brand & Contact Info */}
                     <motion.div
                         variants={fadeInUp}
-                        className="min-w-0 md:col-span-6 lg:col-span-4 flex flex-col justify-between gap-8 sm:gap-10"
+                        className="min-w-0 md:col-span-1 lg:col-span-4 flex flex-col justify-between gap-8 sm:gap-10"
                     >
                         <div>
                             {/* Logo */}
@@ -87,7 +87,7 @@ const Footer = () => {
                     {/* Column 2: Newsletter & Arsenal/Company Links */}
                     <motion.div
                         variants={fadeInUp}
-                        className="min-w-0 md:col-span-6 lg:col-span-5 flex flex-col justify-between gap-8 sm:gap-10"
+                        className="min-w-0 md:col-span-1 lg:col-span-5 flex flex-col justify-between gap-8 sm:gap-10"
                     >
                         {/* Newsletter */}
                         <div>
@@ -160,14 +160,14 @@ const Footer = () => {
                     {/* Column 3: Social Hub */}
                     <motion.div
                         variants={fadeInUp}
-                        className="min-w-0 lg:col-span-3 flex flex-col items-start lg:items-end gap-5"
+                        className="min-w-0 md:col-span-2 lg:col-span-3 flex flex-col items-start gap-5 lg:items-end"
                     >
-                        <h4 className="font-display text-[11px] font-black tracking-[0.18em] text-white/55 lg:text-right w-full">
+                        <h4 className="font-display text-[11px] font-black tracking-[0.18em] text-white/55 w-full lg:text-right">
                             Social Intel
                         </h4>
 
                         {/* Social Icons row */}
-                        <div className="flex w-full flex-wrap items-center gap-2.5 lg:justify-end">
+                        <div className="flex w-full flex-wrap items-center gap-2.5 md:justify-start lg:justify-end">
                             {/* Twitter/X Icon */}
                             <a
                                 href="#twitter"

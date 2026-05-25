@@ -26,17 +26,17 @@ export default function RecentTransactions() {
   const [showAdd, setShowAdd] = useState(false)
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white p-8 font-sans">
-      <h1 className="text-2xl font-bold text-white mb-7">Recent Transactions</h1>
+    <div className="bg-neutral-950 p-4 text-white sm:p-6 lg:p-8 font-sans max-w-full mx-auto">
+      <h1 className="mb-6 text-xl font-bold text-white sm:text-2xl">Recent Transactions</h1>
 
-      <div className="grid grid-cols-[1fr_300px] gap-5 items-stretch">
+      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-stretch">
 
         {/* Transactions Table */}
-        <div className="bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden">
+        <div className="overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900">
           {/* Header */}
-          <div className="grid grid-cols-[1.2fr_1.2fr_1fr_1.4fr_1.4fr_1fr] px-6 py-4 border-b border-neutral-800">
+          <div className="hidden grid-cols-[1.2fr_1.2fr_1fr_1.4fr_1.4fr_1fr] px-6 py-4 border-b border-neutral-800 lg:grid">
             {['ID', 'DATE', 'PRODUCT', 'METHOD', 'STATUS', 'AMOUNT'].map(h => (
-              <p key={h} className="text-[10px] font-bold tracking-widest text-neutral-500 uppercase">{h}</p>
+              <p key={h} className="text-[10px] font-bold uppercase tracking-widest text-neutral-500">{h}</p>
             ))}
           </div>
 
@@ -46,36 +46,54 @@ export default function RecentTransactions() {
             return (
               <div
                 key={i}
-                className="grid grid-cols-[1.2fr_1.2fr_1fr_1.4fr_1.4fr_1fr] px-6 py-5 border-b border-neutral-800 last:border-0 hover:bg-neutral-800/40 transition-colors items-center"
+                className="border-b border-neutral-800 px-4 py-4 last:border-0 hover:bg-neutral-800/40 transition-colors sm:px-6"
               >
-                <p className="text-white font-mono font-semibold text-sm">{tx.id}</p>
-                <p className="text-neutral-400 text-sm">{tx.date}</p>
-                <p className="text-neutral-300 text-sm">{tx.product}</p>
-
-                {/* Method */}
-                <div className="flex items-center gap-2">
-                  <VisaIcon />
+                <div className="grid gap-3 sm:grid-cols-[1.2fr_1.2fr] lg:grid-cols-[1.2fr_1.2fr_1fr_1.4fr_1.4fr_1fr] lg:items-center">
                   <div>
-                    <p className="text-neutral-400 text-[10px] tracking-widest">**** {tx.last4}</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 lg:hidden">ID</p>
+                    <p className="font-mono text-sm font-semibold text-white">{tx.id}</p>
+                  </div>
+
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 lg:hidden">DATE</p>
+                    <p className="text-sm text-neutral-400">{tx.date}</p>
+                  </div>
+
+                  <div className="sm:col-span-2 lg:col-span-1">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 lg:hidden">PRODUCT</p>
+                    <p className="text-sm text-neutral-300">{tx.product}</p>
+                  </div>
+
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 lg:hidden">METHOD</p>
+                    <div className="flex items-center gap-2">
+                      <VisaIcon />
+                      <div>
+                        <p className="text-[10px] tracking-widest text-neutral-400">**** {tx.last4}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 lg:hidden">STATUS</p>
+                    <span className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-semibold ${s.text} ${s.border}`}>
+                      <span className={`h-1.5 w-1.5 rounded-full ${s.dot}`} />
+                      {tx.status}
+                    </span>
+                  </div>
+
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 lg:hidden">AMOUNT</p>
+                    <p className="text-sm font-bold text-white">$128.00</p>
                   </div>
                 </div>
-
-                {/* Status */}
-                <div>
-                  <span className={`inline-flex items-center gap-1.5 border rounded-full px-3 py-1 text-[11px] font-semibold ${s.text} ${s.border}`}>
-                    <span className={`w-1.5 h-1.5 rounded-full ${s.dot}`} />
-                    {tx.status}
-                  </span>
-                </div>
-
-                <p className="text-white font-bold text-sm">$128.00</p>
               </div>
             )
           })}
         </div>
 
         {/* Payment Methods Panel */}
-        <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 flex flex-col gap-4 h-full">
+        <div className="flex h-full flex-col gap-4 rounded-2xl border border-neutral-800 bg-neutral-900 p-4 sm:p-5">
           {/* Panel Header */}
           <div className="flex items-center justify-between">
             <p className="text-[11px] font-bold tracking-widest text-white uppercase">Payment Methods</p>
