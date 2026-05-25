@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ChevronDown, Heart, Mail, Search, ShoppingBasket, X } from 'lucide-react'
+import { ChevronDown, Heart, Mail, Search, ShoppingBasket, Settings, X } from 'lucide-react'
 import logo from '../../../assets/images/logo.svg'
 import userIcon from '../../../assets/images/user.svg'
 import { logout, selectUser } from '../../../features/auth/authSlice'
@@ -164,6 +164,17 @@ const Header = () => {
               <span className="absolute -right-1 top-0 grid size-4 place-items-center rounded-full bg-primary text-[9px] font-black text-white">
                 0
               </span>
+            </button>
+
+            <button
+              type="button"
+              aria-label="Settings quick link"
+              onClick={() => {
+                if (typeof window !== 'undefined') window.location.hash = '#sym:SystemSetting'
+              }}
+              className="grid size-9 shrink-0 place-items-center rounded-full bg-white/[0.03] text-white transition hover:bg-white/[0.08] sm:size-10"
+            >
+              <Settings size={18} />
             </button>
 
             <Link

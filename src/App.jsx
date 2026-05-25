@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useRoutes, useLocation } from 'react-router-dom'
+import { useRoutes, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
@@ -32,6 +32,17 @@ const App = () => {
 
     return () => clearTimeout(timer)
   }, [])
+
+  // If URL contains the special hash, redirect to wishlist
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const h = window.location.hash
+      if (h === '#sym:WishList') navigate('/dashboard/wishlist', { replace: true })
+      if (h === '#sym:SystemSetting') navigate('/dashboard/setting', { replace: true })
+    }
+  }, [navigate])
 
   return (
     <>

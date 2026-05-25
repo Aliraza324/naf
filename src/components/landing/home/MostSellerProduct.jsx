@@ -1,12 +1,19 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { CheckCircle2, AlertCircle } from 'lucide-react'
+import { CheckCircle2, AlertCircle, Heart } from 'lucide-react'
+import { useDispatch, useSelector } from 'react-redux'
+import { toggleWishlist, selectWishlistItems } from '../../../features/wishlist/wishlistSlice'
 import { mostSaleProducts } from '../../../data/mostSaleProducts'
 import { fadeInUp, staggerContainer } from '../../../animations/animations'
+import toast from '../../../utils/toast'
 
 const MostSellerProduct = () => {
   const [hoveredId, setHoveredId] = useState(null)
+  const dispatch = useDispatch()
+  const wishlistItems = useSelector(selectWishlistItems)
+
+  const isInWishlist = (product) => wishlistItems.some((p) => p.id === product.id)
 
   return (
     <section className='bg-page px-4 py-14 sm:py-16 lg:px-6 border-t border-white/5'>
@@ -50,6 +57,23 @@ const MostSellerProduct = () => {
               >
                 {/* Image Container */}
                 <div className='relative w-full aspect-[1.28] rounded-[6px] bg-page-soft/90 border border-white/5 overflow-hidden flex items-center justify-center p-4 transition-colors duration-300 group-hover:bg-page-soft/50'>
+                  <button
+                    type='button'
+                    aria-label='Toggle wishlist'
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      const alreadyInWishlist = isInWishlist(product)
+                      dispatch(toggleWishlist(product))
+                      toast.success(
+                        alreadyInWishlist
+                          ? 'Product removed from wishlist'
+                          : 'Product added to wishlist',
+                      )
+                    }}
+                    className='absolute left-3 top-3 z-20 grid size-8 place-items-center rounded-full bg-black/50 text-white transition hover:text-primary'
+                  >
+                    <Heart size={16} className={`${isInWishlist(product) ? 'text-primary' : ''}`} />
+                  </button>
                   {product.badge && (
                     <span className='absolute right-0 top-2.5 bg-primary px-2.5 py-1.5 text-[8px] font-black uppercase leading-none tracking-[0.08em] text-white rounded-l-sm z-10 shadow-md'>
                       {product.badge}

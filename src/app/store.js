@@ -11,6 +11,7 @@ import {
 } from 'redux-persist'
 import cartReducer from '../features/cart/cartSlice'
 import authReducer from '../features/auth/authSlice'
+import wishlistReducer from '../features/wishlist/wishlistSlice'
 
 const storage = {
   getItem: (key) => Promise.resolve(window.localStorage.getItem(key)),
@@ -28,10 +29,16 @@ const authPersistConfig = {
   storage,
 }
 
+const wishlistPersistConfig = {
+  key: 'wishlist',
+  storage,
+}
+
 export const store = configureStore({
   reducer: {
     cart: persistReducer(cartPersistConfig, cartReducer),
     auth: persistReducer(authPersistConfig, authReducer),
+    wishlist: persistReducer(wishlistPersistConfig, wishlistReducer),
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

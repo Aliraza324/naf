@@ -4,6 +4,8 @@ import AllProduct from '../pages/dashboard/AllProduct'
 import OrderHistory from '../components/dashboard/OrderHistory'
 import OrderDetail from '../pages/dashboard/OrderDetail'
 import Payment from '../pages/dashboard/Payment'
+import SystemSetting from '../pages/dashboard/SystemSetting'
+import WishList from '../pages/dashboard/WishList'
 
 const dashboardRoutes = [
   {
@@ -25,6 +27,14 @@ const dashboardRoutes = [
   {
     path: '/dashboard/payments',
     element: createElement(Payment),
+  },
+  {
+    path: '/dashboard/setting',
+    element: createElement(SystemSetting),
+  },
+  {
+    path: '/dashboard/wishlist',
+    element: createElement(WishList),
   },
 ]
 

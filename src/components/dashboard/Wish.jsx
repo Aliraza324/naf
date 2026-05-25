@@ -1,70 +1,21 @@
-import React, { useState } from 'react'
-
-const products = [
-  {
-    id: 1,
-    category: 'OPTICS / GEN-3',
-    name: 'Vortex NV-400 Tactical Night Vision',
-    price: '$12,499.00',
-    stock: 'IN STOCK',
-    badge: 'ELITE GRADE',
-    img: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&q=80',
-  },
-  {
-    id: 2,
-    category: 'BALLISTICS / ARMOR',
-    name: 'Kevlar-X Pro Plate Carrier - MC Black',
-    price: '$1,250.00',
-    stock: 'IN STOCK',
-    badge: null,
-    img: 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=400&q=80',
-  },
-  {
-    id: 3,
-    category: 'OPTICS / SIGHTING',
-    name: 'Trijicon RMR Type 2 Red Dot Sight',
-    price: '$545.00',
-    stock: 'LOW STOCK',
-    badge: null,
-    img: 'https://images.unsplash.com/photo-1504275107627-0c2ba7a43dba?w=400&q=80',
-  },
-  {
-    id: 4,
-    category: 'PROTECTION / HANDWEAR',
-    name: 'Operator Pro Reinforced Gloves',
-    price: '$85.00',
-    stock: 'IN STOCK',
-    badge: null,
-    img: 'https://images.unsplash.com/photo-1609205807107-2b688b9e72c2?w=400&q=80',
-  },
-  {
-    id: 5,
-    category: 'PROTECTION / HEADWEAR',
-    name: 'Velocity Pro Mask System - Matte Black',
-    price: '$220.00',
-    stock: 'IN STOCK',
-    badge: null,
-    img: 'https://images.unsplash.com/photo-1599499462522-8f21aeee738e?w=400&q=80',
-  },
-  {
-    id: 6,
-    category: 'GAS / AIR SYSTEMS',
-    name: 'Empire Ultra 68/4500 HPA Tank',
-    price: '$189.95',
-    stock: 'IN STOCK',
-    badge: null,
-    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',
-  },
-]
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectWishlistItems, removeFromWishlist } from '../../features/wishlist/wishlistSlice'
 
 function ProductCard({ product, onRemove }) {
-  const isLow = product.stock === 'LOW STOCK'
+  const img = product.img || product.image || ''
+  const title = product.name || product.title || ''
+  const category = product.category || ''
+  const price = product.price || ''
+  const badge = product.badge || null
+  const stock = product.stock || 'IN STOCK'
+  const isLow = stock === 'LOW STOCK'
 
   return (
     <div className="relative bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden flex flex-col group">
-      {product.badge && (
+      {badge && (
         <span className="absolute top-3 left-3 z-10 bg-red-600 text-white text-[10px] font-bold tracking-widest px-2 py-0.5 uppercase">
-          {product.badge}
+          {badge}
         </span>
       )}
       <button
@@ -77,8 +28,8 @@ function ProductCard({ product, onRemove }) {
 
       <div className="h-44 overflow-hidden bg-neutral-800">
         <img
-          src={product.img}
-          alt={product.name}
+          src={img}
+          alt={title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
       </div>
@@ -86,19 +37,19 @@ function ProductCard({ product, onRemove }) {
       <div className="p-4 flex flex-col flex-1 gap-3">
         <div>
           <p className="text-[10px] tracking-widest text-red-500 uppercase font-medium mb-1.5">
-            {product.category}
+            {category}
           </p>
           <h3 className="text-sm font-bold text-white uppercase leading-tight">
-            {product.name}
+            {title}
           </h3>
         </div>
 
-        <p className="text-xl font-black text-white">{product.price}</p>
+        <p className="text-xl font-black text-white">{price}</p>
 
         <div className="flex items-center gap-1.5">
           <span className={`w-1.5 h-1.5 rounded-full ${isLow ? 'bg-yellow-400' : 'bg-green-500'}`} />
           <span className={`text-[10px] tracking-widest font-bold uppercase ${isLow ? 'text-yellow-400' : 'text-green-500'}`}>
-            {product.stock}
+            {stock}
           </span>
         </div>
 
@@ -129,9 +80,10 @@ function AddMoreCard() {
 }
 
 export default function Wish() {
-  const [items, setItems] = useState(products)
+  const dispatch = useDispatch()
+  const items = useSelector(selectWishlistItems)
 
-  const removeItem = (id) => setItems(prev => prev.filter(p => p.id !== id))
+  const removeItem = (id) => dispatch(removeFromWishlist(id))
 
   return (
     <div className="bg-black min-h-screen px-4 py-8 sm:px-8 lg:px-12 font-sans">

@@ -16,6 +16,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { announcementFade, dropdownMenu, mobileNavMenu } from '../../animations/animations'
 import { inventoryCategories } from '../../data/inventoryCategories'
 import { selectCartProductCount } from '../../features/cart/cartSlice'
+import { selectWishlistCount } from '../../features/wishlist/wishlistSlice'
 import {
   selectIsAuthenticated,
   selectUser,
@@ -42,6 +43,7 @@ const Header = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const cartProductCount = useSelector(selectCartProductCount)
+  const wishlistCount = useSelector(selectWishlistCount)
   const isAuthenticated = useSelector(selectIsAuthenticated)
   const user = useSelector(selectUser)
   const categoryMenuRef = useRef(null)
@@ -238,13 +240,23 @@ const Header = () => {
                       </div>
 
                       <nav className='grid gap-5 border-b border-white/10 py-5 text-sm font-semibold'>
-                        {['Dashboard', 'Browse Products', 'My Orders', 'Payments', 'Setting'].map(
-                          (item) => (
-                            <Link key={item} to='#account' className='transition hover:text-primary'>
-                              {item}
-                            </Link>
-                          ),
-                        )}
+                        {(() => {
+                          const accountLinks = {
+                            Dashboard: '/dashboard',
+                            'Browse Products': '/dashboard/all-products',
+                            'My Orders': '/dashboard/orders',
+                            Payments: '/dashboard/payments',
+                            Setting: '/dashboard/setting',
+                          }
+
+                          return ['Dashboard', 'Browse Products', 'My Orders', 'Payments', 'Setting'].map(
+                            (item) => (
+                              <Link key={item} to={accountLinks[item] || '#'} className='transition hover:text-primary'>
+                                {item}
+                              </Link>
+                            ),
+                          )
+                        })()}
                       </nav>
 
                       <button
@@ -272,12 +284,18 @@ const Header = () => {
               </motion.button>
             )}
 
-            <button
+            <Link
+              to='/dashboard/wishlist'
               aria-label='Wishlist'
               className='relative grid size-9 place-items-center text-white transition hover:text-primary'
             >
               <Heart size={23} strokeWidth={2.1} />
-            </button>
+              {wishlistCount > 0 && (
+                <span className='absolute -right-1 top-0 grid size-4 place-items-center rounded-full bg-primary text-[9px] font-black text-white'>
+                  {wishlistCount}
+                </span>
+              )}
+            </Link>
 
             <Link
               to='/cart'
