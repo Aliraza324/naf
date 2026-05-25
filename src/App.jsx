@@ -3,15 +3,17 @@ import { useRoutes, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
+import DashboardHeader from './components/layout/dashboard/Header'
 import landingRoutes from './routes/landing'
 import authRoutes from './routes/auth'
+import dashboardRoutes from './routes/dashboard'
 import { ToastProvider } from './components/utils/Toast'
 import PageLoader from './components/utils/PageLoader'
 import TopToScroll from './utils/TopToScroll'
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true)
-  const allRoutes = [...landingRoutes, ...authRoutes]
+  const allRoutes = [...landingRoutes, ...authRoutes, ...dashboardRoutes]
   const routes = useRoutes(allRoutes)
   const location = useLocation()
 
@@ -23,6 +25,7 @@ const App = () => {
     '/verify-account',
     '/create-new-password',
   ].includes(location.pathname)
+  const isDashboardRoute = location.pathname.startsWith('/dashboard')
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1500)
@@ -36,10 +39,10 @@ const App = () => {
       <TopToScroll />
       <div className='min-h-screen bg-page text-text flex flex-col justify-between'>
         <div>
-          {!isAuthRoute && <Header />}
+          {!isAuthRoute && (isDashboardRoute ? <DashboardHeader /> : <Header />)}
           {routes}
         </div>
-        {!isAuthRoute && <Footer />}
+        {!isAuthRoute && !isDashboardRoute && <Footer />}
         <ToastProvider />
       </div>
     </>
