@@ -66,7 +66,7 @@ const Blogs = () => {
       };
 
   return (
-    <motion.section 
+    <motion.section
       initial="initial"
       whileInView="animate"
       viewport={{ once: true, amount: 0.15 }}
@@ -83,22 +83,25 @@ const Blogs = () => {
             onClick={() => slide('left')}
             aria-label="Previous"
           >
-            ‹
+            &lsaquo;
           </button>
           <button
             className="w-9 h-9 rounded-full border border-white/20 bg-white/5 text-white text-[22px] flex items-center justify-center cursor-pointer leading-none transition-colors hover:border-white/40 hover:bg-white/10"
             onClick={() => slide('right')}
             aria-label="Next"
           >
-            ›
+            &rsaquo;
           </button>
         </div>
       </motion.div>
 
       {/* Slider viewport */}
       <div className="overflow-hidden w-full">
-        <motion.div 
+        <motion.div
           variants={staggerContainer(0.08, 0.05)}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true, amount: 0.2 }}
           className="grid gap-[clamp(16px,3vw,20px)] transition-all duration-[350ms] ease-in-out will-change-[opacity,transform]"
           style={{
             gridTemplateColumns: `repeat(${cardsPerView}, minmax(0, 1fr))`,
@@ -118,6 +121,9 @@ const BlogCard = ({ blog }) => {
   return (
     <motion.article
       variants={fadeInUp}
+      initial="initial"
+      whileInView="animate"
+      viewport={{ once: true, amount: 0.2 }}
       className="group cursor-pointer min-w-0"
     >
       <Link to={`/blog/${blog.slug}`} className="block">
@@ -143,7 +149,7 @@ const BlogCard = ({ blog }) => {
             {blog.excerpt}
           </p>
           <span className="text-[0.72rem] font-bold tracking-[0.1em] uppercase no-underline inline-flex items-center transition-all duration-200 text-primary gap-1.5 group-hover:text-primary-hover group-hover:gap-2.5">
-            READ MORE&nbsp;&nbsp;→
+            READ MORE&nbsp;&nbsp;&rarr;
           </span>
         </div>
       </Link>
