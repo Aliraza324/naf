@@ -1,19 +1,35 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { featuredCategories } from '../../../data/featuredCategories'
 import { motion, AnimatePresence } from 'framer-motion'
-import { fadeInUp, staggerContainer } from '../../../animations/animations'
+import { fadeInUp } from '../../../animations/animations'
 
-const VISIBLE = 5 // Number of categories visible at once on desktop
+const getVisibleCount = () => {
+  if (typeof window === 'undefined') return 5
+  if (window.matchMedia('(min-width: 1280px)').matches) return 5
+  if (window.matchMedia('(min-width: 1024px)').matches) return 3
+  if (window.matchMedia('(min-width: 640px)').matches) return 2
+  return 1
+}
 
 const FeaturedCategories = () => {
   const [hoveredId, setHoveredId] = useState(null)
   const [startIndex, setStartIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
   const [direction, setDirection] = useState('right')
+  const [visibleCount, setVisibleCount] = useState(getVisibleCount)
 
   const total = featuredCategories.length
+
+  useEffect(() => {
+    const handleResize = () => setVisibleCount(getVisibleCount())
+
+    handleResize()
+    window.addEventListener('resize', handleResize)
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   // Slide function with loop-around (circular carousel) so it always works!
   const slide = (dir) => {
@@ -35,7 +51,7 @@ const FeaturedCategories = () => {
 
   // Create circular array of visible items
   const visibleCategories = []
-  for (let i = 0; i < VISIBLE; i++) {
+  for (let i = 0; i < Math.min(visibleCount, total); i++) {
     const index = (startIndex + i) % total
     visibleCategories.push(featuredCategories[index])
   }
@@ -55,24 +71,24 @@ const FeaturedCategories = () => {
           initial="initial"
           whileInView="animate"
           viewport={{ once: true, amount: 0.3 }}
-          className='mb-8 flex items-center justify-between gap-4'
+          className='mb-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center'
         >
-          <h2 className='font-display text-[clamp(1.8rem,3vw,2.25rem)] font-black uppercase italic leading-none tracking-[0.01em] text-text-strong'>
+          <h2 className='font-display text-[clamp(1.45rem,7vw,2.25rem)] font-black uppercase italic leading-none tracking-[0.01em] text-text-strong'>
             Featured Categories
           </h2>
 
-          <div className='hidden items-center gap-3 sm:flex'>
+          <div className='flex items-center gap-3'>
             <button
               aria-label='Previous categories'
               onClick={() => slide('prev')}
-              className='grid size-10 place-items-center rounded-full border border-white/10 bg-page-soft text-white transition hover:border-primary hover:text-primary cursor-pointer active:scale-95'
+              className='grid size-9 place-items-center rounded-full border border-white/10 bg-page-soft text-white transition hover:border-primary hover:text-primary cursor-pointer active:scale-95 sm:size-10'
             >
               <ChevronLeft size={22} strokeWidth={2.4} />
             </button>
             <button
               aria-label='Next categories'
               onClick={() => slide('next')}
-              className='grid size-10 place-items-center rounded-full border border-white/10 bg-page-soft text-white transition hover:border-primary hover:text-primary cursor-pointer active:scale-95'
+              className='grid size-9 place-items-center rounded-full border border-white/10 bg-page-soft text-white transition hover:border-primary hover:text-primary cursor-pointer active:scale-95 sm:size-10'
             >
               <ChevronRight size={22} strokeWidth={2.4} />
             </button>

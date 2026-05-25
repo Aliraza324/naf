@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { fadeInUp, staggerContainer } from '../../../animations/animations';
 import { blogsData } from '../../../data/blogsData';
 
@@ -84,6 +85,7 @@ const Blogs = () => {
             aria-label="Previous"
           >
             &lsaquo;
+            <ChevronLeft size={20} strokeWidth={2.4} />
           </button>
           <button
             className="w-9 h-9 rounded-full border border-white/20 bg-white/5 text-white text-[22px] flex items-center justify-center cursor-pointer leading-none transition-colors hover:border-white/40 hover:bg-white/10"
@@ -91,6 +93,7 @@ const Blogs = () => {
             aria-label="Next"
           >
             &rsaquo;
+            <ChevronRight size={20} strokeWidth={2.4} />
           </button>
         </div>
       </motion.div>
@@ -150,6 +153,8 @@ const BlogCard = ({ blog }) => {
           </p>
           <span className="text-[0.72rem] font-bold tracking-[0.1em] uppercase no-underline inline-flex items-center transition-all duration-200 text-primary gap-1.5 group-hover:text-primary-hover group-hover:gap-2.5">
             READ MORE&nbsp;&nbsp;&rarr;
+            READ MORE
+            <ArrowRight size={15} strokeWidth={2.5} aria-hidden="true" />
           </span>
         </div>
       </Link>
