@@ -1,8 +1,11 @@
 import React from 'react'
+import OrderHistory from '../../components/dashboard/OrderHistory'
 
 const Order = () => {
   return (
-    <div>Order</div>
+    <div>
+      <OrderHistory/>
+    </div>
   )
 }
 
