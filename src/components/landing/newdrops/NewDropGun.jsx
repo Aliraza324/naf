@@ -55,7 +55,7 @@ const NewDropGun = () => {
             <div className='mt-9 flex flex-col gap-6 sm:flex-row sm:items-center'>
               <Link
                 to='/checkout'
-                className='inline-flex h-14 w-full items-center justify-center bg-primary px-8 text-[12px] font-black uppercase tracking-[0.12em] text-black transition hover:bg-primary-hover sm:w-[215px]'
+                className='inline-flex h-14 w-full items-center justify-center bg-primary px-8 text-[12px] font-black uppercase tracking-[0.12em] text-white transition hover:bg-primary-hover sm:w-[215px]'
               >
                 Pre-Order Mission
               </Link>

@@ -1,4 +1,10 @@
 import React, { useState } from 'react'
+import one from "../../assets/images/productone.png";
+import two from "../../assets/images/producttwo.png";
+import three from "../../assets/images/productthree.png";
+import four from "../../assets/images/productfour.png";
+import five from "../../assets/images/productfive.png";
+import six from "../../assets/images/productsix.png";
 
 const categories = ['BBS', 'Guns', 'Goggles & masks', 'Tactical Gear', 'Optics', 'Gas', 'Batteries', 'Apparel']
 
@@ -12,7 +18,7 @@ const products = [
     stock: 'IN STOCK', stockColor: 'text-green-500',
     stockIcon: '●',
     orderBg: 'bg-red-600 hover:bg-red-700',
-    img: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&q=80',
+    img: one
   },
   {
     id: 'kevlar-x-pro',
@@ -23,7 +29,7 @@ const products = [
     stock: 'IN STOCK', stockColor: 'text-green-500',
     stockIcon: '●',
     orderBg: 'bg-red-600 hover:bg-red-700',
-    img: 'https://images.unsplash.com/photo-1609220136736-443140cffec6?w=400&q=80',
+    img: two
   },
   {
     id: 'trijicon-rmr',
@@ -34,7 +40,7 @@ const products = [
     stock: 'LOW STOCK', stockColor: 'text-yellow-500',
     stockIcon: '●',
     orderBg: 'bg-red-600 hover:bg-red-700',
-    img: 'https://images.unsplash.com/photo-1595590424283-b8f17842773f?w=400&q=80',
+    img: three
   },
   {
     id: 'comtac-vi',
@@ -45,7 +51,7 @@ const products = [
     stock: 'IN STOCK', stockColor: 'text-green-500',
     stockIcon: '●',
     orderBg: 'bg-red-600 hover:bg-red-700',
-    img: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=400&q=80',
+    img: four
   },
   {
     id: 'ops-core-fast',
@@ -56,7 +62,7 @@ const products = [
     stock: 'OUT OF STOCK', stockColor: 'text-orange-500',
     stockIcon: '⊘',
     orderBg: 'bg-neutral-700 hover:bg-neutral-600 cursor-not-allowed',
-    img: 'https://images.unsplash.com/photo-1561037404-61cd46aa615b?w=400&q=80',
+    img: five
   },
   {
     id: 'surefire-m600df',
@@ -67,7 +73,7 @@ const products = [
     stock: 'IN STOCK', stockColor: 'text-green-500',
     stockIcon: '●',
     orderBg: 'bg-red-600 hover:bg-red-700',
-    img: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=400&q=80',
+    img: six
   },
 ]
 
