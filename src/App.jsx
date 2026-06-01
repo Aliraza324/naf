@@ -7,13 +7,14 @@ import DashboardHeader from './components/layout/dashboard/Header'
 import landingRoutes from './routes/landing'
 import authRoutes from './routes/auth'
 import dashboardRoutes from './routes/dashboard'
+import adminRoutes from './routes/admin'
 import { ToastProvider } from './components/utils/Toast'
 import PageLoader from './components/utils/PageLoader'
 import TopToScroll from './utils/TopToScroll'
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true)
-  const allRoutes = [...landingRoutes, ...authRoutes, ...dashboardRoutes]
+  const allRoutes = [...landingRoutes, ...authRoutes, ...dashboardRoutes, ...adminRoutes]
   const routes = useRoutes(allRoutes)
   const location = useLocation()
 
@@ -26,6 +27,7 @@ const App = () => {
     '/create-new-password',
   ].includes(location.pathname)
   const isDashboardRoute = location.pathname.startsWith('/dashboard')
+  const isAdminRoute = location.pathname.startsWith('/admin')
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1500)
@@ -50,10 +52,10 @@ const App = () => {
       <TopToScroll />
       <div className='min-h-screen bg-page text-text flex flex-col justify-between'>
         <div>
-          {!isAuthRoute && (isDashboardRoute ? <DashboardHeader /> : <Header />)}
+          {!isAuthRoute && !isAdminRoute && (isDashboardRoute ? <DashboardHeader /> : <Header />)}
           {routes}
         </div>
-        {!isAuthRoute && <Footer />}
+        {!isAuthRoute && !isAdminRoute && <Footer />}
         <ToastProvider />
       </div>
     </>
