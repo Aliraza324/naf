@@ -72,7 +72,7 @@ const Category = () => {
   const [filters, setFilters] = useState({
     name: '',
     product: '',
-    subCategory: '',
+    category: '',
   })
   const [form, setForm] = useState({
     name: '',
@@ -93,13 +93,10 @@ const Category = () => {
       const matchesName = category.name.toLowerCase().includes(filters.name.toLowerCase())
       const matchesProducts =
         !filters.product || String(category.products).includes(filters.product.trim())
-      const matchesSubCategory =
-        !filters.subCategory ||
-        category.subCategories.some((item) =>
-          item.toLowerCase().includes(filters.subCategory.toLowerCase()),
-        )
+      const matchesCategory =
+        !filters.category || category.name.toLowerCase() === filters.category.toLowerCase()
 
-      return matchesName && matchesProducts && matchesSubCategory
+      return matchesName && matchesProducts && matchesCategory
     })
   }, [categories, filters])
 
@@ -262,15 +259,20 @@ const Category = () => {
           </label>
 
           <label className="flex min-h-12 items-center gap-3 rounded border border-white/10 bg-[#111111] px-4 transition focus-within:border-neutral-600">
-            <input
-              type="text"
-              name="subCategory"
-              value={filters.subCategory}
+            <select
+              name="category"
+              value={filters.category}
               onChange={handleFilterChange}
-              placeholder="Search by Sub Categories"
-              className="min-w-0 flex-1 bg-transparent text-sm text-white outline-none placeholder:text-neutral-500"
-            />
-            <ChevronDown className="h-4 w-4 shrink-0 text-neutral-500" />
+              className="min-w-0 flex-1 bg-transparent text-sm text-white outline-none appearance-none cursor-pointer"
+            >
+              <option value="" className="bg-[#111111] text-neutral-400">All Categories</option>
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.name} className="bg-[#111111] text-white">
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="h-4 w-4 shrink-0 text-neutral-500 pointer-events-none" />
           </label>
 
           <button
