@@ -19,7 +19,7 @@ const SaideBar = ({ isOpen, onClose }) => {
     { icon: Folder, label: 'Categories', path: '/admin/categories' },
     { icon: Package, label: 'Products', path: '/admin/products', avatar: true },
     { icon: ShoppingCart, label: 'Orders', path: '/admin/orders' },
-    { icon: CreditCard, label: 'Payments', path: '/admin/payments' },
+    { icon: CreditCard, label: 'Payments', path: '/admin/payment' },
   ]
 
   const systemItems = [

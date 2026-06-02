@@ -6,6 +6,8 @@ import DealersName from '../pages/admindashboard/DealersName'
 import Categorizes from '../pages/admindashboard/Categorizes'
 import Orders from '../pages/admindashboard/Orders'
 import OrderView from '../pages/admindashboard/OrderView'
+import Payment from '../pages/admindashboard/Payment'
+import PaymentDetails from '../pages/admindashboard/PaymentDetails'
 
 const adminRoutes = [
   {
@@ -36,6 +38,15 @@ const adminRoutes = [
         path: 'orders/:id',
         element: createElement(OrderView),
       },
+      {
+        path: 'payment',
+        element: createElement(Payment),
+      }
+      ,
+      {
+        path: 'payment/:id',
+        element: createElement(PaymentDetails),
+      }
     ],
   },
 ]
