@@ -11,6 +11,7 @@ import {
   Headphones,
   X,
 } from 'lucide-react'
+import logo from '../../../assets/images/logo.svg'
 
 const SaideBar = ({ isOpen, onClose }) => {
   const menuItems = [
@@ -49,15 +50,7 @@ const SaideBar = ({ isOpen, onClose }) => {
           <div className="flex items-center justify-between gap-3 p-6">
             <div className="flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center">
-                <svg viewBox="0 0 24 24" fill="none" className="h-8 w-8 text-red-600">
-                  <path
-                    d="M13 2L3 14H12L11 22L21 10H12L13 2Z"
-                    fill="currentColor"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+              <img src={logo} alt="" />
               </div>
               <span className="text-lg font-bold tracking-wider text-white">NAF Supply</span>
             </div>
