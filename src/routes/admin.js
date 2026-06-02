@@ -8,6 +8,9 @@ import Orders from '../pages/admindashboard/Orders'
 import OrderView from '../pages/admindashboard/OrderView'
 import Payment from '../pages/admindashboard/Payment'
 import PaymentDetails from '../pages/admindashboard/PaymentDetails'
+import Products from '../pages/admindashboard/products/Products'
+import ProductsView from '../pages/admindashboard/products/ProductsView'
+import AddProduct from '../pages/admindashboard/products/AddProduct'
 
 const adminRoutes = [
   {
@@ -41,11 +44,22 @@ const adminRoutes = [
       {
         path: 'payment',
         element: createElement(Payment),
-      }
-      ,
+      },
       {
         path: 'payment/:id',
         element: createElement(PaymentDetails),
+      },
+      {
+        path: 'products',
+        element: createElement(Products),
+      },
+      {
+        path: 'products/add',
+        element: createElement(AddProduct),
+      },
+      {
+        path: 'products/:id',
+        element: createElement(ProductsView),
       }
     ],
   },
