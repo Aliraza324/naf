@@ -13,6 +13,7 @@ import {
   ShieldCheck,
 } from 'lucide-react'
 import { loginRequest, loginSuccess, loginFailure, selectAuthLoading, selectAuthError } from '../../features/auth/authSlice'
+import toast from '../../utils/toast'
 import authImg from '../../assets/images/auth.png'
 import logo from '../../assets/images/logo.svg'
 
@@ -79,29 +80,57 @@ const Login = () => {
       return
     }
 
-    const validEmail = 'naf@gmail.com'
-    const validPassword = 'naf1234'
+    const adminCredentials = {
+      email: 'naf@gmail.com',
+      password: 'naf1234',
+    }
+    const userCredentials = {
+      email: 'user@gmail.com',
+      password: 'user1234',
+    }
 
-    if (formData.email !== validEmail || formData.password !== validPassword) {
+    let redirectPath = null
+    let loggedInUser = null
+
+    if (
+      formData.email === adminCredentials.email &&
+      formData.password === adminCredentials.password
+    ) {
+      redirectPath = '/admin'
+      loggedInUser = {
+        id: '1',
+        email: formData.email,
+        name: formData.email.split('@')[0],
+        role: 'admin',
+      }
+    } else if (
+      formData.email === userCredentials.email &&
+      formData.password === userCredentials.password
+    ) {
+      redirectPath = '/dashboard'
+      loggedInUser = {
+        id: '2',
+        email: formData.email,
+        name: formData.email.split('@')[0],
+        role: 'user',
+      }
+    }
+
+    if (!redirectPath || !loggedInUser) {
       dispatch(loginFailure('Invalid email or password'))
+      toast.error('Invalid email or password')
       setSuccessMessage('')
       return
     }
 
-    const adminUser = {
-      id: '1',
-      email: formData.email,
-      name: formData.email.split('@')[0],
-      role: 'admin',
-    }
-
     dispatch(loginRequest())
-    dispatch(loginSuccess(adminUser))
-    setSuccessMessage('Login successful! Redirecting to admin dashboard...')
+    dispatch(loginSuccess(loggedInUser))
+    toast.success(`Logged in as ${loggedInUser.role === 'admin' ? 'admin' : 'user'} successfully!`)
+    setSuccessMessage(`Login successful! Redirecting to ${loggedInUser.role === 'admin' ? 'admin' : 'user'} dashboard...`)
     setValidationErrors({})
 
     setTimeout(() => {
-      navigate('/admin', { replace: true })
+      navigate(redirectPath, { replace: true })
     }, 800)
   }
 
