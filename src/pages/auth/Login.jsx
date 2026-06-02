@@ -12,7 +12,7 @@ import {
   Mail,
   ShieldCheck,
 } from 'lucide-react'
-import { loginSuccess, selectAuthLoading, selectAuthError } from '../../features/auth/authSlice'
+import { loginRequest, loginSuccess, loginFailure, selectAuthLoading, selectAuthError } from '../../features/auth/authSlice'
 import authImg from '../../assets/images/auth.png'
 import logo from '../../assets/images/logo.svg'
 
@@ -79,23 +79,30 @@ const Login = () => {
       return
     }
 
-    try {
-      const mockUser = {
-        id: '1',
-        email: formData.email,
-        name: formData.email.split('@')[0],
-      }
+    const validEmail = 'naf@gmail.com'
+    const validPassword = 'naf1234'
 
-      dispatch(loginSuccess(mockUser))
-      setSuccessMessage('Login successful! Redirecting...')
-      setValidationErrors({})
-
-      setTimeout(() => {
-        navigate('/')
-      }, 1500)
-    } catch (err) {
+    if (formData.email !== validEmail || formData.password !== validPassword) {
+      dispatch(loginFailure('Invalid email or password'))
       setSuccessMessage('')
+      return
     }
+
+    const adminUser = {
+      id: '1',
+      email: formData.email,
+      name: formData.email.split('@')[0],
+      role: 'admin',
+    }
+
+    dispatch(loginRequest())
+    dispatch(loginSuccess(adminUser))
+    setSuccessMessage('Login successful! Redirecting to admin dashboard...')
+    setValidationErrors({})
+
+    setTimeout(() => {
+      navigate('/admin', { replace: true })
+    }, 800)
   }
 
   return (
