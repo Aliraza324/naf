@@ -4,6 +4,7 @@ import logo from '../../assets/images/logo.svg'
 import { motion } from 'framer-motion'
 import { fadeInUp, staggerContainer } from '../../animations/animations'
 import Company from '../../assets/images/company.png'
+import { arsenalLinks, companyLinks } from '../../data/footerLinks'
 import visa from '../../assets/images/visa.svg'
 import master from '../../assets/images/master.svg'
 import ex from '../../assets/images/ex.svg'
@@ -125,14 +126,14 @@ const Footer = () => {
                                     Arsenal
                                 </h4>
                                 <nav className="flex flex-col gap-3 text-sm text-white/40">
-                                    {['Paintballs', 'Goggles & Masks', 'Tactical Gloves', 'Team Jerseys'].map((item) => (
-                                        <a
-                                            key={item}
-                                            href={`#${item.toLowerCase().replaceAll(' ', '-')}`}
+                                    {arsenalLinks.map((item) => (
+                                        <Link
+                                            key={item.slug}
+                                            to={`/collections/${item.slug}`}
                                             className="w-fit max-w-full break-words hover:text-primary transition-colors duration-200"
                                         >
-                                            {item}
-                                        </a>
+                                            {item.label}
+                                        </Link>
                                     ))}
                                 </nav>
                             </div>
@@ -143,14 +144,14 @@ const Footer = () => {
                                     Company
                                 </h4>
                                 <nav className="flex flex-col gap-3 text-sm text-white/40">
-                                    {['Our Mission', 'Contact Us', 'Privacy Protocol', 'Terms of Engagement'].map((item) => (
-                                        <a
-                                            key={item}
-                                            href={`#${item.toLowerCase().replaceAll(' ', '-')}`}
+                                    {companyLinks.map((item) => (
+                                        <Link
+                                            key={item.slug}
+                                            to={`/${item.slug}`}
                                             className="w-fit max-w-full break-words hover:text-primary transition-colors duration-200"
                                         >
-                                            {item}
-                                        </a>
+                                            {item.label}
+                                        </Link>
                                     ))}
                                 </nav>
                             </div>
