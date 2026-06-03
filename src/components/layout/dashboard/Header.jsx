@@ -137,7 +137,7 @@ const Header = () => {
 
           <form
             onSubmit={(event) => event.preventDefault()}
-            className="order-3 col-span-3 flex h-11 min-w-0 items-center rounded-full border border-white/12 bg-white/[0.06] pl-4 shadow-inner shadow-white/[0.03] sm:order-none sm:col-span-1 sm:mx-auto sm:h-12 sm:max-w-[560px] lg:max-w-[650px]"
+            className="order-3 col-span-3 flex h-11 min-w-0 w-full items-center rounded-full border border-white/12 bg-white/[0.06] pl-4 shadow-inner shadow-white/[0.03] sm:order-none sm:col-span-1 sm:w-[60%] sm:mx-auto sm:h-12"
           >
             <label htmlFor="dashboard-search" className="sr-only">
               Search tactical gear

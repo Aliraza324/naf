@@ -234,22 +234,14 @@ const Login = () => {
                 </div>
 
                 <div>
-                  <div className='mb-2.5 flex items-center justify-between gap-4'>
+                  <div>
                     <label
                       htmlFor='password'
-                      className='text-[9px] font-black uppercase tracking-[0.28em] text-primary'
+                      className='mb-2.5 block text-[9px] font-black uppercase tracking-[0.28em] text-primary'
                     >
                       Encryption Key
                     </label>
-                    <button
-                      type='button'
-                      onClick={() => navigate('/forgot-password')}
-                      className='text-[8px] font-black uppercase tracking-[0.16em] text-white/35 transition hover:text-primary'
-                    >
-                      Forgot?
-                    </button>
-                  </div>
-                  <div className='relative'>
+                    <div className='relative'>
                     <Lock className='absolute left-4 top-1/2 size-3.5 -translate-y-1/2 text-white/28' />
                     <input
                       type={showPassword ? 'text' : 'password'}
@@ -272,10 +264,21 @@ const Login = () => {
                     >
                       {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
                     </button>
+                    </div>
+                    {validationErrors.password && (
+                      <p className='mt-2 text-xs text-primary'>{validationErrors.password}</p>
+                    )}
+
+                    <div className='mt-2 flex justify-end'>
+                      <button
+                        type='button'
+                        onClick={() => navigate('/forgot-password')}
+                        className='text-[10px] font-black uppercase tracking-[0.16em] text-white/35 transition hover:text-primary'
+                      >
+                        Forgot?
+                      </button>
+                    </div>
                   </div>
-                  {validationErrors.password && (
-                    <p className='mt-2 text-xs text-primary'>{validationErrors.password}</p>
-                  )}
                 </div>
 
                 <div className='flex items-center gap-3'>

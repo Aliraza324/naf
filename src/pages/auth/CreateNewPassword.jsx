@@ -43,29 +43,32 @@ const CreateNewPassword = () => {
     const isVisible = visible[name]
 
     return (
-      <div className='relative'>
-        <Lock className='absolute left-4 top-1/2 size-4 -translate-y-1/2 text-white/70' />
-        <input
-          type={isVisible ? 'text' : 'password'}
-          name={name}
-          value={passwords[name]}
-          onChange={handleChange}
-          placeholder={placeholder}
-          className='h-11 w-full rounded-[6px] border border-white/8 bg-[#252527] pl-10 pr-11 text-xs font-medium text-white outline-none transition placeholder:text-white/45 focus:border-primary/80'
-        />
-        <button
-          type='button'
-          onClick={() =>
-            setVisible((current) => ({
-              ...current,
-              [name]: !current[name],
-            }))
-          }
-          aria-label={isVisible ? 'Hide password' : 'Show password'}
-          className='absolute right-4 top-1/2 -translate-y-1/2 text-white/45 transition hover:text-white'
-        >
-          {isVisible ? <EyeOff size={17} /> : <Eye size={17} />}
-        </button>
+      <div>
+        <label className='mb-2.5 block text-xs font-medium text-white/75'> {placeholder} </label>
+        <div className='relative'>
+          <Lock size={14} className='absolute left-4 top-1/2 -translate-y-1/2 text-white/70' />
+          <input
+            type={isVisible ? 'text' : 'password'}
+            name={name}
+            value={passwords[name]}
+            onChange={handleChange}
+            placeholder={placeholder}
+            className='h-11 w-full rounded-[6px] border border-white/8 bg-[#252527] pl-10 pr-11 text-xs font-medium text-white outline-none transition placeholder:text-white/45 focus:border-primary/80'
+          />
+          <button
+            type='button'
+            onClick={() =>
+              setVisible((current) => ({
+                ...current,
+                [name]: !current[name],
+              }))
+            }
+            aria-label={isVisible ? 'Hide password' : 'Show password'}
+            className='absolute right-4 top-1/2 -translate-y-1/2 text-white/45 transition hover:text-white'
+          >
+            {isVisible ? <EyeOff size={15} /> : <Eye size={15} />}
+          </button>
+        </div>
       </div>
     )
   }
@@ -107,7 +110,7 @@ const CreateNewPassword = () => {
 
               <button
                 type='submit'
-                className='mt-7 h-11 w-full rounded-[6px] bg-primary text-xs font-black text-white shadow-[0_10px_24px_rgba(232,12,12,0.22)] transition hover:bg-primary-hover active:translate-y-0.5'
+                className='mt-7 h-11 w-full rounded-[6px] bg-primary text-xs font-black text-white shadow-[0_10px_24px_rgba(232,12,12,0.22)] transition active:translate-y-0.5'
               >
                 Continue
               </button>

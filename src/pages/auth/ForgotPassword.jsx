@@ -63,9 +63,12 @@ const ForgotPassword = () => {
             </div>
 
             <form onSubmit={handleSubmit} className='mt-9'>
+              <label htmlFor='forgotEmail' className='mb-2.5 block text-xs font-medium text-white/75'> Enter Email </label>
+
               <div className='relative'>
-                <Mail className='absolute left-4 top-1/2 size-4 -translate-y-1/2 text-white/70' />
+                <Mail size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-white/70' />
                 <input
+                  id='forgotEmail'
                   type='email'
                   value={email}
                   onChange={(event) => {
