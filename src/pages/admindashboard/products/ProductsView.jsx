@@ -5,6 +5,7 @@ import MoreDetailsTable from '../../../components/admindashboard/product/MoreDet
 const ProductsView = () => {
   return (
     <div className="space-y-6">
+      {/* abhvbsivbs */}
       <MoreDetails />
       <div className="mx-auto w-full max-w-7xl px-4 pb-12">
         <MoreDetailsTable />
