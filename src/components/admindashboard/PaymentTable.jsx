@@ -48,9 +48,9 @@ const transactions = [
 ]
 
 const methodIcon = {
-    Visa: <FaCcVisa className="h-4 w-4 text-blue-400" />,
-    PayPal: <FaCcPaypal className="h-4 w-4 text-sky-400" />,
-    Mastercard: <FaCcMastercard className="h-4 w-4 text-orange-400" />,
+    Visa: <FaCcVisa className="h-4 w-4 text-red-500" />,
+    PayPal: <FaCcPaypal className="h-4 w-4 text-red-500" />,
+    Mastercard: <FaCcMastercard className="h-4 w-4 text-red-500" />,
 }
 
 const PaymentTable = () => {
@@ -76,9 +76,9 @@ const PaymentTable = () => {
 
     return (
         <div className="space-y-4 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="rounded-2xl border border-neutral-800 bg-[#0f1117] p-3 shadow-sm shadow-black/20">
+            <div className="rounded-2xl border border-white/5 bg-[#141414] p-3 shadow-sm shadow-black/20">
                 <div className="grid gap-3 lg:grid-cols-[1.8fr_1.8fr_1.4fr_auto]">
-                    <label className="group relative block rounded-xl border border-neutral-800 bg-neutral-950 px-4 py-2 text-sm text-neutral-300 focus-within:border-red-500">
+                    <label className="group relative block rounded-xl border border-white/10 bg-[#111111] px-4 py-2 text-sm text-neutral-300 focus-within:border-red-500">
                         <AiOutlineSearch className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500" />
                         <input
                             type="text"
@@ -89,7 +89,7 @@ const PaymentTable = () => {
                         />
                     </label>
 
-                    <label className="group relative block rounded-xl border border-neutral-800 bg-neutral-950 px-4 py-2 text-sm text-neutral-300 focus-within:border-red-500">
+                    <label className="group relative block rounded-xl border border-white/10 bg-[#111111] px-4 py-2 text-sm text-neutral-300 focus-within:border-red-500">
                         <AiOutlineSearch className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500" />
                         <input
                             type="text"
@@ -100,16 +100,16 @@ const PaymentTable = () => {
                         />
                     </label>
 
-                    <label className="relative block rounded-xl border border-neutral-800 bg-neutral-950 px-4 py-2 text-sm text-neutral-300 focus-within:border-red-500">
+                    <label className="relative block rounded-xl border border-white/10 bg-[#111111] px-4 py-2 text-sm text-neutral-300 focus-within:border-red-500">
                         <select
                             value={methodFilter}
                             onChange={(event) => setMethodFilter(event.target.value)}
                             className="w-full bg-transparent text-sm text-white outline-none appearance-none cursor-pointer"
                         >
-                            <option value="All Methods" className="bg-[#0f1117] text-neutral-400">Search by Method</option>
-                            <option value="Visa" className="bg-[#0f1117] text-white">Visa</option>
-                            <option value="PayPal" className="bg-[#0f1117] text-white">PayPal</option>
-                            <option value="Mastercard" className="bg-[#0f1117] text-white">Mastercard</option>
+                            <option value="All Methods" className="bg-[#141414] text-neutral-400">Search by Method</option>
+                            <option value="Visa" className="bg-[#141414] text-white">Visa</option>
+                            <option value="PayPal" className="bg-[#141414] text-white">PayPal</option>
+                            <option value="Mastercard" className="bg-[#141414] text-white">Mastercard</option>
                         </select>
                     </label>
 
@@ -119,14 +119,14 @@ const PaymentTable = () => {
                 </div>
             </div>
 
-            <div className="rounded-2xl border border-neutral-800 bg-[#0f1117] overflow-hidden shadow-sm shadow-black/20">
-                <div className="border-b border-neutral-800 px-5 py-3">
+            <div className="rounded-2xl border border-white/5 bg-[#141414] overflow-hidden shadow-sm shadow-black/20">
+                <div className="border-b border-white/5 px-5 py-3">
                     <h2 className="text-base font-semibold text-white">Transaction Log</h2>
                 </div>
 
                 <div className="overflow-x-auto">
                     <table className="min-w-190 w-full text-left text-xs">
-                        <thead className="bg-[#131722] text-[10px] uppercase tracking-[0.24em] text-neutral-500">
+                        <thead className="bg-[#111111] text-[10px] uppercase tracking-[0.24em] text-neutral-500">
                             <tr>
                                 <th className="px-5 py-3">Transaction ID</th>
                                 <th className="px-5 py-3">Customer</th>
@@ -139,7 +139,7 @@ const PaymentTable = () => {
                         </thead>
                         <tbody>
                             {filteredTransactions.map((transaction) => (
-                                <tr key={transaction.id} className="border-b border-neutral-800 transition hover:bg-neutral-950">
+                                <tr key={transaction.id} className="border-b border-white/5 transition hover:bg-white/[0.02]">
                                     <td className="px-5 py-3 text-neutral-300">{transaction.id}</td>
                                     <td className="px-5 py-3">
                                         <div className="flex items-center gap-2">
@@ -165,7 +165,7 @@ const PaymentTable = () => {
                                         </div>
                                     </td>
                                     <td className="px-5 py-3">
-                                        <span className="inline-flex rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-400">
+                                        <span className="inline-flex rounded-full border border-red-500/20 bg-red-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-red-500">
                                             {transaction.status}
                                         </span>
                                     </td>
@@ -174,11 +174,11 @@ const PaymentTable = () => {
                                         <div className="flex items-center gap-2 text-neutral-400">
                                             <button
                                                 onClick={() => navigate(`/admin/payment/${transaction.id}`)}
-                                                className="rounded-lg p-1.5 hover:bg-neutral-900/80 "
+                                                className="rounded-lg p-1.5 transition hover:bg-white/5 hover:text-white"
                                             >
                                                 <AiOutlineEye size={16} />
                                             </button>
-                                            <button className="rounded-lg p-1.5 hover:bg-neutral-900/80">
+                                            <button className="rounded-lg p-1.5 transition hover:bg-white/5 hover:text-red-500">
                                                 <AiOutlineDelete size={16} />
                                             </button>
                                         </div>

@@ -20,7 +20,7 @@ const OrderDetails = () => {
         <div className="mb-6">
           <h1 className="text-3xl font-bold">Order #5680</h1>
 
-          <div className="flex flex-wrap items-center gap-3 mt-2 text-sm text-gray-400">
+          <div className="flex flex-wrap items-center gap-3 mt-2 text-sm text-neutral-500">
             <span>Oct 24, 2023 at 2:30 PM</span>
 
             <span className="px-3 py-1 rounded-full bg-red-500/20 text-red-500 border border-red-500/20">
@@ -35,8 +35,8 @@ const OrderDetails = () => {
             {/* Top Cards */}
             <div className="grid md:grid-cols-2 gap-6">
               {/* Customer */}
-              <div className="bg-[#0f1117] border border-gray-800 rounded-xl p-5">
-                <h3 className="text-sm uppercase text-gray-400 mb-4 flex items-center gap-2">
+              <div className="bg-[#141414] border border-white/5 rounded-xl p-5">
+                <h3 className="text-sm uppercase text-neutral-500 mb-4 flex items-center gap-2">
                   <FaUser />
                   Customer Info
                 </h3>
@@ -53,11 +53,11 @@ const OrderDetails = () => {
                       Marcus Reynolds
                     </h4>
 
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-neutral-500 text-sm">
                       m.reynolds@example.com
                     </p>
 
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-neutral-500 text-sm">
                       +1 (555) 019-2834
                     </p>
                   </div>
@@ -65,13 +65,13 @@ const OrderDetails = () => {
               </div>
 
               {/* Address */}
-              <div className="bg-[#0f1117] border border-gray-800 rounded-xl p-5">
-                <h3 className="text-sm uppercase text-gray-400 mb-4 flex items-center gap-2">
+              <div className="bg-[#141414] border border-white/5 rounded-xl p-5">
+                <h3 className="text-sm uppercase text-neutral-500 mb-4 flex items-center gap-2">
                   <FaMapMarkerAlt />
                   Shipping Address
                 </h3>
 
-                <div className="space-y-1 text-gray-300">
+                <div className="space-y-1 text-neutral-300">
                   <p>Marcus Reynolds</p>
                   <p>1284 Tactical Way, Suite 300</p>
                   <p>Austin, TX 78701</p>
@@ -81,15 +81,15 @@ const OrderDetails = () => {
             </div>
 
             {/* Order Items */}
-            <div className="bg-[#0f1117] border border-gray-800 rounded-xl overflow-hidden">
-              <div className="p-5 border-b border-gray-800">
+            <div className="bg-[#141414] border border-white/5 rounded-xl overflow-hidden">
+              <div className="p-5 border-b border-white/5">
                 <h2 className="font-semibold text-lg">Order Items</h2>
               </div>
 
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[640px]">
                   <thead>
-                    <tr className="bg-[#131722] text-gray-400 text-sm">
+                    <tr className="bg-[#111111] text-neutral-500 text-sm">
                       <th className="text-left p-3">Product</th>
                       <th className="text-left p-3">SKU</th>
                       <th className="text-left p-3">Price</th>
@@ -128,10 +128,10 @@ const OrderDetails = () => {
                         image: productThree,
                       },
                     ].map((item, index) => (
-                      <tr key={index} className="border-t border-gray-800">
+                      <tr key={index} className="border-t border-white/5">
                         <td className="p-3">
                           <div className="flex items-center gap-3">
-                            <div className="h-12 w-12 shrink-0 overflow-hidden rounded-md bg-gray-800">
+                            <div className="h-12 w-12 shrink-0 overflow-hidden rounded-md bg-[#1a1a1a]">
                               <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
                             </div>
                             <div>
@@ -140,8 +140,8 @@ const OrderDetails = () => {
                             </div>
                           </div>
                         </td>
-                        <td className="p-3 text-gray-400 text-[10px]">{item.sku}</td>
-                        <td className="p-3 text-gray-400 text-[10px]">{item.price}</td>
+                        <td className="p-3 text-neutral-500 text-[10px]">{item.sku}</td>
+                        <td className="p-3 text-neutral-500 text-[10px]">{item.price}</td>
                         <td className="p-3 text-[10px]">{item.qty}</td>
                         <td className="p-3 text-right font-medium text-[10px]">{item.total}</td>
                       </tr>
@@ -154,28 +154,28 @@ const OrderDetails = () => {
             {/* Bottom Cards */}
             <div className="grid md:grid-cols-2 gap-6">
               {/* Shipping */}
-              <div className="bg-[#0f1117] border border-gray-800 rounded-xl p-5">
-                <h3 className="text-sm uppercase text-gray-400 mb-4 flex items-center gap-2">
+              <div className="bg-[#141414] border border-white/5 rounded-xl p-5">
+                <h3 className="text-sm uppercase text-neutral-500 mb-4 flex items-center gap-2">
                   <FaTruck />
                   Shipping Info
                 </h3>
 
                 <div className="space-y-4">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Method</span>
+                    <span className="text-neutral-500">Method</span>
                     <span>FedEx Priority</span>
                   </div>
 
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Tracking</span>
+                    <span className="text-neutral-500">Tracking</span>
                     <span className="text-red-500">
                       772839401283
                     </span>
                   </div>
 
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Status</span>
-                    <span className="text-yellow-400">
+                    <span className="text-neutral-500">Status</span>
+                    <span className="text-red-500">
                       In Transit
                     </span>
                   </div>
@@ -183,27 +183,27 @@ const OrderDetails = () => {
               </div>
 
               {/* Payment */}
-              <div className="bg-[#0f1117] border border-gray-800 rounded-xl p-5">
-                <h3 className="text-sm uppercase text-gray-400 mb-4 flex items-center gap-2">
+              <div className="bg-[#141414] border border-white/5 rounded-xl p-5">
+                <h3 className="text-sm uppercase text-neutral-500 mb-4 flex items-center gap-2">
                   <FaCreditCard />
                   Payment Details
                 </h3>
 
                 <div className="space-y-4">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Method</span>
+                    <span className="text-neutral-500">Method</span>
                     <span>Visa **** 4242</span>
                   </div>
 
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Status</span>
-                    <span className="text-green-500">
+                    <span className="text-neutral-500">Status</span>
+                    <span className="text-red-500">
                       Paid
                     </span>
                   </div>
 
                   <div className="flex justify-between">
-                    <span className="text-gray-400">
+                    <span className="text-neutral-500">
                       Transaction
                     </span>
                     <span>txn_8932fd982</span>
@@ -213,12 +213,12 @@ const OrderDetails = () => {
             </div>
 
             {/* Notes */}
-            <div className="bg-[#0f1117] border-l border-yellow-500 rounded-xl p-5">
-              <h3 className="text-[#CA8A04] font-semibold mb-4">
+            <div className="bg-[#141414] border-l border-red-600 rounded-xl p-5">
+              <h3 className="text-red-500 font-semibold mb-4">
                 Internal Notes (Admin Only)
               </h3>
 
-              <p className="text-gray-300">
+              <p className="text-neutral-300">
                 Urgent Delivery: Customer requested expedited
                 processing for upcoming deployment. Ensure QA check
                 is prioritized.
@@ -228,7 +228,7 @@ const OrderDetails = () => {
 
           {/* RIGHT SIDE */}
           <div className="lg:col-span-4">
-            <div className="bg-[#0f1117] border border-gray-800 rounded-xl p-6 sticky top-5">
+            <div className="bg-[#141414] border border-white/5 rounded-xl p-6 sticky top-5">
               <div className="flex justify-between mb-8">
                 <div className="">
                   <div className="flex items-center gap-2 mb-1">
@@ -237,20 +237,20 @@ const OrderDetails = () => {
                       NAF Supply
                     </h2>
                   </div>
-                  <p className="text-gray-400 text-sm">
+                  <p className="text-neutral-500 text-sm">
                     Tactical Gear & Equipment
                   </p>
                 </div>
 
                 <div className="text-right">
-                  <p className="text-gray-400 text-sm">
+                  <p className="text-neutral-500 text-sm">
                     Invoice
                   </p>
                   <p className="font-semibold">INV-5680</p>
                 </div>
               </div>
 
-              <div className="space-y-3 text-sm border-b border-gray-800 pb-6">
+              <div className="space-y-3 text-sm border-b border-white/5 pb-6">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
                   <span>$1240.00</span>
@@ -266,7 +266,7 @@ const OrderDetails = () => {
                   <span>$45.00</span>
                 </div>
 
-                <div className="flex justify-between text-green-500">
+                <div className="flex justify-between text-red-500">
                   <span>Discount</span>
                   <span>-$124.00</span>
                 </div>
@@ -283,7 +283,7 @@ const OrderDetails = () => {
                   Download Invoice
                 </button>
 
-                <button className="w-full border border-gray-700 py-3 rounded-lg flex items-center justify-center gap-2">
+                <button className="w-full border border-white/10 py-3 rounded-lg flex items-center justify-center gap-2 text-neutral-300 transition hover:border-red-600 hover:text-white">
                   <FaPrint />
                   Print Copy
                 </button>

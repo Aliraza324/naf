@@ -165,7 +165,7 @@ const DealerTable = () => {
         </div>
 
         {/* Table */}
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto whitespace-nowrap">
           <table className="min-w-[980px] w-full text-left border-collapse">
             <thead>
               <tr className="bg-[#1a1a1a] text-[11px] font-bold text-neutral-500 uppercase tracking-wider">
@@ -178,7 +178,7 @@ const DealerTable = () => {
                 <th className="py-4 px-6 font-semibold text-right">ACTIONS</th>
               </tr>
             </thead>
-            <tbody className="text-sm">
+            <tbody className="text-sm whitespace-nowrap">
               {dealers.map((dealer, i) => (
                 <tr key={i} className="border-b border-white/5 last:border-0 hover:bg-white/[0.02] transition-colors">
                   <td className="py-4 px-6">
@@ -199,7 +199,7 @@ const DealerTable = () => {
                   </td>
                   <td className="py-4 px-6 text-white font-medium">{dealer.orders}</td>
                   <td className="py-4 px-6 text-white font-medium">{dealer.spending}</td>
-                  <td className="py-4 px-6 text-neutral-400 text-xs">
+                  <td className="py-4 px-6 text-neutral-400 text-xs whitespace-nowrap">
                     {dealer.joined.split(',').map((part, idx) => (
                       <React.Fragment key={idx}>
                         {part}

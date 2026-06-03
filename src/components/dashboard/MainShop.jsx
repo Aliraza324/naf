@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { dashboardProducts } from '../../data/dashboardProducts'
 
 const maxProductPrice = 15000
@@ -211,11 +212,12 @@ export default function MainShop({ selectedProductId = null }) {
                       <span className="h-2 w-2 rounded-full bg-current" />
                       {product.stock}
                     </span>
-                    <button
+                    <Link
+                      to={`/product-details/${product.id}`}
                       className={`${product.orderBg} rounded px-4 py-2 text-xs font-bold uppercase tracking-widest text-white transition-colors`}
                     >
-                      ORDER
-                    </button>
+                      View Details
+                    </Link>
                   </div>
                 </div>
               </div>

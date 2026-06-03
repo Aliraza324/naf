@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Mail, Phone, User } from "lucide-react";
+import toast from "../../utils/toast";
 
 const tabs = [
   { key: "profile", label: "Profile Details" },
@@ -11,6 +12,7 @@ const tabs = [
 const Setting = () => {
   const [active, setActive] = useState("profile");
   const notificationList = [
+    "Email Notifications",
     "Order Updates",
     "Promotions & Offers",
     "Payment Alerts",
@@ -18,6 +20,7 @@ const Setting = () => {
   ];
 
   const [notificationSettings, setNotificationSettings] = useState({
+    "Email Notifications": true,
     "Order Updates": true,
     "Promotions & Offers": false,
     "Payment Alerts": true,
@@ -26,6 +29,10 @@ const Setting = () => {
 
   const toggleNotification = (key) =>
     setNotificationSettings((s) => ({ ...s, [key]: !s[key] }));
+
+  const handleSaveChanges = () => {
+    toast.success("Settings saved successfully");
+  };
 
   return (
     <div className="min-h-screen bg-black px-3 py-6 sm:px-8 sm:py-8 lg:px-12 text-white">
@@ -179,7 +186,11 @@ const Setting = () => {
                         </div>
 
                         <div className="mt-6 flex justify-end">
-                          <button className="bg-gradient-to-r from-red-600 to-red-500 px-6 py-3 rounded-full font-black uppercase tracking-wider text-white shadow-[0_8px_30px_rgba(232,12,12,0.35)]">
+                          <button
+                            type="button"
+                            onClick={handleSaveChanges}
+                            className="bg-gradient-to-r from-red-600 to-red-500 px-6 py-3 rounded-full font-black uppercase tracking-wider text-white shadow-[0_8px_30px_rgba(232,12,12,0.35)]"
+                          >
                             Save Changes
                           </button>
                         </div>
@@ -241,7 +252,11 @@ const Setting = () => {
                   </div>
 
                   <div className="mt-6 text-right">
-                    <button className="bg-gradient-to-r from-red-600 to-red-500 px-6 py-3 rounded-full font-black uppercase tracking-wider text-white shadow-[0_8px_30px_rgba(232,12,12,0.25)]">
+                    <button
+                      type="button"
+                      onClick={handleSaveChanges}
+                      className="bg-gradient-to-r from-red-600 to-red-500 px-6 py-3 rounded-full font-black uppercase tracking-wider text-white shadow-[0_8px_30px_rgba(232,12,12,0.25)]"
+                    >
                       Save Changes
                     </button>
                   </div>
@@ -292,7 +307,11 @@ const Setting = () => {
                   </div>
 
                   <div className="mt-6 text-right">
-                    <button className="bg-gradient-to-r from-red-600 to-red-500 px-6 py-3 rounded-full font-black uppercase tracking-wider text-white shadow-[0_8px_30px_rgba(232,12,12,0.25)]">
+                    <button
+                      type="button"
+                      onClick={handleSaveChanges}
+                      className="bg-gradient-to-r from-red-600 to-red-500 px-6 py-3 rounded-full font-black uppercase tracking-wider text-white shadow-[0_8px_30px_rgba(232,12,12,0.25)]"
+                    >
                       Save Changes
                     </button>
                   </div>
@@ -346,7 +365,11 @@ const Setting = () => {
                     </div>
 
                   <div className="mt-6 text-right">
-                    <button className="bg-gradient-to-r from-red-600 to-red-500 px-6 py-3 rounded-full font-black uppercase tracking-wider text-white shadow-[0_8px_30px_rgba(232,12,12,0.25)]">
+                    <button
+                      type="button"
+                      onClick={handleSaveChanges}
+                      className="bg-gradient-to-r from-red-600 to-red-500 px-6 py-3 rounded-full font-black uppercase tracking-wider text-white shadow-[0_8px_30px_rgba(232,12,12,0.25)]"
+                    >
                       Save Changes
                     </button>
                   </div>

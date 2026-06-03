@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { ShieldCheck, Star } from 'lucide-react'
 import smokeImage from '../../assets/images/smoke.png'
 import toast from '../../utils/toast'
@@ -74,6 +74,7 @@ const getTierQuantityMessage = (tier) => {
 
 const ProductsDetails = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { slug } = useParams()
     const [packQuantities, setPackQuantities] = useState(createInitialPackQuantities)
     const [selectedTier, setSelectedTier] = useState(null)
@@ -125,12 +126,10 @@ const ProductsDetails = () => {
         setQuantityError('')
     }
 
-    const handleAddToCart = (event) => {
-        event.preventDefault()
-
+    const addSelectedItemsToCart = () => {
         if (!selectedTier) {
             toast.warning('Please select the Volume Tier first')
-            return
+            return false
         }
 
         const cartItems = packMatrix.flatMap((row) =>
@@ -162,7 +161,7 @@ const ProductsDetails = () => {
 
         if (cartItems.length === 0) {
             toast.warning('Please enter a quantity before adding to cart')
-            return
+            return false
         }
 
         const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0)
@@ -172,11 +171,27 @@ const ProductsDetails = () => {
 
         if (isBelowTierMinimum || isAboveTierMaximum) {
             showQuantityError(getTierQuantityMessage(selectedTierDetails))
-            return
+            return false
         }
 
         dispatch(addItemsToCart(cartItems))
+        return true
+    }
+
+    const handleAddToCart = (event) => {
+        event.preventDefault()
+
+        if (!addSelectedItemsToCart()) return
+
         toast.success('Product added to cart')
+    }
+
+    const handleBuyNow = (event) => {
+        event.preventDefault()
+
+        if (!addSelectedItemsToCart()) return
+
+        navigate('/checkout')
     }
 
     return (
@@ -339,12 +354,13 @@ const ProductsDetails = () => {
                         >
                             Add To Cart
                         </button>
-                        <Link
-                            to='/checkout'
+                        <button
+                            type='button'
+                            onClick={handleBuyNow}
                             className='brand-red-gradient flex h-12 items-center justify-center rounded-[6px] px-10 text-xs font-black uppercase tracking-[0.12em] text-white shadow-[0_10px_26px_rgba(232,12,12,0.25)] transition active:translate-y-0.5 sm:h-14 sm:min-w-[190px]'
                         >
                             Buy Now
-                        </Link>
+                        </button>
                     </div>
 
                     <p className='mt-8 flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.18em] text-white/40'>

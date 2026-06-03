@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { RefreshCw } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import one from "../../assets/images/leaf.png"
 const tabs = ['All Orders', 'Pending', 'Delivered', 'Cancelled']
@@ -142,7 +143,8 @@ export default function OrderHistory() {
                     View Details
                   </button>
                   <button className="flex items-center gap-1 rounded-lg bg-red-600 px-3 py-1.5 text-xs font-bold tracking-wide text-white transition-colors hover:bg-red-700">
-                    <span>→</span> REORDER
+                    <RefreshCw size={13} strokeWidth={3} />
+                    REORDER
                   </button>
                 </div>
               </div>
