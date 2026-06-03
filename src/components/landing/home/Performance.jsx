@@ -78,7 +78,7 @@ const Performance = () => {
                             </span>
                         </div>
 
-                        {/* Main Stacked Heading */}
+                        {/* Main Stacked Headingsssssssss */}
                         <h3 className='font-display text-[clamp(2.5rem,5.5vw,4.5rem)] font-extrabold uppercase leading-[0.95] tracking-[0.01em] text-text-strong'>
                             <span className='block'>Velocity</span>
                             <span className='block'>Mask</span>
