@@ -36,7 +36,6 @@ const Login = () => {
   })
   const [showPassword, setShowPassword] = useState(false)
   const [validationErrors, setValidationErrors] = useState({})
-  const [successMessage, setSuccessMessage] = useState('')
 
   const validateForm = () => {
     const errors = {}
@@ -76,7 +75,6 @@ const Login = () => {
     event.preventDefault()
 
     if (!validateForm()) {
-      setSuccessMessage('')
       return
     }
 
@@ -107,7 +105,7 @@ const Login = () => {
       formData.email === userCredentials.email &&
       formData.password === userCredentials.password
     ) {
-      redirectPath = '/dashboard'
+      redirectPath = '/'
       loggedInUser = {
         id: '2',
         email: formData.email,
@@ -119,14 +117,12 @@ const Login = () => {
     if (!redirectPath || !loggedInUser) {
       dispatch(loginFailure('Invalid email or password'))
       toast.error('Invalid email or password')
-      setSuccessMessage('')
       return
     }
 
     dispatch(loginRequest())
     dispatch(loginSuccess(loggedInUser))
     toast.success(`Logged in as ${loggedInUser.role === 'admin' ? 'admin' : 'user'} successfully!`)
-    setSuccessMessage(`Login successful! Redirecting to ${loggedInUser.role === 'admin' ? 'admin' : 'user'} dashboard...`)
     setValidationErrors({})
 
     setTimeout(() => {
@@ -299,12 +295,6 @@ const Login = () => {
                 {error && (
                   <div className='rounded-[6px] border border-primary/40 bg-primary/10 p-3 text-xs text-primary'>
                     {error}
-                  </div>
-                )}
-
-                {successMessage && (
-                  <div className='rounded-[6px] border border-[#20db65]/40 bg-[#20db65]/10 p-3 text-xs text-[#20db65]'>
-                    {successMessage}
                   </div>
                 )}
 

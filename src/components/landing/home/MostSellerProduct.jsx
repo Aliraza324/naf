@@ -16,7 +16,10 @@ const MostSellerProduct = () => {
   const isInWishlist = (product) => wishlistItems.some((p) => p.id === product.id)
 
   return (
-    <section className='bg-page px-4 py-14 sm:py-16 lg:px-6 border-t border-white/5'>
+    <section
+      id='most-sale-products'
+      className='scroll-mt-20 bg-page px-4 py-14 sm:py-16 lg:px-6 border-t border-white/5'
+    >
       <div className='mx-auto max-w-[1180px]'>
         {/* Section Header */}
         <motion.div

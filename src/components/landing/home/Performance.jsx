@@ -1,11 +1,22 @@
 import { motion } from 'framer-motion'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import performanceImage from '../../../assets/images/performance.png'
 import { fadeInUp, scaleIn, staggerContainer } from '../../../animations/animations'
-import Toast from '../../utils/Toast'
+import { selectIsAuthenticated, showWelcomeModal } from '../../../features/auth/authSlice'
 
 const Performance = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const isAuthenticated = useSelector(selectIsAuthenticated)
+
     const handleExploreClick = () => {
-        Toast.success('Initiating tactical system brief: Velocity Mask System')
+        if (isAuthenticated) {
+            navigate('/dashboard/all-products')
+            return
+        }
+
+        dispatch(showWelcomeModal())
     }
 
     return (
@@ -82,6 +93,7 @@ const Performance = () => {
                         {/* Action Explore Button */}
                         <button
                             type='button'
+                            onClick={handleExploreClick}
                             className='mt-8 sm:mt-10 inline-flex h-12 sm:h-14 items-center justify-center bg-white px-8 text-xs font-black uppercase tracking-[0.12em] text-primary transition-all duration-300 rounded-[4px] shadow-lg hover:bg-primary hover:text-white hover:shadow-[0_4px_20px_rgba(232,12,12,0.3)] active:translate-y-[2px]'
                         >
                             Explore System

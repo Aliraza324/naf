@@ -1,10 +1,19 @@
 import { ChevronRight } from 'lucide-react'
 import heroImage from '../../../assets/images/heroimg.png'
-import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { fadeInUp, scaleIn, staggerContainer } from '../../../animations/animations'
 
 const Hero = () => {
+  const handleOrderClick = (event) => {
+    const target = document.getElementById('most-sale-products')
+
+    if (!target) return
+
+    event.preventDefault()
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    window.history.replaceState(null, '', '#most-sale-products')
+  }
+
   return (
     <section className='relative isolate min-h-[300px] overflow-hidden bg-page sm:min-h-[440px] lg:min-h-[484px]'>
       <div className='absolute inset-y-0 right-0 -z-10 w-full md:w-[64%]'>
@@ -62,8 +71,9 @@ const Hero = () => {
           </motion.p>
 
           <motion.div variants={fadeInUp} className='mt-6'>
-            <Link
-              to='#order'
+            <a
+              href='#most-sale-products'
+              onClick={handleOrderClick}
               className='brand-red-gradient hero-cta inline-flex h-11 items-center gap-2.5 bg-primary px-6 font-display uppercase text-text-strong shadow-[0_4px_0_var(--color-primary-pressed)] transition hover:bg-primary-hover active:translate-y-1 active:shadow-none sm:h-12 sm:px-7'
             >
               Order Now
@@ -71,7 +81,7 @@ const Hero = () => {
                 <ChevronRight size={18} strokeWidth={3} />
                 <ChevronRight size={18} strokeWidth={3} />
               </span>
-            </Link>
+            </a>
           </motion.div>
         </motion.div>
       </div>
