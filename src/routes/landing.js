@@ -8,6 +8,10 @@ import Blog from '../pages/landing/Blog'
 import BlogsDetails from '../pages/landing/BlogsDetails'
 import NewDrops from '../pages/landing/NewDrops'
 import Contact from '../pages/landing/Contact'
+import Collections from '../pages/landing/Collections'
+import TermsConditions from '../pages/footer/TermsConditions'
+import PrivacyPolicy from '../pages/footer/PrivacyPolicy'
+import OurMission from '../pages/footer/OurMission'
 
 const landingRoutes = [
   {
@@ -49,6 +53,30 @@ const landingRoutes = [
   {
     path: '/contact',
     element: createElement(Contact),
+  },
+  {
+    path: '/collections/:category',
+    element: createElement(Collections),
+  },
+  {
+    path: '/terms-of-engagement',
+    element: createElement(TermsConditions),
+  },
+  {
+    path: '/terms-conditions',
+    element: createElement(TermsConditions),
+  },
+  {
+    path: '/privacy-protocol',
+    element: createElement(PrivacyPolicy),
+  },
+  {
+    path: '/privacy-policy',
+    element: createElement(PrivacyPolicy),
+  },
+  {
+    path: '/our-mission',
+    element: createElement(OurMission),
   },
 ]
 
