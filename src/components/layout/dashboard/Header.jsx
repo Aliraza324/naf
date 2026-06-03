@@ -10,6 +10,7 @@ import {
   selectCartProductCount,
   selectCartSubtotal,
 } from '../../../features/cart/cartSlice'
+import { selectWishlistCount } from '../../../features/wishlist/wishlistSlice'
 
 const menuItems = [
   { label: 'Dashboard', href: '/dashboard' },
@@ -42,6 +43,7 @@ const Header = () => {
   const user = useSelector(selectUser)
   const cartProductCount = useSelector(selectCartProductCount)
   const cartSubtotal = useSelector(selectCartSubtotal)
+  const wishlistCount = useSelector(selectWishlistCount)
   const [isProfileOpen, setIsProfileOpen] = useState(false)
   const [isTopBarVisible, setIsTopBarVisible] = useState(true)
 
@@ -155,27 +157,24 @@ const Header = () => {
           </form>
 
           <div ref={dropdownRef} className="relative flex items-center justify-end gap-2 sm:gap-2.5 lg:gap-3">
-            <button
-              type="button"
+            <Link
+              to="/dashboard/wishlist"
               aria-label="Wishlist"
               className="relative grid size-9 shrink-0 place-items-center rounded-full bg-white/[0.07] text-white transition hover:bg-white/[0.11] hover:text-primary sm:size-10"
             >
               <Heart size={21} strokeWidth={2.1} />
               <span className="absolute -right-1 top-0 grid size-4 place-items-center rounded-full bg-primary text-[9px] font-black text-white">
-                0
+                {wishlistCount}
               </span>
-            </button>
+            </Link>
 
-            <button
-              type="button"
+            <Link
+              to="/dashboard/setting"
               aria-label="Settings quick link"
-              onClick={() => {
-                if (typeof window !== 'undefined') window.location.hash = '#sym:SystemSetting'
-              }}
               className="grid size-9 shrink-0 place-items-center rounded-full bg-white/[0.03] text-white transition hover:bg-white/[0.08] sm:size-10"
             >
               <Settings size={18} />
-            </button>
+            </Link>
 
             <Link
               to="/cart"

@@ -11,6 +11,7 @@ import adminRoutes from './routes/admin'
 import { ToastProvider } from './components/utils/Toast'
 import PageLoader from './components/utils/PageLoader'
 import TopToScroll from './utils/TopToScroll'
+import WelcomeModal from './components/modal/WelcomeModal'
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -58,6 +59,7 @@ const App = () => {
         {!isAuthRoute && !isAdminRoute && <Footer />}
         <ToastProvider />
       </div>
+      {!isAuthRoute && !isAdminRoute && <WelcomeModal />}
     </>
   )
 }
