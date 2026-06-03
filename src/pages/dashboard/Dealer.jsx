@@ -5,8 +5,8 @@ import RecentOrder from '../../components/dashboard/RecentOrder'
 const Dealer = () => {
   return (
     <div>
-        <DealerDashboard/>
-        <RecentOrder/>
+      <DealerDashboard />
+      <RecentOrder />
     </div>
   )
 }
