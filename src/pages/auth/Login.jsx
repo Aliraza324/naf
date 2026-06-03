@@ -305,13 +305,6 @@ const Login = () => {
                 >
                   {loading ? 'Authenticating...' : 'Login To NAF'}
                 </button>
-
-                <p className='mt-4 text-center text-[11px] uppercase tracking-[0.18em] text-white/60'>
-                  New here?{' '}
-                  <Link to='/register' className='text-primary transition hover:text-white'>
-                    Register
-                  </Link>
-                </p>
               </form>
             </div>
 
