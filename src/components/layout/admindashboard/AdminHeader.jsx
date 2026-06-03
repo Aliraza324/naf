@@ -1,7 +1,22 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { Search, Bell, ChevronDown, Menu, X } from 'lucide-react'
+import { logout, selectUser } from '../../../features/auth/authSlice'
 
 const AdminHeader = ({ isSidebarOpen, onToggleSidebar }) => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const user = useSelector(selectUser)
+
+  const handleSignOut = () => {
+    dispatch(logout())
+    navigate('/login', { replace: true })
+  }
+
+  const userName = user?.name || 'Commander'
+  const userRole = user?.role || 'Admin Level 5'
+
   return (
     <header className="flex items-center justify-between gap-4 px-4 py-4 border-b border-white/5 bg-[#0a0a0a] sm:px-8">
       <div className="flex flex-1 items-center gap-3">
@@ -31,12 +46,19 @@ const AdminHeader = ({ isSidebarOpen, onToggleSidebar }) => {
         </button>
         <div className="flex items-center gap-3 cursor-pointer group">
           <div className="hidden text-right sm:block">
-            <p className="text-sm font-semibold text-white group-hover:text-red-500 transition-colors">Commander</p>
-            <p className="text-xs text-neutral-500">Admin Level 5</p>
+            <p className="text-sm font-semibold text-white group-hover:text-red-500 transition-colors">{userName}</p>
+            <p className="text-xs text-neutral-500">{userRole}</p>
           </div>
-          <img src="https://i.pravatar.cc/150?img=11" alt="Commander" className="w-9 h-9 rounded-full object-cover border border-white/10" />
+          <img src={user?.avatar || 'https://i.pravatar.cc/150?img=11'} alt={userName} className="w-9 h-9 rounded-full object-cover border border-white/10" />
           <ChevronDown className="w-4 h-4 text-neutral-500" />
         </div>
+        <button
+          type="button"
+          onClick={handleSignOut}
+          className="hidden text-sm font-semibold text-white transition hover:text-red-500 sm:inline-flex"
+        >
+          Sign Out
+        </button>
       </div>
     </header>
   )
