@@ -54,6 +54,7 @@ const Header = () => {
   const [isTopBarVisible, setIsTopBarVisible] = useState(true)
   const [activeAnnouncementIndex, setActiveAnnouncementIndex] = useState(0)
   const [activeCategorySlug, setActiveCategorySlug] = useState(null)
+  const [activeSubCategorySlug, setActiveSubCategorySlug] = useState(null)
   const [dropdownLeft, setDropdownLeft] = useState(16)
   const [openMobileCategorySlug, setOpenMobileCategorySlug] = useState(null)
 
@@ -403,17 +404,68 @@ const Header = () => {
                 <ChevronRight size={17} strokeWidth={2.4} className='text-white/85' />
               </Link>
 
-              <nav className='mt-4 grid gap-1'>
-                {activeCategory.subCategories.map((subCategory) => (
-                  <Link
-                    key={subCategory.slug}
-                    to={`/products/${subCategory.slug}`}
-                    onClick={() => setActiveCategorySlug(null)}
-                    className='block rounded-[6px] px-3 py-2 text-[11px] font-semibold uppercase leading-4 tracking-[0.02em] text-white/90 transition hover:text-primary'
-                  >
-                    {getSubCategoryLabel(subCategory)}
-                  </Link>
-                ))}
+              <nav className='mt-4 grid gap-1 relative'>
+                {activeCategory.subCategories.map((subCategory) => {
+                  const isActive = activeSubCategorySlug === subCategory.slug;
+                  const hasSub2 = subCategory.subCategories2 && subCategory.subCategories2.length > 0;
+
+                  return (
+                    <div
+                      key={subCategory.slug}
+                      className="relative"
+                      onMouseEnter={() => setActiveSubCategorySlug(subCategory.slug)}
+                      onMouseLeave={() => setActiveSubCategorySlug(null)}
+                    >
+                      <Link
+                        to={`/products/${subCategory.slug}`}
+                        onClick={() => {
+                          setActiveCategorySlug(null)
+                          setActiveSubCategorySlug(null)
+                        }}
+                        className={`flex items-center justify-between rounded-[6px] px-3 py-2 text-[12px] font-semibold uppercase tracking-[0.02em] transition ${
+                          isActive ? 'text-white' : 'text-white/80 hover:text-white'
+                        }`}
+                      >
+                        {getSubCategoryLabel(subCategory)}
+                        {hasSub2 && (
+                          <ChevronRight 
+                            size={14} 
+                            className={`text-white/50 transition-transform ${isActive ? 'rotate-90' : ''}`} 
+                          />
+                        )}
+                      </Link>
+
+                      {/* Level 3 (Products/SubCategory2) Accordion */}
+                      <AnimatePresence>
+                        {isActive && hasSub2 && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                            className='overflow-hidden'
+                          >
+                            <nav className='flex flex-col gap-2 pl-4 pr-3 pt-1 pb-3'>
+                              {subCategory.subCategories2.map((sub2) => (
+                                <Link
+                                  key={sub2.slug}
+                                  to={`/products/${sub2.slug}`}
+                                  onClick={() => {
+                                    setActiveCategorySlug(null)
+                                    setActiveSubCategorySlug(null)
+                                  }}
+                                  className='block text-[10px] font-medium uppercase tracking-[0.04em] text-white/50 transition hover:text-white'
+                                >
+                                  {sub2.name}
+                                </Link>
+                              ))}
+                            </nav>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                })}
               </nav>
 
               <div className='mt-4 border-t border-white/10' />

@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react'
-import { Info, Image, DollarSign, Package, Send, CheckCircle2, X, FileText, ListChecks, Barcode, List, File, UploadCloud, XCircle } from 'lucide-react'
+import React, { useState, useRef, useMemo } from 'react'
+import { Info, Image, DollarSign, Package, Send, CheckCircle2, X, FileText, ListChecks, Barcode, List, File, UploadCloud, XCircle, ChevronDown } from 'lucide-react'
+import { CATEGORY_DATA } from '../../../data/categories'
 
 const AddProducts = () => {
   const [uploadedImages, setUploadedImages] = useState([])
@@ -7,8 +8,9 @@ const AddProducts = () => {
 
   const [formData, setFormData] = useState({
     productName: '',
-    category: '',
-    subCategory: '',
+    mainCategory: '',
+    subCategory1: '',
+    subCategory2: '',
     shortDescription: '',
     fullDescription: '',
     
@@ -39,6 +41,25 @@ const AddProducts = () => {
     lifecycleStatus: 'Active (Live)',
     internalNotes: '',
   })
+
+  // Derived lists for cascading dropdowns
+  const subCat1Options = useMemo(() => {
+    if (!formData.mainCategory) return []
+    return Object.keys(CATEGORY_DATA[formData.mainCategory] || {})
+  }, [formData.mainCategory])
+
+  const subCat2Options = useMemo(() => {
+    if (!formData.mainCategory || !formData.subCategory1) return []
+    return CATEGORY_DATA[formData.mainCategory]?.[formData.subCategory1] || []
+  }, [formData.mainCategory, formData.subCategory1])
+
+  const handleMainCategoryChange = (e) => {
+    setFormData({ ...formData, mainCategory: e.target.value, subCategory1: '', subCategory2: '' })
+  }
+
+  const handleSubCat1Change = (e) => {
+    setFormData({ ...formData, subCategory1: e.target.value, subCategory2: '' })
+  }
 
   const handleImageUpload = (files) => {
     if (!files) return
@@ -93,37 +114,78 @@ const AddProducts = () => {
                 />
               </div>
 
-              <div className="grid gap-4 md:grid-cols-2">
+              {/* 3-Level Category Row */}
+              <div className="grid gap-4 lg:grid-cols-3">
+                {/* Main Category */}
                 <div className="flex flex-col gap-2">
                   <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">
-                    Category
+                    Main Category
                   </label>
-                  <select
-                    className="w-full rounded-xl border border-white/5 bg-[#0a0a0a] px-4 py-3 text-sm text-neutral-400 focus:border-red-600 focus:outline-none transition appearance-none cursor-pointer"
-                    value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  >
-                    <option value="">Select Category</option>
-                    <option value="paintballs">Paintballs</option>
-                    <option value="markers">Markers</option>
-                    <option value="apparel">Tactical Apparel</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      className="w-full appearance-none rounded-xl border border-white/5 bg-[#0a0a0a] px-4 py-3 pr-8 text-sm text-neutral-300 focus:border-red-600 focus:outline-none transition cursor-pointer"
+                      value={formData.mainCategory}
+                      onChange={handleMainCategoryChange}
+                    >
+                      <option value="">Select Category</option>
+                      {Object.keys(CATEGORY_DATA).map((cat) => (
+                        <option key={cat} value={cat}>{cat}</option>
+                      ))}
+                    </select>
+                    <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-500" />
+                  </div>
                 </div>
 
+                {/* Sub Category #1 */}
                 <div className="flex flex-col gap-2">
                   <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">
                     Sub Category
                   </label>
-                  <select
-                    className="w-full rounded-xl border border-white/5 bg-[#0a0a0a] px-4 py-3 text-sm text-neutral-400 focus:border-red-600 focus:outline-none transition appearance-none cursor-pointer"
-                    value={formData.subCategory}
-                    onChange={(e) => setFormData({ ...formData, subCategory: e.target.value })}
-                  >
-                    <option value="">Select sub Category</option>
-                    <option value="eco">Eco Grade</option>
-                    <option value="pro">Pro Grade</option>
-                    <option value="vests">Vests & Harnesses</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      className={`w-full appearance-none rounded-xl border border-white/5 bg-[#0a0a0a] px-4 py-3 pr-8 text-sm focus:border-red-600 focus:outline-none transition cursor-pointer ${
+                        !formData.mainCategory ? 'text-neutral-600 cursor-not-allowed' : 'text-neutral-300'
+                      }`}
+                      value={formData.subCategory1}
+                      onChange={handleSubCat1Change}
+                      disabled={!formData.mainCategory}
+                    >
+                      <option value="">{formData.mainCategory ? 'Select Sub Category' : '— Select Main First —'}</option>
+                      {subCat1Options.map((sub) => (
+                        <option key={sub} value={sub}>{sub}</option>
+                      ))}
+                    </select>
+                    <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-500" />
+                  </div>
+                </div>
+
+                {/* Sub Category #2 */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">
+                    Sub Category #2
+                  </label>
+                  <div className="relative">
+                    <select
+                      className={`w-full appearance-none rounded-xl border border-white/5 bg-[#0a0a0a] px-4 py-3 pr-8 text-sm focus:border-red-600 focus:outline-none transition cursor-pointer ${
+                        !formData.subCategory1 ? 'text-neutral-600 cursor-not-allowed' : 'text-neutral-300'
+                      }`}
+                      value={formData.subCategory2}
+                      onChange={(e) => setFormData({ ...formData, subCategory2: e.target.value })}
+                      disabled={!formData.subCategory1 || subCat2Options.length === 0}
+                    >
+                      <option value="">{
+                        !formData.subCategory1
+                          ? '— Select Sub First —'
+                          : subCat2Options.length === 0
+                            ? '— No Sub Categories —'
+                            : 'Select Type'
+                      }</option>
+                      {subCat2Options.map((sub2) => (
+                        <option key={sub2} value={sub2}>{sub2}</option>
+                      ))}
+                    </select>
+                    <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-500" />
+                  </div>
                 </div>
               </div>
 
