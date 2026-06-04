@@ -1,24 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
-import smokeGrenade from '../../assets/images/smoke.png'
 import { inventoryCategories } from '../../data/inventoryCategories'
-
-const productGroups = {
-    'grenades-smoke': {
-        breadcrumb: ['Inventory', 'BBS', 'Grenades & Smoke'],
-        title: 'Grenades & Smoke Products',
-        products: Array.from({ length: 12 }, (_, index) => ({
-            id: `grenade-${index + 1}`,
-            category: 'BBS - Grenades',
-            title: 'Grenades & Smoke New Products',
-            price: '$12,499.00',
-            status: 'In Stock',
-            badge: index === 0 || index === 2 ? 'Elite-Grade' : '',
-            image: smokeGrenade,
-        })),
-    },
-}
-
-const fallbackGroup = productGroups['grenades-smoke']
+import { fallbackProductGroup, productGroups } from '../../data/productGroups'
 
 const findCategoryBySlug = (slug) => {
     for (const category of inventoryCategories) {
@@ -36,7 +18,7 @@ const createDynamicGroup = (slug) => {
     const categoryMatch = findCategoryBySlug(slug)
 
     if (!categoryMatch) {
-        return fallbackGroup
+        return fallbackProductGroup
     }
 
     const { category, subCategory } = categoryMatch
@@ -44,7 +26,7 @@ const createDynamicGroup = (slug) => {
     return {
         breadcrumb: ['Inventory', category.name, subCategory.name],
         title: `${subCategory.name} Products`,
-        products: fallbackGroup.products.map((product, index) => ({
+        products: fallbackProductGroup.products.map((product, index) => ({
             ...product,
             id: `${slug}-${index + 1}`,
             category: `${category.name} - ${subCategory.name}`,

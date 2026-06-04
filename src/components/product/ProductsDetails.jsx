@@ -2,15 +2,9 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ShieldCheck, Star } from 'lucide-react'
-import smokeImage from '../../assets/images/smoke.png'
 import toast from '../../utils/toast'
 import { addItemsToCart } from '../../features/cart/cartSlice'
-
-const thumbnails = [
-    { id: 'front', image: smokeImage, label: 'Front view' },
-    { id: 'side', image: smokeImage, label: 'Side view' },
-    { id: 'pack', image: smokeImage, label: 'Pack view' },
-]
+import { fallbackProductGroup, productGroups } from '../../data/productGroups'
 
 const volumeTiers = [
     { range: '1 - 10 pic', price: '$32.50', minQuantity: 1, maxQuantity: 10 },
@@ -35,12 +29,6 @@ const packMatrix = [
         packs: ['2', '4', '6', '8'],
     },
 ]
-
-const productDetails = {
-    id: 'enola-gaye-wp40-grenades-100-pack',
-    name: 'Enola Gaye WP40 Grenades 100 Pack',
-    image: smokeImage,
-}
 
 const packOptions = [
     { label: 'Pack ( 10 pic )', size: '10 pic' },
@@ -76,6 +64,20 @@ const ProductsDetails = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { slug } = useParams()
+    const productGroup = productGroups[slug] ?? fallbackProductGroup
+    const selectedProduct = productGroup.products[0]
+    const thumbnails = productGroup.products.slice(0, 3).map((product, index) => ({
+        id: product.id,
+        image: product.image,
+        label: index === 0 ? 'Front view' : `${product.title} view`,
+    }))
+    const [activeThumbnailIndex, setActiveThumbnailIndex] = useState(0)
+    const selectedImage = thumbnails[activeThumbnailIndex]?.image ?? selectedProduct.image
+    const productDetails = {
+        id: selectedProduct.id,
+        name: selectedProduct.title,
+        image: selectedImage,
+    }
     const [packQuantities, setPackQuantities] = useState(createInitialPackQuantities)
     const [selectedTier, setSelectedTier] = useState(null)
     const [quantityError, setQuantityError] = useState('')
@@ -200,8 +202,8 @@ const ProductsDetails = () => {
                 <div className='min-w-0'>
                     <div className='relative grid min-h-[420px] place-items-center overflow-hidden rounded-[18px] bg-black px-8 py-8 sm:min-h-[540px]'>
                         <img
-                            src={smokeImage}
-                            alt='Enola Gaye WP40 Grenades 100 Pack'
+                            src={productDetails.image}
+                            alt={productDetails.name}
                             className='h-full max-h-[500px] w-full object-contain'
                             loading='eager'
                             decoding='async'
@@ -225,16 +227,20 @@ const ProductsDetails = () => {
                     </div>
 
                     <div className='mt-5 grid grid-cols-3 gap-4 sm:gap-5'>
-                        {thumbnails.map((item) => (
-                            <button
-                                key={item.id}
-                                type='button'
-                                aria-label={item.label}
-                                className='grid aspect-square place-items-center rounded-[12px] border border-white/20 bg-black p-3 transition hover:border-primary'
-                            >
-                                <img src={item.image} alt='' className='h-full w-full object-contain' />
-                            </button>
-                        ))}
+                        {thumbnails.map((item, index) => {
+                            const isActive = index === activeThumbnailIndex
+                            return (
+                                <button
+                                    key={item.id}
+                                    type='button'
+                                    aria-label={item.label}
+                                    onClick={() => setActiveThumbnailIndex(index)}
+                                    className={`grid aspect-square place-items-center rounded-[12px] border bg-black p-3 transition ${isActive ? 'border-primary' : 'border-white/20 hover:border-primary'}`}
+                                >
+                                    <img src={item.image} alt='' className='h-full w-full object-contain' />
+                                </button>
+                            )
+                        })}
                     </div>
                 </div>
 
@@ -249,7 +255,7 @@ const ProductsDetails = () => {
                     </h1>
 
                     <p className='mt-6 max-w-[520px] text-sm leading-6 text-white/45 sm:text-base'>
-                        Standard recreational paint. Biodegradable, bright yellow...
+                        Dealer-ready inventory selected from the {productGroup.breadcrumb[2]} lineup.
                     </p>
 
                     <div className='mt-8 max-w-[500px]'>
