@@ -164,7 +164,7 @@ const DealerTable = () => {
           </div>
         </div>
 
-        {/* Table */}
+        {/* Tableeeeeeeeeeeeee */}
         <div className="overflow-x-auto whitespace-nowrap">
           <table className="min-w-[980px] w-full text-left border-collapse">
             <thead>
