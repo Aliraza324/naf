@@ -375,9 +375,8 @@ const Header = () => {
               <ChevronDown
                 size={18}
                 strokeWidth={3}
-                className={`ml-1 shrink-0 text-white/70 transition-transform ${
-                  activeCategorySlug === category.slug ? 'rotate-180' : ''
-                }`}
+                className={`ml-1 shrink-0 text-white/70 transition-transform ${activeCategorySlug === category.slug ? 'rotate-180' : ''
+                  }`}
               />
             </button>
           ))}
@@ -423,15 +422,14 @@ const Header = () => {
                           setActiveCategorySlug(null)
                           setActiveSubCategorySlug(null)
                         }}
-                        className={`flex items-center justify-between rounded-[6px] px-3 py-2 text-[12px] font-semibold uppercase tracking-[0.02em] transition ${
-                          isActive ? 'text-white' : 'text-white/80 hover:text-white'
-                        }`}
+                        className={`flex items-center justify-between rounded-[6px] px-3 py-2 text-[12px] font-semibold uppercase tracking-[0.02em] transition ${isActive ? 'text-white' : 'text-white/80 hover:text-white'
+                          }`}
                       >
                         {getSubCategoryLabel(subCategory)}
                         {hasSub2 && (
-                          <ChevronRight 
-                            size={14} 
-                            className={`text-white/50 transition-transform ${isActive ? 'rotate-90' : ''}`} 
+                          <ChevronRight
+                            size={14}
+                            className={`text-white/50 transition-transform ${isActive ? 'rotate-90' : ''}`}
                           />
                         )}
                       </Link>
@@ -486,11 +484,10 @@ const Header = () => {
               <Link
                 key={item.label}
                 to={item.href}
-                className={`transition ${
-                  isActive
-                    ? 'text-primary hover:text-primary-hover'
-                    : 'text-white hover:text-primary'
-                }`}
+                className={`transition ${isActive
+                  ? 'text-primary hover:text-primary-hover'
+                  : 'text-white hover:text-primary'
+                  }`}
               >
                 {item.label}
               </Link>
@@ -518,11 +515,10 @@ const Header = () => {
                       key={item.label}
                       to={item.href}
                       onClick={() => setIsMenuOpen(false)}
-                      className={`rounded-[6px] px-3 py-3 transition hover:bg-white/7 ${
-                        isActive
-                          ? 'text-primary hover:text-primary-hover'
-                          : 'text-white hover:text-primary'
-                      }`}
+                      className={`rounded-[6px] px-3 py-3 transition hover:bg-white/7 ${isActive
+                        ? 'text-primary hover:text-primary-hover'
+                        : 'text-white hover:text-primary'
+                        }`}
                     >
                       {item.label}
                     </Link>
@@ -562,9 +558,8 @@ const Header = () => {
                       {category.name}
                       <ChevronDown
                         size={14}
-                        className={`transition-transform ${
-                          openMobileCategorySlug === category.slug ? 'rotate-180' : ''
-                        }`}
+                        className={`transition-transform ${openMobileCategorySlug === category.slug ? 'rotate-180' : ''
+                          }`}
                       />
                     </button>
 
