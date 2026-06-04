@@ -31,11 +31,11 @@ const PaymentMethod = () => {
             onClick={() => setSelectedMethod('credit_card')}
           >
             <div className='flex items-center gap-4'>
-              <div className={`size-5 rounded-full flex items-center justify-center border-2 transition-colors ${
-                selectedMethod === 'credit_card' ? 'border-[#007aff]' : 'border-white/30'
+              <div className={`size-[18px] rounded-full flex items-center justify-center border-2 transition-colors ${
+                selectedMethod === 'credit_card' ? 'bg-[#0070f3] border-[#0070f3]' : 'border-white/30 bg-transparent'
               }`}>
                 {selectedMethod === 'credit_card' && (
-                  <div className='size-2.5 rounded-full bg-[#007aff]' />
+                  <div className='size-2 rounded-full bg-white' />
                 )}
               </div>
               <span className='font-semibold text-white'>Credit Card</span>
@@ -95,46 +95,70 @@ const PaymentMethod = () => {
 
         {/* PayPal Option */}
         <div 
-          className={`flex items-center justify-between rounded-[8px] border p-5 cursor-pointer transition-colors ${
+          className={`rounded-[8px] border transition-colors ${
             selectedMethod === 'paypal' 
               ? 'border-[#e60103] bg-[#0a0a0a]' 
               : 'border-white/10 bg-[#0a0a0a] hover:border-white/20'
           }`}
-          onClick={() => setSelectedMethod('paypal')}
         >
-          <div className='flex items-center gap-4'>
-            <div className={`size-5 rounded-full flex items-center justify-center border-2 transition-colors ${
-              selectedMethod === 'paypal' ? 'border-[#007aff]' : 'border-white/30'
-            }`}>
-              {selectedMethod === 'paypal' && (
-                <div className='size-2.5 rounded-full bg-[#007aff]' />
-              )}
+          <div 
+            className={`flex items-center justify-between p-5 cursor-pointer ${
+              selectedMethod === 'paypal' ? 'border-b border-white/10' : ''
+            }`}
+            onClick={() => setSelectedMethod('paypal')}
+          >
+            <div className='flex items-center gap-4'>
+              <div className={`size-[18px] rounded-full flex items-center justify-center border-2 transition-colors ${
+                selectedMethod === 'paypal' ? 'bg-[#0070f3] border-[#0070f3]' : 'border-white/30 bg-transparent'
+              }`}>
+                {selectedMethod === 'paypal' && (
+                  <div className='size-2 rounded-full bg-white' />
+                )}
+              </div>
+              <span className='font-semibold text-white'>PayPal</span>
             </div>
-            <span className='font-semibold text-white'>PayPal</span>
+            <FaPaypal size={22} className='text-[#0070ba]' />
           </div>
-          <FaPaypal size={22} className='text-[#0070ba]' />
+
+          {selectedMethod === 'paypal' && (
+            <div className='p-5 pt-6 border-t border-white/5 text-sm text-white/60 text-center'>
+              After clicking "Pay Now", you will be redirected to PayPal to complete your purchase securely.
+            </div>
+          )}
         </div>
 
         {/* Apple Pay Option */}
         <div 
-          className={`flex items-center justify-between rounded-[8px] border p-5 cursor-pointer transition-colors ${
+          className={`rounded-[8px] border transition-colors ${
             selectedMethod === 'apple_pay' 
               ? 'border-[#e60103] bg-[#0a0a0a]' 
               : 'border-white/10 bg-[#0a0a0a] hover:border-white/20'
           }`}
-          onClick={() => setSelectedMethod('apple_pay')}
         >
-          <div className='flex items-center gap-4'>
-            <div className={`size-5 rounded-full flex items-center justify-center border-2 transition-colors ${
-              selectedMethod === 'apple_pay' ? 'border-[#007aff]' : 'border-white/30'
-            }`}>
-              {selectedMethod === 'apple_pay' && (
-                <div className='size-2.5 rounded-full bg-[#007aff]' />
-              )}
+          <div 
+            className={`flex items-center justify-between p-5 cursor-pointer ${
+              selectedMethod === 'apple_pay' ? 'border-b border-white/10' : ''
+            }`}
+            onClick={() => setSelectedMethod('apple_pay')}
+          >
+            <div className='flex items-center gap-4'>
+              <div className={`size-[18px] rounded-full flex items-center justify-center border-2 transition-colors ${
+                selectedMethod === 'apple_pay' ? 'bg-[#0070f3] border-[#0070f3]' : 'border-white/30 bg-transparent'
+              }`}>
+                {selectedMethod === 'apple_pay' && (
+                  <div className='size-2 rounded-full bg-white' />
+                )}
+              </div>
+              <span className='font-semibold text-white'>Apple Pay</span>
             </div>
-            <span className='font-semibold text-white'>Apple Pay</span>
+            <FaApple size={24} className='text-white' />
           </div>
-          <FaApple size={24} className='text-white' />
+
+          {selectedMethod === 'apple_pay' && (
+            <div className='p-5 pt-6 border-t border-white/5 text-sm text-white/60 text-center'>
+              Use Apple Pay for a fast and secure checkout. Ensure you are using a supported Apple device.
+            </div>
+          )}
         </div>
 
       </div>

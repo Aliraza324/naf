@@ -88,10 +88,10 @@ const BuyNows = () => {
   return (
     <main className='bg-page min-h-screen px-4 py-8 lg:p-12 text-white flex justify-center'>
       <div className='w-full max-w-6xl grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8'>
-        
+
         {/* LEFT COLUMN: FORMS */}
         <div className='flex flex-col gap-8'>
-          
+
           {/* STEP 1: Customer Information */}
           <section className='bg-[#131313] rounded-[12px] p-6 lg:p-8 border border-white/5'>
             <header className='flex justify-between items-center mb-6'>
@@ -129,19 +129,19 @@ const BuyNows = () => {
                 <Select label='State / Province' options={['California', 'New York', 'Texas']} defaultValue='California' />
               </div>
               <Input label='ZIP / Postal Code' placeholder='90001' />
-              
+
               <label className='flex items-center gap-3 mt-2 cursor-pointer select-none group'>
-                <div 
-                   className={`size-4 flex items-center justify-center rounded-[3px] border transition ${sameBilling ? 'bg-[#0070f3] border-[#0070f3]' : 'bg-transparent border-white/30 group-hover:border-white/50'}`}
+                <div
+                  className={`size-4 flex items-center justify-center rounded-[3px] border transition ${sameBilling ? 'bg-[#0070f3] border-[#0070f3]' : 'bg-transparent border-white/30 group-hover:border-white/50'}`}
                 >
-                   {sameBilling && <Check size={12} strokeWidth={4} className='text-white' />}
+                  {sameBilling && <Check size={12} strokeWidth={4} className='text-white' />}
                 </div>
                 {/* Hidden input to make it accessible */}
-                <input 
-                   type='checkbox' 
-                   className='sr-only' 
-                   checked={sameBilling} 
-                   onChange={(e) => setSameBilling(e.target.checked)} 
+                <input
+                  type='checkbox'
+                  className='sr-only'
+                  checked={sameBilling}
+                  onChange={(e) => setSameBilling(e.target.checked)}
                 />
                 <span className='text-xs text-white/60'>Billing address is same as shipping</span>
               </label>
@@ -155,7 +155,7 @@ const BuyNows = () => {
               <h2 className='text-lg font-bold'>Shipping Method</h2>
             </header>
             <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
-              <button 
+              <button
                 type='button'
                 onClick={() => setShippingMethod('standard')}
                 className={`p-5 rounded-[8px] border text-left transition ${shippingMethod === 'standard' ? 'border-[#ffb020] bg-[#ffb020]/[0.02]' : 'border-white/10 hover:border-white/30 bg-[#0a0a0a]'}`}
@@ -169,7 +169,7 @@ const BuyNows = () => {
                 <div className='text-xs text-white/50 ml-7'>3-5 Business Days</div>
               </button>
 
-              <button 
+              <button
                 type='button'
                 onClick={() => setShippingMethod('express')}
                 className={`p-5 rounded-[8px] border text-left transition ${shippingMethod === 'express' ? 'border-[#ffb020] bg-[#ffb020]/[0.02]' : 'border-white/10 hover:border-white/30 bg-[#0a0a0a]'}`}
@@ -194,7 +194,7 @@ const BuyNows = () => {
         <aside className='self-start lg:sticky lg:top-8'>
           <div className='bg-[#131313] rounded-[12px] p-6 lg:p-7 border border-white/5'>
             <h2 className='text-[11px] font-black uppercase tracking-[0.2em] text-white/50 mb-7'>Order Summary</h2>
-            
+
             <div className='mb-8 grid gap-4'>
               {groupedItems.length > 0 ? (
                 groupedItems.map((item) => (
@@ -218,16 +218,16 @@ const BuyNows = () => {
                 <p className='text-sm text-white/50'>Your cart is empty.</p>
               )}
             </div>
-            
+
             {/* Discount Code */}
             <div className='mb-7 border-b border-white/5 pb-7'>
               <label className='text-[10px] font-black uppercase tracking-[0.2em] text-white/50 mb-3 block'>Discount Code</label>
               <div className='flex gap-2'>
-                <input 
-                  className='h-[42px] flex-1 bg-black border border-white/10 rounded-[6px] px-4 text-xs font-semibold uppercase text-white outline-none placeholder:text-white/30 focus:border-primary focus:ring-1 focus:ring-primary/20 transition' 
-                  placeholder='ENTER CODE' 
+                <input
+                  className='h-[42px] flex-1 bg-black border border-white/10 rounded-[6px] px-4 text-xs font-semibold uppercase text-white outline-none placeholder:text-white/30 focus:border-primary focus:ring-1 focus:ring-primary/20 transition'
+                  placeholder='ENTER CODE'
                 />
-                <button 
+                <button
                   type='button'
                   className='h-[42px] px-6 bg-white/5 border border-white/10 rounded-[6px] text-xs font-bold uppercase transition hover:bg-white/10 hover:border-white/20'
                 >
@@ -235,7 +235,7 @@ const BuyNows = () => {
                 </button>
               </div>
             </div>
-            
+
             {/* Totals */}
             <div className='space-y-4 text-xs font-medium'>
               <div className='flex justify-between text-white/60'>
@@ -251,19 +251,19 @@ const BuyNows = () => {
                 <span className='text-white'>{formatCurrency(tax)}</span>
               </div>
             </div>
-            
+
             <div className='flex justify-between items-center mt-7 pt-7 border-t border-white/5'>
               <span className='font-bold text-lg'>Total</span>
               <span className='text-primary font-black text-3xl'>{formatCurrency(total)}</span>
             </div>
-            
-            <button 
+
+            <button
               type='button'
               className='w-full mt-8 h-14 brand-red-gradient text-white rounded-[6px] font-black text-sm tracking-[0.05em] uppercase hover:opacity-90 transition shadow-[0_10px_28px_rgba(232,12,12,0.25)] flex items-center justify-center gap-2.5'
             >
               <Lock size={16} strokeWidth={2.5} /> COMPLETE SECURE ORDER
             </button>
-            
+
             <div className='flex justify-center items-center gap-2 mt-5 text-[10px] font-medium text-white/40'>
               <Shield size={14} /> SSL Encrypted Checkout
             </div>
