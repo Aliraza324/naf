@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ChevronDown, Heart, Mail, Search, ShoppingBasket, Settings, X } from 'lucide-react'
+import { ChevronDown, Heart, Mail, Search, ShoppingBasket, Settings, X, Menu } from 'lucide-react'
 import logo from '../../../assets/images/logo.svg'
 import userIcon from '../../../assets/images/user.svg'
 import { logout, selectUser } from '../../../features/auth/authSlice'
@@ -12,13 +12,6 @@ import {
 } from '../../../features/cart/cartSlice'
 import { selectWishlistCount } from '../../../features/wishlist/wishlistSlice'
 
-const menuItems = [
-  { label: 'Dashboard', href: '/dashboard' },
-  { label: 'Browse Products', href: '/dashboard/all-products' },
-  { label: 'My Orders', href: '/dashboard/orders' },
-  { label: 'Payments', href: '/dashboard/payments' },
-  { label: 'Setting', href: '/dashboard/setting' },
-]
 
 const dropdownMotion = {
   initial: { opacity: 0, y: -10, scale: 0.98 },
@@ -36,7 +29,7 @@ const dropdownMotion = {
   },
 }
 
-const Header = () => {
+const Header = ({ isSidebarOpen, onToggleSidebar }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const dropdownRef = useRef(null)
@@ -127,13 +120,23 @@ const Header = () => {
 
       <div className="w-full bg-black overflow-visible">
         <div className="w-full grid min-h-[82px] grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-3 sm:gap-4 sm:px-6 lg:min-h-[88px] lg:px-10 overflow-visible">
-          <Link to="/" className="flex min-w-0 items-center">
-            <img
-              src={logo}
-              alt="NAF Power logo"
-              className="h-10 w-14 object-contain sm:h-12 sm:w-16 lg:h-[52px] lg:w-[78px]"
-            />
-          </Link>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <button
+              type="button"
+              onClick={onToggleSidebar}
+              aria-label="Toggle Sidebar"
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-white/10 text-white transition-colors hover:bg-white/10"
+            >
+              {isSidebarOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+            <Link to="/" className="flex min-w-0 items-center">
+              <img
+                src={logo}
+                alt="NAF Power logo"
+                className="h-10 w-14 object-contain sm:h-12 sm:w-16 lg:h-[52px] lg:w-[78px]"
+              />
+            </Link>
+          </div>
 
           <form
             onSubmit={(event) => event.preventDefault()}
@@ -243,18 +246,7 @@ const Header = () => {
                     </div>
                   </div>
 
-                  <nav className="grid gap-5 border-b border-white/10 py-5 text-sm font-semibold text-white">
-                    {menuItems.map((item) => (
-                      <Link
-                        key={item.label}
-                        to={item.href}
-                        onClick={() => setIsProfileOpen(false)}
-                        className="transition hover:text-primary"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </nav>
+
 
                   <div className="mt-5 flex items-center justify-between gap-4">
                     <button

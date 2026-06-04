@@ -53,13 +53,13 @@ const App = () => {
       <TopToScroll />
       <div className='min-h-screen bg-page text-text flex flex-col justify-between'>
         <div>
-          {!isAuthRoute && !isAdminRoute && (isDashboardRoute ? <DashboardHeader /> : <Header />)}
+          {!isAuthRoute && !isAdminRoute && !isDashboardRoute && <Header />}
           {routes}
         </div>
-        {!isAuthRoute && !isAdminRoute && <Footer />}
+        {!isAuthRoute && !isAdminRoute && !isDashboardRoute && <Footer />}
         <ToastProvider />
       </div>
-      {!isAuthRoute && !isAdminRoute && <WelcomeModal />}
+      {!isAuthRoute && !isAdminRoute && !isDashboardRoute && <WelcomeModal />}
     </>
   )
 }

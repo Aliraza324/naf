@@ -24,7 +24,6 @@ const DealerView = () => {
   const filteredOrders = activeTab === 'All' ? orders : orders.filter(order => order.status === activeTab)
 
   const tabs = ['All', 'Pickup', 'Pending', 'Cancel']
-
   return (
     <div className="flex flex-col gap-6 sm:gap-8 px-2 sm:px-0">
 
