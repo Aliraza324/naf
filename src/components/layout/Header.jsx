@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import {
   ChevronDown,
   ChevronRight,
@@ -42,6 +42,7 @@ const getSubCategoryLabel = (subCategory) =>
 
 const Header = () => {
   const dispatch = useDispatch()
+  const location = useLocation()
   const navigate = useNavigate()
   const cartProductCount = useSelector(selectCartProductCount)
   const wishlistCount = useSelector(selectWishlistCount)
@@ -476,21 +477,25 @@ const Header = () => {
 
       <div className='border-b border-white/8 bg-[#080808]'>
         <nav className='mx-auto hidden h-[56px] max-w-[500px] items-center justify-center gap-[43px] px-4 text-[12px] font-extrabold uppercase tracking-[0.16em] md:flex'>
-          {navItems.map((item) =>
-            item.href === '/' ? (
+          {navItems.map((item) => {
+            const isActive =
+              item.href === '/'
+                ? location.pathname === '/'
+                : location.pathname.startsWith(item.href)
+            return (
               <Link
                 key={item.label}
                 to={item.href}
-                className='text-primary transition hover:text-primary-hover'
+                className={`transition ${
+                  isActive
+                    ? 'text-primary hover:text-primary-hover'
+                    : 'text-white hover:text-primary'
+                }`}
               >
                 {item.label}
               </Link>
-            ) : (
-              <Link key={item.label} to={item.href} className='text-white transition hover:text-primary'>
-                {item.label}
-              </Link>
-            ),
-          )}
+            )
+          })}
         </nav>
 
         <AnimatePresence>
@@ -503,27 +508,26 @@ const Header = () => {
               className='overflow-hidden border-t border-white/8 px-4 pb-5 md:hidden'
             >
               <nav className='header-nav-text grid gap-1 py-3'>
-                {navItems.map((item) =>
-                  item.href === '/' ? (
+                {navItems.map((item) => {
+                  const isActive =
+                    item.href === '/'
+                      ? location.pathname === '/'
+                      : location.pathname.startsWith(item.href)
+                  return (
                     <Link
                       key={item.label}
                       to={item.href}
                       onClick={() => setIsMenuOpen(false)}
-                      className='rounded-[6px] px-3 py-3 text-primary transition hover:bg-white/7'
+                      className={`rounded-[6px] px-3 py-3 transition hover:bg-white/7 ${
+                        isActive
+                          ? 'text-primary hover:text-primary-hover'
+                          : 'text-white hover:text-primary'
+                      }`}
                     >
                       {item.label}
                     </Link>
-                  ) : (
-                    <Link
-                      key={item.label}
-                      to={item.href}
-                      onClick={() => setIsMenuOpen(false)}
-                      className='rounded-[6px] px-3 py-3 text-white transition hover:bg-white/7 hover:text-primary'
-                    >
-                      {item.label}
-                    </Link>
-                  ),
-                )}
+                  )
+                })}
               </nav>
 
               {/* Mobile Auth Section */}
