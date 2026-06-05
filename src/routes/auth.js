@@ -4,11 +4,16 @@ import Register from '../pages/auth/Register'
 import ForgotPassword from '../pages/auth/ForgotPassword'
 import VerifyAccount from '../pages/auth/VerifyAccount'
 import CreateNewPassword from '../pages/auth/CreateNewPassword'
+import DealerLogin from '../pages/auth/DealerLogin'
 
 const authRoutes = [
   {
     path: '/login',
     element: createElement(Login),
+  },
+  {
+    path: '/dealer-login',
+    element: createElement(DealerLogin),
   },
   {
     path: '/register',

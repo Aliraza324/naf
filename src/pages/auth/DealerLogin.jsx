@@ -13,7 +13,7 @@ import {
   ShieldCheck,
 } from 'lucide-react'
 import { loginRequest, loginSuccess, loginFailure, clearError, selectAuthLoading, selectAuthError } from '../../features/auth/authSlice'
-import { useLogin } from '../../hooks/auth/useLogin'
+import { useDealerLogin } from '../../hooks/dealer/useDealerLogin'
 import toast from '../../utils/toast'
 import authImg from '../../assets/images/auth.png'
 import logo from '../../assets/images/logo.svg'
@@ -24,12 +24,12 @@ const accessFeatures = [
   { label: 'Delivery', value: 'Fast', icon: BriefcaseBusiness },
 ]
 
-const Login = () => {
+const DealerLogin = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const loading = useSelector(selectAuthLoading)
   const error = useSelector(selectAuthError)
-  const { mutate: login, isPending: isLoggingIn } = useLogin()
+  const { mutate: dealerLogin, isPending: isLoggingIn } = useDealerLogin()
 
   const [formData, setFormData] = useState({
     email: '',
@@ -92,14 +92,15 @@ const Login = () => {
 
     dispatch(loginRequest())
     
-    // API call using the unified hook — handles role-based redirect internally
-    login(
+    // API call using the custom hook
+    dealerLogin(
       { email: formData.email, password: formData.password },
       {
         onSuccess: (data) => {
           if (data.success) {
             // Update Redux state with user data
-            dispatch(loginSuccess(data.user))
+            // Note: The hook itself handles localStorage, toast, and redirection
+            dispatch(loginSuccess(data.dealer))
           } else {
             dispatch(loginFailure(data.message || 'Invalid email or password'))
           }
@@ -303,4 +304,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default DealerLogin

@@ -1,11 +1,21 @@
 import React from 'react'
 import { Users, ShoppingCart, DollarSign, Package } from 'lucide-react'
+import { useGetDealersStats } from '../../hooks/admin/useDealers'
+import Loader from '../../utils/Loader'
 
 const DealerCard = () => {
+  const { data: statsData, isLoading } = useGetDealersStats()
+  const stats = statsData?.stats || {
+    totalDealers: 0,
+    activeOrders: 0,
+    totalRevenue: 0,
+    pendingOrders: 0,
+  }
+
   const kpis = [
     {
       title: 'Total Dealers',
-      value: '1,248',
+      value: stats.totalDealers.toLocaleString(),
       icon: Users,
       iconBg: 'bg-blue-500/20',
       iconColor: 'text-blue-500',
@@ -14,7 +24,7 @@ const DealerCard = () => {
     },
     {
       title: 'Active Orders',
-      value: '14,209',
+      value: stats.activeOrders.toLocaleString(),
       icon: ShoppingCart,
       iconBg: 'bg-red-500/20',
       iconColor: 'text-red-500',
@@ -23,7 +33,7 @@ const DealerCard = () => {
     },
     {
       title: 'Total Revenue',
-      value: '842',
+      value: `$${stats.totalRevenue.toLocaleString()}`,
       icon: DollarSign,
       iconBg: 'bg-emerald-500/20',
       iconColor: 'text-emerald-500',
@@ -32,7 +42,7 @@ const DealerCard = () => {
     },
     {
       title: 'Pending orders',
-      value: '3,194',
+      value: stats.pendingOrders.toLocaleString(),
       icon: Package,
       iconBg: 'bg-lime-500/20',
       iconColor: 'text-lime-500',
@@ -40,6 +50,10 @@ const DealerCard = () => {
       isPositive: true,
     },
   ]
+
+  if (isLoading) {
+    return <Loader className="min-h-[150px]" />
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
