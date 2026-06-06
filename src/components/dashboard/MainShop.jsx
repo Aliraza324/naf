@@ -214,7 +214,7 @@ export default function MainShop({ selectedProductId = null }) {
                     </span>
                     <Link
                       to={`/product-details/${product.id}`}
-                      className={`${product.orderBg} rounded px-4 py-2 text-xs font-bold uppercase tracking-widest text-white transition-colors`}
+                      className={`${product.orderBg} rounded px-4 py-2 text-xs font-medium text-white transition-colors`}
                     >
                       View Details
                     </Link>
