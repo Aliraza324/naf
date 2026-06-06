@@ -11,3 +11,8 @@ export const GET_DEALER_DETAIL_API = (id) => `${BASE_URL}/admin/dealers/${id}`;
 export const BLOCK_DEALER_API = (id) => `${BASE_URL}/admin/dealers/${id}/block`;
 export const UNBLOCK_DEALER_API = (id) => `${BASE_URL}/admin/dealers/${id}/unblock`;
 export const DELETE_DEALER_API = (id) => `${BASE_URL}/admin/dealers/${id}`;
+
+// Dealer Profile API Routes
+export const GET_DEALER_PROFILE_API = `${BASE_URL}/dealer/profile`;
+export const UPDATE_DEALER_PROFILE_API = `${BASE_URL}/dealer/profile`;
+export const UPDATE_DEALER_PASSWORD_API = `${BASE_URL}/dealer/password`;
