@@ -15,7 +15,6 @@ import { FaFacebookF, FaInstagram, FaYoutube } from 'react-icons/fa'
 import logo from '../../assets/images/logo.svg'
 import { motion, AnimatePresence } from 'framer-motion'
 import { announcementFade, dropdownMenu, mobileNavMenu } from '../../animations/animations'
-import { inventoryCategories } from '../../data/inventoryCategories'
 import { selectCartProductCount } from '../../features/cart/cartSlice'
 import { selectWishlistCount } from '../../features/wishlist/wishlistSlice'
 import {
@@ -23,6 +22,7 @@ import {
   selectUser,
   logout,
 } from '../../features/auth/authSlice'
+import { useCategories } from '../../hooks/landing/useCategories'
 
 const navItems = [
   { label: 'Home', href: '/' },
@@ -58,6 +58,22 @@ const Header = () => {
   const [activeSubCategorySlug, setActiveSubCategorySlug] = useState(null)
   const [dropdownLeft, setDropdownLeft] = useState(16)
   const [openMobileCategorySlug, setOpenMobileCategorySlug] = useState(null)
+  
+  const { data: categoriesData } = useCategories()
+  
+  const generateSlug = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '')
+
+  const inventoryCategories = categoriesData?.categories?.map((cat) => ({
+    ...cat,
+    subCategories: cat.subCategories?.map((subCat) => ({
+      ...subCat,
+      slug: subCat.slug || generateSlug(subCat.name),
+      subCategories2: subCat.children?.map((childName) => ({
+        name: childName,
+        slug: generateSlug(childName)
+      })) || [],
+    })) || []
+  })) || []
 
   useEffect(() => {
     const interval = window.setInterval(() => {

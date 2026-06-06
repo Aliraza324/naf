@@ -9,55 +9,32 @@ import {
 } from 'lucide-react'
 import Pagination from './Pagination'
 import logo from '../../assets/images/logo.svg'
+import { useCategories } from '../../hooks/landing/useCategories'
 
 const Category = () => {
-  const initialCategories = [
-    {
-      id: '#GT1024',
-      name: 'Ballistics',
-      subCategories: ['Armor', 'Ammunition', 'Explosives'],
-      products: 128,
-      enabled: true,
-      image: logo,
-    },
-    {
-      id: '#GT1037',
-      name: 'Optics',
-      subCategories: ['Red Dot', 'Thermal', 'Night Vision'],
-      products: 84,
-      enabled: true,
-      image: logo,
-    },
-    {
-      id: '#GT1051',
-      name: 'Tactical Gear',
-      subCategories: ['Vests', 'Helmets', 'Gloves'],
-      products: 56,
-      enabled: false,
-      image: logo,
-    },
-    {
-      id: '#GT1078',
-      name: 'Communications',
-      subCategories: ['Radios', 'Headsets', 'Satcom'],
-      products: 37,
-      enabled: true,
-      image: logo,
-    },
-    {
-      id: '#GT1093',
-      name: 'Maintenance',
-      subCategories: ['Cleaning Kits', 'Lubricants', 'Tools'],
-      products: 64,
-      enabled: true,
-      image: logo,
-    },
-  ]
-
-  const [categories, setCategories] = useState(initialCategories)
+  const { data: apiData, isLoading } = useCategories()
+  const [categories, setCategories] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingIndex, setEditingIndex] = useState(null)
   const [showPagination, setShowPagination] = useState(false)
+
+  useEffect(() => {
+    if (apiData?.categories) {
+      const mappedCategories = apiData.categories.map((cat, index) => ({
+        id: `#CAT${1000 + index}`,
+        name: cat.name,
+        slug: cat.slug,
+        subCategories: cat.subCategories?.map(sub => ({
+          name: sub.name,
+          children: sub.children || []
+        })) || [],
+        products: cat.productsCount || 0,
+        enabled: true,
+        image: logo,
+      }))
+      setCategories(mappedCategories)
+    }
+  }, [apiData])
 
   useEffect(() => {
     const updateShowPagination = () => {
@@ -80,6 +57,7 @@ const Category = () => {
     subCategoryInput: '',
     subCategories: [],
   })
+  const [subCategoryChildInputs, setSubCategoryChildInputs] = useState({})
 
   const createSlug = (value) =>
     value
@@ -110,8 +88,9 @@ const Category = () => {
       name: '',
       slug: '',
       subCategoryInput: '',
-      subCategories: ['BBS', 'Guns', 'smoke', 'BBS'],
+      subCategories: [],
     })
+    setSubCategoryChildInputs({})
     setEditingIndex(null)
   }
 
@@ -161,7 +140,7 @@ const Category = () => {
     setForm((prev) => ({
       ...prev,
       subCategoryInput: '',
-      subCategories: [...prev.subCategories, nextSubCategory],
+      subCategories: [...prev.subCategories, { name: nextSubCategory, children: [] }],
     }))
   }
 
@@ -170,6 +149,35 @@ const Category = () => {
       ...prev,
       subCategories: prev.subCategories.filter((_, index) => index !== indexToRemove),
     }))
+  }
+
+  const handleSubCategoryChildInput = (index, value) => {
+    setSubCategoryChildInputs((prev) => ({ ...prev, [index]: value }))
+  }
+
+  const addSubSubCategory = (subCatIndex) => {
+    const value = subCategoryChildInputs[subCatIndex]?.trim()
+    if (!value) return
+    setForm((prev) => {
+      const nextSubCategories = [...prev.subCategories]
+      nextSubCategories[subCatIndex] = {
+        ...nextSubCategories[subCatIndex],
+        children: [...(nextSubCategories[subCatIndex].children || []), value],
+      }
+      return { ...prev, subCategories: nextSubCategories }
+    })
+    setSubCategoryChildInputs((prev) => ({ ...prev, [subCatIndex]: '' }))
+  }
+
+  const removeSubSubCategory = (subCatIndex, childIndex) => {
+    setForm((prev) => {
+      const nextSubCategories = [...prev.subCategories]
+      nextSubCategories[subCatIndex] = {
+        ...nextSubCategories[subCatIndex],
+        children: nextSubCategories[subCatIndex].children.filter((_, i) => i !== childIndex),
+      }
+      return { ...prev, subCategories: nextSubCategories }
+    })
   }
 
   const handleSubCategoryKeyDown = (event) => {
@@ -427,7 +435,7 @@ const Category = () => {
                     value={form.subCategoryInput}
                     onChange={handleSubCategoryInput}
                     onKeyDown={handleSubCategoryKeyDown}
-                    placeholder="Sub Category"
+                    placeholder="New Sub Category Name"
                     className="min-w-0 flex-1 border border-transparent bg-transparent px-5 text-sm text-white outline-none transition placeholder:text-slate-400 focus:border-red-500/60"
                   />
                   <button
@@ -439,22 +447,61 @@ const Category = () => {
                   </button>
                 </div>
 
-                <div className="flex min-h-[54px] flex-wrap items-center gap-2 rounded-lg bg-[#2b2b2b] px-3 py-3">
+                <div className="flex flex-col gap-3 max-h-[35vh] overflow-y-auto pr-1">
                   {form.subCategories.map((subCategory, index) => (
-                    <span
-                      key={`${subCategory}-${index}`}
-                      className="inline-flex h-7 items-center gap-2 rounded border border-white/10 bg-[#303336] px-3 text-xs text-slate-300"
-                    >
-                      {subCategory}
-                      <button
-                        type="button"
-                        onClick={() => removeSubCategory(index)}
-                        aria-label={`Remove ${subCategory}`}
-                        className="text-slate-400 transition hover:text-white"
-                      >
-                        <X className="h-3 w-3" />
-                      </button>
-                    </span>
+                    <div key={index} className="rounded-lg bg-[#2b2b2b] p-3 border border-white/5">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-sm font-bold text-white">{subCategory.name}</span>
+                        <button
+                          type="button"
+                          onClick={() => removeSubCategory(index)}
+                          className="text-red-500 hover:text-red-400 text-xs"
+                        >
+                          Remove
+                        </button>
+                      </div>
+
+                      <div className="flex h-10 overflow-hidden rounded-md bg-[#1a1a1a]">
+                        <input
+                          type="text"
+                          value={subCategoryChildInputs[index] || ''}
+                          onChange={(e) => handleSubCategoryChildInput(index, e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault()
+                              addSubSubCategory(index)
+                            }
+                          }}
+                          placeholder={`Add sub-sub-category to ${subCategory.name}`}
+                          className="min-w-0 flex-1 border-none bg-transparent px-4 text-xs text-white outline-none placeholder:text-slate-500"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => addSubSubCategory(index)}
+                          className="m-1 rounded bg-neutral-700 px-3 text-xs font-semibold text-white transition hover:bg-neutral-600"
+                        >
+                          Add
+                        </button>
+                      </div>
+
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {subCategory.children?.map((child, cIndex) => (
+                          <span
+                            key={cIndex}
+                            className="inline-flex h-6 items-center gap-1.5 rounded border border-white/10 bg-[#303336] px-2 text-[10px] text-slate-300"
+                          >
+                            {child}
+                            <button
+                              type="button"
+                              onClick={() => removeSubSubCategory(index, cIndex)}
+                              className="text-slate-400 transition hover:text-white"
+                            >
+                              <X className="h-2.5 w-2.5" />
+                            </button>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   ))}
                 </div>
               </div>

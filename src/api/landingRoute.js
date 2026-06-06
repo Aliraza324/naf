@@ -1,8 +1,10 @@
 import BASE_URL from "./baseUrl";
 
+// Categories API
+export const GET_CATEGORIES_API = `${BASE_URL}/categories`;
+
 // Unified Auth Login (admin + dealer)
 export const AUTH_LOGIN = `${BASE_URL}/auth/login`;
-
 
 // Dealer API Routes
 export const DEALERS_API = `${BASE_URL}/admin/dealers`;
