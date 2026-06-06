@@ -3,15 +3,15 @@ import airsoftBbsBottle from '../assets/images/102183_media_1.default.jpg'
 import airsoftBbsBox from '../assets/images/110409_media_1.default.jpg'
 import airsoftBbsStack from '../assets/images/114810_media_1.default.jpg'
 import airsoftBbsBottleGreen from '../assets/images/48108_media_1.default.jpg'
-import paintGraffiti from '../assets/images/P1510_media_graffitiMainTEMP_1.default.jpg'
+import paintGraffiti from '../assets/images/P1510_media_graffitiMainTEMP_1.default.jfif'
 import paintGraffiti68 from '../assets/images/P19557_media_graffiti68main500ct_1.default.jpg'
-import paintGraffitiPlatinum from '../assets/images/P21134_media_graffitiPlatinumMain_1.default.jpg'
-import paintCustom50 from '../assets/images/P22512_media_custom50main_1.default.jpg'
-import paintCustom68 from '../assets/images/P23345_media_custom68mainl_1.default.jpg'
+import paintGraffitiPlatinum from '../assets/images/P21134_media_graffitiPlatinumMain_1.default.png'
+import paintCustom50 from '../assets/images/P22512_media_custom50main_1.default.png'
+import paintCustom68 from '../assets/images/P23345_media_custom68mainl_1.default.png'
 import paintRedemption from '../assets/images/P23355_media_redemptionPaint_1.default.jpg'
 import paintInfinity from '../assets/images/P3213_media_infinityPaintThumb_1.default.jpg'
-import paintFate from '../assets/images/P4970_media_fatePaintMainPic_1.default.jpg'
-import paintPro from '../assets/images/P5533_media_ProMain_1.default.jpg'
+import paintFate from '../assets/images/P4970_media_fatePaintMainPic_1.default.jfif'
+import paintPro from '../assets/images/P5533_media_ProMain_1.default.jfif'
 import pistolFlintlock from '../assets/images/103852_media_1.default.jpg'
 import rifleM4Kit from '../assets/images/114384_media_1.default.jpg'
 import rifleModM from '../assets/images/P17822_media_modMmain_1.default.jpg'
@@ -47,7 +47,7 @@ import goggleAmber from '../assets/images/P8976_media_1.default.jpg'
 import goggleSmoke from '../assets/images/P8980_media_1.default.jpg'
 import lensClear from '../assets/images/P3969_media_1.default.png'
 import lensYellow from '../assets/images/P3973_media_1.default.jpg'
-import co2Bottle from '../assets/images/115091_media_1.default.png'
+import co2Bottle from '../assets/images/115091_media_1.default.jfif'
 import co2Box from '../assets/images/35900_media_1.default.jpg'
 import co2Bulk from '../assets/images/62531_media_1.default.jpg'
 import co2BulkOpen from '../assets/images/62746_media_1.default.jpg'
@@ -115,9 +115,9 @@ export const productGroups = {
     ['Inventory', 'BBS', 'Airsoft BBs'],
     'Airsoft BB Products',
     [
-      ['Valken Accelerate Airsoft BB Bottle', airsoftBbsBottle],
-      ['Valken Tactical BB Box', airsoftBbsBox],
-      ['Valken BB Bulk Stack', airsoftBbsStack],
+      ['Accelerate Airsoft BB Bottle', airsoftBbsBottle],
+      ['Tactical BB Box', airsoftBbsBox],
+      ['BB Bulk Stack', airsoftBbsStack],
       ['Rechargeable Green BB Pack', airsoftBbsBottleGreen],
     ].map(([title, image], index) =>
       makeProduct('airsoft-bbs', index, 'BBS - Airsoft BBs', title, image, { price: '$29.00' }),
@@ -168,7 +168,7 @@ export const productGroups = {
     'Red Dot Sight Products',
     [
       ['Compact Reflex Sight', opticMicro],
-      ['Valken Tactical Sight', opticValken],
+      ['Tactical Sight', opticValken],
       ['Reflex Dot Sight', opticReflex],
       ['Tube Red Dot Sight', opticTube],
       ['Low Profile Red Dot', opticRedDot],
@@ -195,10 +195,10 @@ export const productGroups = {
     'Full Face Mask Products',
     [
       ['HK Army Full Face Mask', maskFullBlack],
-      ['Valken Rental Mask', maskRental],
+      ['Rental Mask', maskRental],
       ['Helmet Mask Combo Kit', maskHelmetKit],
       ['Thermal Full Face Mask', maskThermal],
-      ['Valken Black Full Face Mask', maskValkenBlack],
+      ['Black Full Face Mask', maskValkenBlack],
     ].map(([title, image], index) =>
       makeProduct('full-face-masks', index, 'Goggles & Masks - Full Face Masks', title, image, {
         price: '$89.00',
@@ -387,7 +387,7 @@ export const productGroups = {
   headwraps: createGroup(
     ['Inventory', 'Apparel', 'Headwraps'],
     'Headwrap Products',
-    [['Valken Field Headwraps', headwraps]].map(([title, image], index) =>
+    [['Field Headwraps', headwraps]].map(([title, image], index) =>
       makeProduct('headwraps', index, 'Apparel - Headwraps', title, image, { price: '$19.00' }),
     ),
   ),

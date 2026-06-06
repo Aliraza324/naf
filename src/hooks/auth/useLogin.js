@@ -19,7 +19,7 @@ export const useLogin = () => {
         onSuccess: (data) => {
             if (data.success) {
                 const role = data.role?.toLowerCase();
-                const user = data.user;
+                const user = data.user || data.dealer;
 
                 // Save token and user info
                 sessionStorage.setItem("token", data.token);

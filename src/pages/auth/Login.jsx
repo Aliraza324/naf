@@ -284,10 +284,10 @@ const Login = () => {
 
                 <button
                   type='submit'
-                  disabled={loading || isLoggingIn}
+                  disabled={isLoggingIn}
                   className='h-11 w-full rounded-[6px] bg-primary text-xs font-black text-white shadow-[0_0_22px_rgba(232,12,12,0.38)] transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-55'
                 >
-                  {loading || isLoggingIn ? 'Authenticating...' : 'Login To NAF'}
+                  {isLoggingIn ? 'Authenticating...' : 'Login To NAF'}
                 </button>
               </form>
             </div>

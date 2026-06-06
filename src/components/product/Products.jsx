@@ -8,7 +8,7 @@ import img3 from '../../assets/images/P21915_media_HKAHSTLgogglesBlack_1.jpg'
 import img4 from '../../assets/images/producttwo.png'
 import img5 from '../../assets/images/P3213_media_infinityPaintThumb_1.default.jpg'
 import img6 from '../../assets/images/gloves.png'
-import img7 from '../../assets/images/115091_media_1.default.png'
+import img7 from '../../assets/images/115091_media_1.default.jfif'
 import img8 from '../../assets/images/jacket.png'
 
 const dummyImages = [img1, img2, img3, img4, img5, img6, img7, img8]
