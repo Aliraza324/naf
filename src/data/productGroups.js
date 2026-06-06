@@ -98,7 +98,7 @@ const createGroup = (breadcrumb, title, products) => ({
 
 export const productGroups = {
   'grenades-smoke': createGroup(
-    ['Inventory', 'BBS', 'Grenades & Smoke'],
+    ['BBS', 'Grenades & Smoke'],
     'Grenades & Smoke Products',
     Array.from({ length: 12 }, (_, index) =>
       makeProduct(
@@ -112,7 +112,7 @@ export const productGroups = {
     ),
   ),
   'airsoft-bbs': createGroup(
-    ['Inventory', 'BBS', 'Airsoft BBs'],
+    ['BBS', 'Airsoft BBs'],
     'Airsoft BB Products',
     [
       ['Accelerate Airsoft BB Bottle', airsoftBbsBottle],
@@ -124,7 +124,7 @@ export const productGroups = {
     ),
   ),
   '68-cal-paintballs': createGroup(
-    ['Inventory', 'BBS', '.68 Cal Paintballs'],
+    ['BBS', '.68 Cal Paintballs'],
     '.68 Cal Paintball Products',
     [
       ['Graffiti Tournament Paintballs', paintGraffiti],
@@ -143,7 +143,7 @@ export const productGroups = {
     ),
   ),
   rifles: createGroup(
-    ['Inventory', 'Guns', 'Rifles'],
+    ['Guns', 'Rifles'],
     'Airsoft Rifle Products',
     [
       ['Mod-M Tactical Rifle', rifleModM],
@@ -157,14 +157,14 @@ export const productGroups = {
     ),
   ),
   pistols: createGroup(
-    ['Inventory', 'Guns', 'Pistols'],
+    ['Guns', 'Pistols'],
     'Pistol Products',
     [['Classic Training Pistol', pistolFlintlock]].map(([title, image], index) =>
       makeProduct('pistols', index, 'Guns - Pistols', title, image, { price: '$149.00' }),
     ),
   ),
   'red-dot-sights': createGroup(
-    ['Inventory', 'Optics', 'Red Dot Sights'],
+    ['Optics', 'Red Dot Sights'],
     'Red Dot Sight Products',
     [
       ['Compact Reflex Sight', opticMicro],
@@ -179,7 +179,7 @@ export const productGroups = {
     ),
   ),
   scopes: createGroup(
-    ['Inventory', 'Optics', 'Scopes'],
+    ['Optics', 'Scopes'],
     'Scope Products',
     [
       ['Tactical Scope With Caps', opticScope],
@@ -191,7 +191,7 @@ export const productGroups = {
     ),
   ),
   'full-face-masks': createGroup(
-    ['Inventory', 'Goggles & Masks', 'Full Face Masks'],
+    ['Goggles & Masks', 'Full Face Masks'],
     'Full Face Mask Products',
     [
       ['HK Army Full Face Mask', maskFullBlack],
@@ -206,7 +206,7 @@ export const productGroups = {
     ),
   ),
   goggles: createGroup(
-    ['Inventory', 'Goggles & Masks', 'Goggles'],
+    ['Goggles & Masks', 'Goggles'],
     'Goggle Products',
     [
       ['Clear Tactical Goggles', goggleClear],
@@ -221,7 +221,7 @@ export const productGroups = {
     ),
   ),
   'thermal-lenses': createGroup(
-    ['Inventory', 'Goggles & Masks', 'Thermal Lenses'],
+    ['Goggles & Masks', 'Thermal Lenses'],
     'Thermal Lens Products',
     [
       ['Clear Replacement Lens', lensClear],
@@ -233,7 +233,7 @@ export const productGroups = {
     ),
   ),
   'mesh-masks': createGroup(
-    ['Inventory', 'Goggles & Masks', 'Mesh Masks'],
+    ['Goggles & Masks', 'Mesh Masks'],
     'Mesh Mask Products',
     [
       ['Black Mesh Lower Mask', maskMeshBlack],
@@ -248,7 +248,7 @@ export const productGroups = {
     ),
   ),
   'co2-cartridges': createGroup(
-    ['Inventory', 'Gas', 'CO2 Cartridges'],
+    ['Gas', 'CO2 Cartridges'],
     'CO2 Cartridge Products',
     [
       ['Single CO2 Cartridge', co2Bottle],
@@ -262,7 +262,7 @@ export const productGroups = {
     ),
   ),
   'remote-lines': createGroup(
-    ['Inventory', 'Gas', 'Remote Lines'],
+    ['Gas', 'Remote Lines'],
     'Remote Line Products',
     [
       ['Coiled Remote Line', remoteLine],
@@ -272,21 +272,21 @@ export const productGroups = {
     ),
   ),
   'hpa-tanks': createGroup(
-    ['Inventory', 'Gas', 'HPA Tanks'],
+    ['Gas', 'HPA Tanks'],
     'HPA Tank Products',
     [['Portable HPA Compressor', hpaCompressor]].map(([title, image], index) =>
       makeProduct('hpa-tanks', index, 'Gas - HPA Tanks', title, image, { price: '$399.00' }),
     ),
   ),
   regulators: createGroup(
-    ['Inventory', 'Gas', 'Regulators'],
+    ['Gas', 'Regulators'],
     'Regulator Products',
     [['ASA Adapter Regulator', regulatorAdapter]].map(([title, image], index) =>
       makeProduct('regulators', index, 'Gas - Regulators', title, image, { price: '$49.00' }),
     ),
   ),
   'rechargeable-packs': createGroup(
-    ['Inventory', 'Batteries', 'Rechargeable Packs'],
+    ['Batteries', 'Rechargeable Packs'],
     'Rechargeable Battery Products',
     [
       ['Airsoft Battery Pack', batteryPack],
@@ -298,7 +298,7 @@ export const productGroups = {
     ),
   ),
   chargers: createGroup(
-    ['Inventory', 'Batteries', 'Chargers'],
+    ['Batteries', 'Chargers'],
     'Battery Charger Products',
     [
       ['Compact Battery Charger', batteryCharger],
@@ -308,7 +308,7 @@ export const productGroups = {
     ),
   ),
   lubricants: createGroup(
-    ['Inventory', 'Maintenance', 'Lubricants'],
+    ['Maintenance', 'Lubricants'],
     'Lubricant Products',
     [
       ['Duke Aero Lube', lubricantAero],
@@ -320,7 +320,7 @@ export const productGroups = {
     ),
   ),
   'barrel-swabs': createGroup(
-    ['Inventory', 'Maintenance', 'Barrel Swabs'],
+    ['Maintenance', 'Barrel Swabs'],
     'Barrel Swab Products',
     [
       ['Barrel Cover', barrelCover],
@@ -333,7 +333,7 @@ export const productGroups = {
     ),
   ),
   'tools-parts': createGroup(
-    ['Inventory', 'Maintenance', 'Tools & Parts'],
+    ['Maintenance', 'Tools & Parts'],
     'Tool & Part Products',
     [
       ['Field Tech Tool', techTool],
@@ -346,14 +346,14 @@ export const productGroups = {
     ),
   ),
   vests: createGroup(
-    ['Inventory', 'Tactical Gear', 'Vests'],
+    ['Tactical Gear', 'Vests'],
     'Vest Products',
     [['Tactical Plate Carrier Vest', vestCarrier]].map(([title, image], index) =>
       makeProduct('vests', index, 'Tactical Gear - Vests', title, image, { price: '$129.00' }),
     ),
   ),
   'airsoft-helmets': createGroup(
-    ['Inventory', 'Tactical Gear', 'Airsoft Helmets'],
+    ['Tactical Gear', 'Airsoft Helmets'],
     'Airsoft Helmet Products',
     [
       ['Black Airsoft Helmet', helmetBlack],
@@ -365,7 +365,7 @@ export const productGroups = {
     ),
   ),
   'pods-harnesses': createGroup(
-    ['Inventory', 'Tactical Gear', 'Pods & Harnesses'],
+    ['Tactical Gear', 'Pods & Harnesses'],
     'Pod & Harness Products',
     [
       ['Paintball Pod Case', podCase],
@@ -378,21 +378,21 @@ export const productGroups = {
     ),
   ),
   balaclavas: createGroup(
-    ['Inventory', 'Apparel', 'Balaclavas'],
+    ['Apparel', 'Balaclavas'],
     'Balaclava Products',
     [['Bravo Balaclava Black', balaclava]].map(([title, image], index) =>
       makeProduct('balaclavas', index, 'Apparel - Balaclavas', title, image, { price: '$24.00' }),
     ),
   ),
   headwraps: createGroup(
-    ['Inventory', 'Apparel', 'Headwraps'],
+    ['Apparel', 'Headwraps'],
     'Headwrap Products',
     [['Field Headwraps', headwraps]].map(([title, image], index) =>
       makeProduct('headwraps', index, 'Apparel - Headwraps', title, image, { price: '$19.00' }),
     ),
   ),
   jerseys: createGroup(
-    ['Inventory', 'Apparel', 'Jerseys'],
+    ['Apparel', 'Jerseys'],
     'Jersey Products',
     [['Camo Field Jersey', jerseyCamo]].map(([title, image], index) =>
       makeProduct('jerseys', index, 'Apparel - Jerseys', title, image, { price: '$49.00' }),
@@ -401,7 +401,7 @@ export const productGroups = {
 }
 
 productGroups.biodegradable = createGroup(
-  ['Inventory', 'BBS', 'Biodegradable'],
+  ['BBS', 'Biodegradable'],
   'Biodegradable BB Products',
   productGroups['68-cal-paintballs'].products.slice(0, 4).map((product, index) => ({
     ...product,
@@ -412,7 +412,7 @@ productGroups.biodegradable = createGroup(
 )
 
 productGroups['non-biodegradable'] = createGroup(
-  ['Inventory', 'BBS', 'Non-Biodegradable'],
+  ['BBS', 'Non-Biodegradable'],
   'Non-Biodegradable BB Products',
   productGroups['68-cal-paintballs'].products.slice(4, 9).map((product, index) => ({
     ...product,
@@ -422,7 +422,7 @@ productGroups['non-biodegradable'] = createGroup(
 )
 
 productGroups.markers = createGroup(
-  ['Inventory', 'Guns', 'Markers'],
+  ['Guns', 'Markers'],
   'Marker Products',
   [
     ['M4 Training Marker Kit', rifleM4Kit],
@@ -435,7 +435,7 @@ productGroups.markers = createGroup(
 )
 
 productGroups.mounts = createGroup(
-  ['Inventory', 'Optics', 'Mounts'],
+  ['Optics', 'Mounts'],
   'Optic Mount Products',
   [
     ['Low Profile Optic Mount', opticSight],
@@ -447,7 +447,7 @@ productGroups.mounts = createGroup(
 )
 
 productGroups['replacement-foam'] = createGroup(
-  ['Inventory', 'Goggles & Masks', 'Replacement Foam'],
+  ['Goggles & Masks', 'Replacement Foam'],
   'Replacement Foam Products',
   productGroups.goggles.products.slice(0, 3).map((product, index) => ({
     ...product,
@@ -459,7 +459,7 @@ productGroups['replacement-foam'] = createGroup(
 )
 
 productGroups['co2-tanks'] = createGroup(
-  ['Inventory', 'Gas', 'CO2 Tanks'],
+  ['Gas', 'CO2 Tanks'],
   'CO2 Tank Products',
   productGroups['co2-cartridges'].products.map((product, index) => ({
     ...product,
@@ -470,7 +470,7 @@ productGroups['co2-tanks'] = createGroup(
 )
 
 productGroups['9v-batteries'] = createGroup(
-  ['Inventory', 'Batteries', '9V Batteries'],
+  ['Batteries', '9V Batteries'],
   '9V Battery Products',
   productGroups['rechargeable-packs'].products.map((product, index) => ({
     ...product,
@@ -481,7 +481,7 @@ productGroups['9v-batteries'] = createGroup(
 )
 
 productGroups.holsters = createGroup(
-  ['Inventory', 'Tactical Gear', 'Holsters'],
+  ['Tactical Gear', 'Holsters'],
   'Holster Products',
   productGroups['pods-harnesses'].products.slice(0, 2).map((product, index) => ({
     ...product,
@@ -492,7 +492,7 @@ productGroups.holsters = createGroup(
 )
 
 productGroups['mag-pouches'] = createGroup(
-  ['Inventory', 'Tactical Gear', 'Mag Pouches'],
+  ['Tactical Gear', 'Mag Pouches'],
   'Mag Pouch Products',
   productGroups['pods-harnesses'].products.map((product, index) => ({
     ...product,
@@ -503,7 +503,7 @@ productGroups['mag-pouches'] = createGroup(
 )
 
 productGroups.gloves = createGroup(
-  ['Inventory', 'Apparel', 'Gloves'],
+  ['Apparel', 'Gloves'],
   'Glove Products',
   [
     ['Operator Tactical Gloves', tacticalGlove],
@@ -514,7 +514,7 @@ productGroups.gloves = createGroup(
 )
 
 productGroups['protective-pants'] = createGroup(
-  ['Inventory', 'Apparel', 'Protective Pants'],
+  ['Apparel', 'Protective Pants'],
   'Protective Pant Products',
   [['Protective Field Pants', protectivePants]].map(([title, image], index) =>
     makeProduct('protective-pants', index, 'Apparel - Protective Pants', title, image, {
@@ -525,7 +525,7 @@ productGroups['protective-pants'] = createGroup(
 
 const createAggregateGroup = (slug, categoryName, childSlugs) =>
   createGroup(
-    ['Inventory', categoryName, 'All Products'],
+    [categoryName, 'All Products'],
     `${categoryName} Products`,
     childSlugs.flatMap((childSlug) => productGroups[childSlug]?.products ?? []).map((product, index) => ({
       ...product,

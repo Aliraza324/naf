@@ -16,7 +16,7 @@ export const categoryProductMapping = {
       subCategory: 'Biodegradable',
     },
     description: 'Recreational play with biodegradable ammunition',
-    breadcrumb: ['Inventory', 'BBS', 'Biodegradable'],
+    breadcrumb: ['BBS', 'Biodegradable'],
   },
   
   'field-grade': {
@@ -27,7 +27,7 @@ export const categoryProductMapping = {
       subCategory: 'Non-Biodegradable',
     },
     description: 'Standard play with non-biodegradable ammunition',
-    breadcrumb: ['Inventory', 'BBS', 'Non-Biodegradable'],
+    breadcrumb: ['BBS', 'Non-Biodegradable'],
   },
   
   'field-pro': {
@@ -38,7 +38,7 @@ export const categoryProductMapping = {
       subCategory: 'Full Face Masks',
     },
     description: 'Tournament preparation with protective gear',
-    breadcrumb: ['Inventory', 'Goggles & Masks', 'Full Face Masks'],
+    breadcrumb: ['Goggles & Masks', 'Full Face Masks'],
   },
   
   'iconic': {
@@ -49,7 +49,7 @@ export const categoryProductMapping = {
       subCategory: 'Red Dot Sights',
     },
     description: 'Pro tournament optics with red dot sights',
-    breadcrumb: ['Inventory', 'Optics', 'Red Dot Sights'],
+    breadcrumb: ['Optics', 'Red Dot Sights'],
   },
   
   '50-cal': {
@@ -60,7 +60,7 @@ export const categoryProductMapping = {
       subCategory: 'Thermal Lenses',
     },
     description: 'High velocity paintballs with thermal protection',
-    breadcrumb: ['Inventory', 'Goggles & Masks', 'Thermal Lenses'],
+    breadcrumb: ['Goggles & Masks', 'Thermal Lenses'],
   },
 }
 
@@ -72,7 +72,7 @@ export const categoryProductMapping = {
  * // Get mapping info for a featured category
  * const ecoGradeMapping = categoryProductMapping['eco-grade']
  * console.log(ecoGradeMapping.productSlug) // 'biodegradable'
- * console.log(ecoGradeMapping.breadcrumb) // ['Inventory', 'BBS', 'Biodegradable']
+ * console.log(ecoGradeMapping.breadcrumb) // ['BBS', 'Biodegradable']
  * 
  * // Navigate to products page
  * navigate(`/products/${ecoGradeMapping.productSlug}`)

@@ -6,6 +6,7 @@ const maxProductPrice = 15000
 
 export default function MainShop({ selectedProductId = null }) {
   const [selectedCategories, setSelectedCategories] = useState([])
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null)
   const [priceRange, setPriceRange] = useState(maxProductPrice)
   const [availability, setAvailability] = useState('inStock')
   const [sortBy, setSortBy] = useState('Highest Value')
@@ -16,15 +17,29 @@ export default function MainShop({ selectedProductId = null }) {
     [],
   )
 
+  const subCategories = useMemo(() => {
+    if (selectedCategories.length !== 1) return []
+    const subs = dashboardProducts
+      .filter((p) => selectedCategories.includes(p.categoryName))
+      .map((p) => {
+        const parts = p.category.split(' / ')
+        return parts.length > 1 ? parts[1].trim() : null
+      })
+      .filter(Boolean)
+    return [...new Set(subs)]
+  }, [selectedCategories])
+
   const filteredProducts = useMemo(() => {
     const nextProducts = dashboardProducts.filter((product) => {
       const matchesCategory =
         selectedCategories.length === 0 || selectedCategories.includes(product.categoryName)
+      const matchesSubCategory =
+        !selectedSubCategory || product.category.includes(selectedSubCategory)
       const matchesPrice = product.priceValue <= priceRange
       const matchesAvailability =
         availability === 'backordered' || product.availability === 'inStock'
 
-      return matchesCategory && matchesPrice && matchesAvailability
+      return matchesCategory && matchesSubCategory && matchesPrice && matchesAvailability
     })
 
     return [...nextProducts].sort((a, b) => {
@@ -36,12 +51,16 @@ export default function MainShop({ selectedProductId = null }) {
 
       return b.priceValue - a.priceValue
     })
-  }, [availability, priceRange, selectedCategories, sortBy])
+  }, [availability, priceRange, selectedCategories, selectedSubCategory, sortBy])
 
   const toggleCategory = (category) => {
-    setSelectedCategories((prev) =>
-      prev.includes(category) ? prev.filter((item) => item !== category) : [...prev, category],
-    )
+    setSelectedCategories((prev) => {
+      const newSelected = prev.includes(category) ? prev.filter((item) => item !== category) : [...prev, category]
+      if (newSelected.length !== 1) {
+        setSelectedSubCategory(null)
+      }
+      return newSelected
+    })
     setCurrentPage(1)
   }
 
@@ -58,11 +77,10 @@ export default function MainShop({ selectedProductId = null }) {
                 <label key={category} className="flex items-center gap-2 cursor-pointer group">
                   <div
                     onClick={() => toggleCategory(category)}
-                    className={`w-4 h-4 rounded-sm border flex items-center justify-center shrink-0 transition-colors ${
-                      selectedCategories.includes(category)
+                    className={`w-4 h-4 rounded-sm border flex items-center justify-center shrink-0 transition-colors ${selectedCategories.includes(category)
                         ? 'bg-red-600 border-red-600'
                         : 'border-neutral-600 bg-transparent group-hover:border-neutral-400'
-                    }`}
+                      }`}
                   >
                     {selectedCategories.includes(category) && (
                       <svg
@@ -82,6 +100,34 @@ export default function MainShop({ selectedProductId = null }) {
                 </label>
               ))}
             </div>
+
+          {subCategories.length > 0 && (
+            <div>
+              <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-red-500">
+                Sub Categories
+              </p>
+              <div className="flex flex-col gap-2">
+                {subCategories.map((subCategory) => (
+                  <label key={subCategory} className="flex items-center gap-2 cursor-pointer group">
+                    <div
+                      onClick={() => {
+                        setSelectedSubCategory((prev) => (prev === subCategory ? null : subCategory))
+                        setCurrentPage(1)
+                      }}
+                      className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
+                        selectedSubCategory === subCategory ? 'border-red-500' : 'border-neutral-600'
+                      }`}
+                    >
+                      {selectedSubCategory === subCategory && <div className="h-2 w-2 rounded-full bg-red-500" />}
+                    </div>
+                    <span className="text-sm text-neutral-300 transition-colors group-hover:text-white">
+                      {subCategory}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
           </div>
 
           <div>
@@ -121,9 +167,8 @@ export default function MainShop({ selectedProductId = null }) {
                       setAvailability(value)
                       setCurrentPage(1)
                     }}
-                    className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
-                      availability === value ? 'border-red-500' : 'border-neutral-600'
-                    }`}
+                    className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${availability === value ? 'border-red-500' : 'border-neutral-600'
+                      }`}
                   >
                     {availability === value && <div className="h-2 w-2 rounded-full bg-red-500" />}
                   </div>
@@ -141,10 +186,30 @@ export default function MainShop({ selectedProductId = null }) {
         <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
             <div className="mb-1 flex items-center gap-3">
-              <div className="h-6 w-1 rounded-full bg-red-600" />
-              <h1 className="text-xl font-bold text-white sm:text-2xl">All products</h1>
+              <div className="text-xl font-bold uppercase italic sm:text-2xl flex flex-wrap items-center gap-2">
+                {selectedCategories.length === 1 ? (
+                  <>
+                    <span className="text-white">{selectedCategories[0]}</span>
+                    {selectedSubCategory && (
+                      <>
+                        <span className="text-white text-lg not-italic font-medium">&gt;</span>
+                        <span className="text-red-600">{selectedSubCategory}</span>
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <span className="text-white">ALL PRODUCTS</span>
+                )}
+              </div>
             </div>
-            <p className="ml-4 text-sm text-neutral-400">
+            <h2 className="text-sm font-bold uppercase italic tracking-widest text-white mt-2 mb-2">
+              {selectedSubCategory
+                ? `${selectedSubCategory} PRODUCTS`
+                : selectedCategories.length === 1
+                ? `${selectedCategories[0]} PRODUCTS`
+                : 'ALL PRODUCTS'}
+            </h2>
+            <p className="text-sm text-neutral-400">
               Displaying {filteredProducts.length} tactical assets ready for enlistment
             </p>
           </div>
@@ -176,11 +241,10 @@ export default function MainShop({ selectedProductId = null }) {
             return (
               <div
                 key={product.id}
-                className={`overflow-hidden rounded-xl border bg-neutral-900 transition-all duration-300 group ${
-                  isHighlighted
+                className={`overflow-hidden rounded-xl border bg-neutral-900 transition-all duration-300 group ${isHighlighted
                     ? 'border-red-500 shadow-[0_0_0_1px_rgba(239,68,68,0.5)]'
                     : 'border-neutral-800 hover:border-neutral-600'
-                }`}
+                  }`}
               >
                 <div className="relative overflow-hidden bg-neutral-800">
                   <img
@@ -251,11 +315,10 @@ export default function MainShop({ selectedProductId = null }) {
             <button
               key={page}
               onClick={() => setCurrentPage(page)}
-              className={`w-8 h-8 rounded text-sm font-bold transition-colors ${
-                currentPage === page
+              className={`w-8 h-8 rounded text-sm font-bold transition-colors ${currentPage === page
                   ? 'bg-red-600 text-white border border-red-600'
                   : 'bg-neutral-800 border border-neutral-700 text-neutral-300 hover:bg-neutral-700'
-              }`}
+                }`}
             >
               {page}
             </button>
@@ -263,11 +326,10 @@ export default function MainShop({ selectedProductId = null }) {
           <span className="text-neutral-500 text-sm px-1">...</span>
           <button
             onClick={() => setCurrentPage(12)}
-            className={`w-8 h-8 rounded text-sm font-bold transition-colors ${
-              currentPage === 12
+            className={`w-8 h-8 rounded text-sm font-bold transition-colors ${currentPage === 12
                 ? 'bg-red-600 text-white border border-red-600'
                 : 'bg-neutral-800 border border-neutral-700 text-neutral-300 hover:bg-neutral-700'
-            }`}
+              }`}
           >
             12
           </button>

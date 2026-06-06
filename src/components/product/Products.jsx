@@ -38,7 +38,7 @@ const createDynamicGroup = (slug) => {
     const { category, subCategory, sub2 } = categoryMatch
     const activeName = sub2 ? sub2.name : (subCategory ? subCategory.name : category.name)
     
-    const breadcrumb = ['Inventory', category.name]
+    const breadcrumb = [category.name]
     if (subCategory) breadcrumb.push(subCategory.name)
     if (sub2) breadcrumb.push(sub2.name)
 
@@ -74,15 +74,9 @@ const Products = () => {
                         const isLast = index === group.breadcrumb.length - 1;
                         return (
                             <div key={crumb} className="flex items-center">
-                                {index === 0 ? (
-                                    <Link to='/' className='shrink-0 transition hover:text-primary'>
-                                        {crumb}
-                                    </Link>
-                                ) : (
-                                    <span className={`shrink-0 ${isLast ? 'text-primary' : 'text-white'}`}>
-                                        {crumb}
-                                    </span>
-                                )}
+                                <span className={`shrink-0 ${isLast ? 'text-primary' : 'text-white transition hover:text-primary cursor-pointer'}`}>
+                                    {crumb}
+                                </span>
                                 {!isLast && (
                                     <span className={`shrink-0 px-1 sm:px-2 ${index === group.breadcrumb.length - 2 ? 'text-primary' : 'text-white'}`}>
                                         &gt;
