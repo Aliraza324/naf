@@ -1,8 +1,11 @@
 import React from 'react'
+import Setting from '../../components/admindashboard/Setting'
 
 const Settings = () => {
   return (
-    <div>Settings</div>
+    <div>
+      <Setting/>
+    </div>
   )
 }
 

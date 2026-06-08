@@ -1,9 +1,6 @@
 import React from 'react'
 import {
-  BarChart3,
-  CheckCircle2,
   ListFilter,
-  Package,
   Plus,
   Settings,
   ShieldAlert,
@@ -131,67 +128,67 @@ const chartOptions = {
 
 const ViewCampaign = () => {
   return (
-    <div className="space-y-7">
-      <header className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex items-start gap-5">
+    <div className="space-y-5">
+      <header className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex items-start gap-4">
           <button
             type="button"
             aria-label="Campaign controls"
-            className="mt-1 grid h-11 w-11 place-items-center rounded-full border border-white/10 bg-black text-neutral-400"
+            className="mt-1 grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-black text-neutral-400"
           >
-            <ListFilter className="h-5 w-5" />
+            <ListFilter className="h-4 w-4" />
           </button>
           <div>
-            <div className="flex flex-wrap items-center gap-3">
-              <h1 className="text-2xl font-black uppercase tracking-tight text-white sm:text-3xl">
+            <div className="flex flex-wrap items-center gap-2">
+              <h1 className="text-xl font-black uppercase tracking-tight text-white sm:text-2xl">
                 Vortex Elite Launch Q3
               </h1>
-              <span className="rounded-[5px] border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-black uppercase text-emerald-400">
+              <span className="rounded-[5px] border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-black uppercase text-emerald-400">
                 Active
               </span>
             </div>
-            <p className="mt-2 text-[11px] font-black uppercase tracking-[0.16em] text-neutral-500">
+            <p className="mt-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-neutral-500">
               Campaign ID: CP-9823-Vortex
             </p>
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-4 lg:justify-end">
-          <span className="text-sm font-bold text-white">Active</span>
+        <div className="flex flex-wrap items-center gap-3 lg:justify-end">
+          <span className="text-xs font-bold text-white">Active</span>
           <button
             type="button"
             aria-label="Toggle campaign active state"
-            className="relative h-9 w-[66px] rounded-full bg-lime-500"
+            className="relative h-8 w-[56px] rounded-full bg-lime-500"
           >
-            <span className="absolute right-1 top-1 h-7 w-7 rounded-full bg-white shadow-lg" />
+            <span className="absolute right-1 top-1 h-6 w-6 rounded-full bg-white shadow-lg" />
           </button>
           <button
             type="button"
-            className="inline-flex h-11 items-center gap-3 rounded-[8px] border border-white/10 bg-[#141414] px-5 text-xs font-black uppercase tracking-[0.08em] text-white transition hover:bg-white/5"
+            className="inline-flex h-10 items-center gap-2 rounded-[7px] border border-white/10 bg-[#141414] px-4 text-[11px] font-black uppercase tracking-[0.08em] text-white transition hover:bg-white/5"
           >
-            <Settings className="h-4 w-4" />
+            <Settings className="h-3.5 w-3.5" />
             Manage Campaign
           </button>
         </div>
       </header>
 
-      <section className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {metrics.map((metric) => (
           <article
             key={metric.label}
-            className="min-h-[164px] rounded-[12px] border border-white/7 bg-[#141414] p-6"
+            className="min-h-[126px] rounded-[10px] border border-white/7 bg-[#141414] p-4"
           >
-            <div className="flex items-center justify-between gap-4">
-              <p className="text-[11px] font-black uppercase tracking-[0.16em] text-neutral-500">
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-[10px] font-black uppercase tracking-[0.14em] text-neutral-500">
                 {metric.label}
               </p>
-              <span className={`text-xs font-black ${metric.noteColor || 'text-neutral-500'}`}>
+              <span className={`text-[10px] font-black ${metric.noteColor || 'text-neutral-500'}`}>
                 {metric.note}
               </span>
             </div>
-            <p className="mt-4 text-4xl font-black text-white">{metric.value}</p>
+            <p className="mt-3 text-2xl font-black text-white">{metric.value}</p>
             {metric.bars ? (
-              <div className="mt-6 flex h-6 items-end gap-1">
+              <div className="mt-4 flex h-5 items-end gap-1">
                 {[38, 52, 42, 68, 78].map((height, index) => (
                   <span
                     key={index}
@@ -201,7 +198,7 @@ const ViewCampaign = () => {
                 ))}
               </div>
             ) : (
-              <div className="mt-9 h-2 overflow-hidden rounded-full bg-white/6">
+              <div className="mt-7 h-1.5 overflow-hidden rounded-full bg-white/6">
                 <div
                   style={{ width: metric.progress }}
                   className={`h-full rounded-full ${metric.muted ? 'bg-slate-600' : 'bg-red-600'}`}
@@ -212,16 +209,16 @@ const ViewCampaign = () => {
         ))}
       </section>
 
-      <section className="grid gap-7 xl:grid-cols-[minmax(0,2.1fr)_minmax(300px,1fr)]">
-        <article className="rounded-[12px] border border-white/7 bg-[#141414] p-5 sm:p-8">
-          <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <section className="grid gap-5 xl:grid-cols-[minmax(0,2.1fr)_minmax(280px,1fr)]">
+        <article className="rounded-[10px] border border-white/7 bg-[#141414] p-4 sm:p-6">
+          <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">
-              <Plus className="h-5 w-5 text-red-500" />
-              <h2 className="text-base font-black uppercase tracking-[0.12em] text-white">
+              <Plus className="h-4 w-4 text-red-500" />
+              <h2 className="text-sm font-black uppercase tracking-[0.12em] text-white">
                 Engagement Over Time
               </h2>
             </div>
-            <div className="flex items-center gap-5 text-xs font-bold uppercase text-neutral-500">
+            <div className="flex items-center gap-4 text-[10px] font-bold uppercase text-neutral-500">
               <span className="flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-red-600" />
                 Views
@@ -232,51 +229,51 @@ const ViewCampaign = () => {
               </span>
             </div>
           </div>
-          <div className="h-[320px] sm:h-[380px]">
+          <div className="h-[240px] sm:h-[300px]">
             <Line data={chartData} options={chartOptions} />
           </div>
         </article>
 
-        <article className="rounded-[12px] border border-white/7 bg-[#141414] p-5 sm:p-8">
-          <div className="flex items-center gap-3 border-b border-white/7 pb-6">
-            <ShieldAlert className="h-5 w-5 fill-red-500 text-red-500" />
-            <h2 className="text-base font-black uppercase tracking-[0.12em] text-white">
+        <article className="rounded-[10px] border border-white/7 bg-[#141414] p-4 sm:p-6">
+          <div className="flex items-center gap-3 border-b border-white/7 pb-4">
+            <ShieldAlert className="h-4 w-4 fill-red-500 text-red-500" />
+            <h2 className="text-sm font-black uppercase tracking-[0.12em] text-white">
               Product Impact
             </h2>
           </div>
 
-          <div className="mt-8 flex items-center gap-4 rounded-[10px] bg-black p-4">
+          <div className="mt-5 flex items-center gap-3 rounded-[8px] bg-black p-3">
             <img
               src="https://images.unsplash.com/photo-1595590424283-b8f17842773f?auto=format&fit=crop&w=160&q=80"
               alt=""
-              className="h-16 w-16 rounded-[8px] object-cover brightness-75"
+              className="h-12 w-12 rounded-[7px] object-cover brightness-75"
             />
             <div>
-              <p className="text-sm font-black text-white">Vortex Elite V4</p>
-              <p className="mt-1 text-xs text-neutral-500">SKU: VT-E4-2024</p>
+              <p className="text-xs font-black text-white">Vortex Elite V4</p>
+              <p className="mt-1 text-[10px] text-neutral-500">SKU: VT-E4-2024</p>
             </div>
           </div>
 
-          <div className="mt-8 space-y-7">
+          <div className="mt-6 space-y-5">
             {impactRows.map(([label, value, color]) => (
               <div key={label} className="flex items-center justify-between gap-4">
-                <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500">
+                <span className="text-[10px] font-black uppercase tracking-[0.14em] text-slate-500">
                   {label}
                 </span>
-                <span className={`text-lg font-black ${color}`}>{value}</span>
+                <span className={`text-sm font-black ${color}`}>{value}</span>
               </div>
             ))}
           </div>
 
-          <div className="mt-10 border-t border-white/7 pt-7">
-            <p className="text-center text-xs font-black uppercase tracking-[0.16em] text-slate-500">
+          <div className="mt-7 border-t border-white/7 pt-5">
+            <p className="text-center text-[10px] font-black uppercase tracking-[0.16em] text-slate-500">
               Inventory Status
             </p>
-            <div className="mt-6 flex items-center gap-3">
-              <div className="h-2 flex-1 overflow-hidden rounded-full bg-white/6">
+            <div className="mt-4 flex items-center gap-3">
+              <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/6">
                 <div className="h-full w-[65%] rounded-full bg-red-600" />
               </div>
-              <span className="text-xs font-black text-white">65% Left</span>
+              <span className="text-[10px] font-black text-white">65% Left</span>
             </div>
           </div>
         </article>

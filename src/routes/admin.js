@@ -10,11 +10,12 @@ import Payment from '../pages/admindashboard/Payment'
 import PaymentDetails from '../pages/admindashboard/PaymentDetails'
 import Marketing from '../pages/admindashboard/Marketing'
 import CreateCampaign from '../pages/admindashboard/CreateCampaign'
-import ViewCampaign from '../pages/admindashboard/ViewCampaign'
+import ViewCampaign from '../pages/admindashboard/ViewCampaigns'
 import Settings from '../pages/admindashboard/Settings'
 import Products from '../pages/admindashboard/products/Products'
 import ProductsView from '../pages/admindashboard/products/ProductsView'
 import AddProduct from '../pages/admindashboard/products/AddProduct'
+import ViewCampaigns from '../pages/admindashboard/ViewCampaigns'
 
 const adminRoutes = [
   {
@@ -62,8 +63,8 @@ const adminRoutes = [
         element: createElement(CreateCampaign),
       },
       {
-        path: 'marketing/campaign/:id',
-        element: createElement(ViewCampaign),
+        path: 'marketing/campaigns/:id',
+        element: createElement(ViewCampaigns),
       },
       {
         path: 'settings',

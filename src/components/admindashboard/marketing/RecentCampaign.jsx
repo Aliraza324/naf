@@ -74,7 +74,7 @@ const EngagementBar = ({ value }) => (
 
 const ActionButtons = ({ campaign }) => (
   <div className="flex items-center gap-3 text-neutral-500">
-    <Link to={`/admin/marketing/campaign/${campaign.id}`} className="transition-colors hover:text-white">
+    <Link to={`/admin/marketing/campaigns/${campaign.id}`} className="transition-colors hover:text-white">
       <Eye className="h-4 w-4" />
     </Link>
     <Link className="transition-colors hover:text-white">
