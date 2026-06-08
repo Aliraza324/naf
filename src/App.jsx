@@ -59,7 +59,7 @@ const App = () => {
         {!isAuthRoute && !isAdminRoute && !isDashboardRoute && <Footer />}
         <ToastProvider />
       </div>
-      {!isAuthRoute && !isAdminRoute && !isDashboardRoute && <WelcomeModal />}
+      {location.pathname === '/' && <WelcomeModal />}
     </>
   )
 }

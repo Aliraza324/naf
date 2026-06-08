@@ -27,6 +27,7 @@ const cartPersistConfig = {
 const authPersistConfig = {
   key: 'auth',
   storage,
+  blacklist: ['showWelcomeModal', 'loading', 'error'],
 }
 
 const wishlistPersistConfig = {
