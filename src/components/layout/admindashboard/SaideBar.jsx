@@ -9,6 +9,7 @@ import {
   CreditCard,
   Settings,
   Headphones,
+  Megaphone,
   X,
 } from 'lucide-react'
 import logo from '../../../assets/images/logo.svg'
@@ -21,11 +22,11 @@ const SaideBar = ({ isOpen, onClose }) => {
     { icon: Package, label: 'Products', path: '/admin/products', avatar: true },
     { icon: ShoppingCart, label: 'Orders', path: '/admin/orders' },
     { icon: CreditCard, label: 'Payments', path: '/admin/payment' },
+    { icon: Megaphone, label: 'Marketing', path: '/admin/marketing' },
   ]
 
   const systemItems = [
-    { icon: Settings, label: 'Settings' },
-    { icon: Headphones, label: 'Support', avatar: true },
+    { icon: Settings, label: 'Settings', path: '/admin/settings' },
   ]
 
   return (
@@ -99,17 +100,43 @@ const SaideBar = ({ isOpen, onClose }) => {
               </p>
             </div>
 
-            {systemItems.map((item, idx) => (
-              <div
-                key={idx}
-                className="flex cursor-pointer items-center justify-between rounded-lg px-3 py-2.5 text-neutral-400 transition-colors hover:bg-white/5 hover:text-white"
-              >
-                <div className="flex items-center gap-3">
-                  <item.icon className="h-5 w-5" />
-                  <span className="text-sm font-medium">{item.label}</span>
+            {systemItems.map((item, idx) =>
+              item.path ? (
+                <NavLink
+                  key={idx}
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `relative flex cursor-pointer items-center justify-between rounded-lg px-3 py-2.5 transition-colors ${
+                      isActive
+                        ? 'bg-red-500/10 text-red-500'
+                        : 'text-neutral-400 hover:bg-white/5 hover:text-white'
+                    }`
+                  }
+                >
+                  {({ isActive }) => (
+                    <>
+                      {isActive && (
+                        <div className="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-red-600" />
+                      )}
+                      <div className="flex items-center gap-3">
+                        <item.icon className="h-5 w-5" />
+                        <span className="text-sm font-medium">{item.label}</span>
+                      </div>
+                    </>
+                  )}
+                </NavLink>
+              ) : (
+                <div
+                  key={idx}
+                  className="flex cursor-pointer items-center justify-between rounded-lg px-3 py-2.5 text-neutral-400 transition-colors hover:bg-white/5 hover:text-white"
+                >
+                  <div className="flex items-center gap-3">
+                    <item.icon className="h-5 w-5" />
+                    <span className="text-sm font-medium">{item.label}</span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ),
+            )}
           </nav>
 
           <div className="mt-auto p-4">
