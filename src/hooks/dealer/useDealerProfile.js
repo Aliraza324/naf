@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { get, patch } from '../../api/service'
 import { GET_DEALER_PROFILE_API, UPDATE_DEALER_PROFILE_API } from '../../api/landingRoute'
-import { selectUser } from '../../features/auth/authSlice'
+import { selectUser, updateUserProfile } from '../../features/auth/authSlice'
 import toast from '../../utils/toast'
 
 /**
@@ -13,6 +13,7 @@ import toast from '../../utils/toast'
  */
 export default function useDealerProfile() {
   const reduxUser = useSelector(selectUser)
+  const dispatch = useDispatch()
 
   const [profile, setProfile] = useState(() => reduxUser || null)
   const [loading, setLoading] = useState(true)
@@ -76,6 +77,11 @@ export default function useDealerProfile() {
 
       if (data?.success && data?.profile) {
         setProfile(data.profile)
+        dispatch(updateUserProfile({
+          name: data.profile.fullName || data.profile.dealerName,
+          email: data.profile.email,
+          avatar: data.profile.profileImage || data.profile.image,
+        }))
         toast.success(data.message || 'Profile updated successfully')
         return { success: true, profile: data.profile }
       }

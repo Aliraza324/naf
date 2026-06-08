@@ -255,9 +255,28 @@ const Setting = () => {
                                 company logo. Supports PNG, JPG (Min 400×400px).
                               </p>
                               <div className="mt-3">
-                                <button className="inline-block w-full min-[380px]:w-auto bg-neutral-900 border border-neutral-700 text-white px-4 py-2 rounded text-sm font-bold hover:border-neutral-500 transition-colors">
+                                <input
+                                  type="file"
+                                  id="profileImageInput"
+                                  accept="image/png, image/jpeg"
+                                  className="hidden"
+                                  onChange={(e) => {
+                                    const file = e.target.files[0];
+                                    if (file) {
+                                      const reader = new FileReader();
+                                      reader.onloadend = () => {
+                                        handleFormChange("profileImage", reader.result);
+                                      };
+                                      reader.readAsDataURL(file);
+                                    }
+                                  }}
+                                />
+                                <label
+                                  htmlFor="profileImageInput"
+                                  className="inline-block w-full min-[380px]:w-auto bg-neutral-900 border border-neutral-700 text-white px-4 py-2 rounded text-sm font-bold hover:border-neutral-500 transition-colors cursor-pointer"
+                                >
                                   REPLACE IMAGE
-                                </button>
+                                </label>
                               </div>
                             </div>
                           </div>

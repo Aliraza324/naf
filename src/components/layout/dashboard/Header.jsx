@@ -205,13 +205,16 @@ const Header = ({ isSidebarOpen, onToggleSidebar }) => {
               aria-label="Open profile menu"
               aria-expanded={isProfileOpen}
             >
-              <span className="size-9 overflow-hidden rounded-full bg-white/10 ring-1 ring-white/10 sm:size-10">
+              <span className="size-9 overflow-hidden rounded-full bg-white/10 ring-1 ring-white/10 sm:size-10 shrink-0">
                 <img src={userAvatar} alt="" className="h-full w-full object-cover" />
+              </span>
+              <span className="hidden sm:block text-sm font-bold truncate max-w-[120px] text-left">
+                {userName}
               </span>
               <ChevronDown
                 size={16}
                 strokeWidth={2}
-                className={`hidden transition-transform sm:block ${isProfileOpen ? 'rotate-180' : ''}`}
+                className={`hidden transition-transform sm:block shrink-0 ${isProfileOpen ? 'rotate-180' : ''}`}
               />
             </button>
 
