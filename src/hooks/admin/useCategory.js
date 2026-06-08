@@ -1,8 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { get, patch, post } from '../../api/service'
+import { del, get, patch, post } from '../../api/service'
 import {
   ADMIN_CATEGORIES_API,
   CREATE_CATEGORY_API,
+  DELETE_CATEGORY_API,
   UPDATE_CATEGORY_API,
 } from '../../api/landingRoute'
 import toast from '../../utils/toast'
@@ -59,6 +60,28 @@ export const useUpdateCategory = () => {
     },
     onError: (error) => {
       console.error('Update category error:', error)
+    },
+  })
+}
+
+export const useDeleteCategory = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (id) => {
+      return del(DELETE_CATEGORY_API(id))
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        toast.success(data.message || 'Category deleted successfully')
+        queryClient.invalidateQueries({ queryKey: adminCategoriesQueryKey })
+        queryClient.invalidateQueries({ queryKey: ['categories'] })
+      } else {
+        toast.error(data?.message || 'Failed to delete category')
+      }
+    },
+    onError: (error) => {
+      console.error('Delete category error:', error)
     },
   })
 }

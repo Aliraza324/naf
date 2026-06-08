@@ -4,6 +4,7 @@ import {
   Edit2,
   Plus,
   Search,
+  Trash2,
   X,
 } from 'lucide-react'
 import Pagination from './Pagination'
@@ -11,6 +12,7 @@ import logo from '../../assets/images/logo.svg'
 import {
   useAdminCategories,
   useCreateCategory,
+  useDeleteCategory,
   useUpdateCategory,
 } from '../../hooks/admin/useCategory'
 
@@ -18,6 +20,7 @@ const Category = () => {
   const { data: apiCategories = [], isLoading } = useAdminCategories()
   const createCategoryMutation = useCreateCategory()
   const updateCategoryMutation = useUpdateCategory()
+  const deleteCategoryMutation = useDeleteCategory()
   const isSaving = createCategoryMutation.isPending || updateCategoryMutation.isPending
   const [categories, setCategories] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -252,6 +255,12 @@ const Category = () => {
     })
   }
 
+  const deleteCategory = (categoryToDelete) => {
+    if (!categoryToDelete.id || deleteCategoryMutation.isPending) return
+
+    deleteCategoryMutation.mutate(categoryToDelete.id)
+  }
+
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-5 text-white sm:px-6 lg:px-4">
       <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
@@ -387,6 +396,15 @@ const Category = () => {
                         className="text-white transition hover:text-red-500"
                       >
                         <Edit2 className="h-4 w-4" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => deleteCategory(category)}
+                        disabled={deleteCategoryMutation.isPending}
+                        aria-label={`Delete ${category.name}`}
+                        className="text-white transition hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-50"
+                      >
+                        <Trash2 className="h-4 w-4" />
                       </button>
                     </div>
                   </td>

@@ -24,3 +24,4 @@ export const GET_CATEGORIES_API = `${BASE_URL}/categories`;
 export const ADMIN_CATEGORIES_API = `${BASE_URL}/admin/categories`;
 export const CREATE_CATEGORY_API = `${BASE_URL}/admin/categories`;
 export const UPDATE_CATEGORY_API = (id) =>`${BASE_URL}/admin/categories/${id}`;
+export const DELETE_CATEGORY_API = (id) => `${BASE_URL}/admin/categories/${id}`;
