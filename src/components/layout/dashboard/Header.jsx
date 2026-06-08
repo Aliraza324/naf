@@ -40,7 +40,7 @@ const Header = ({ isSidebarOpen, onToggleSidebar }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false)
   const [isTopBarVisible, setIsTopBarVisible] = useState(true)
 
-  const userName = user?.name || 'User Name'
+  const fullName = user?.fullName || 'User Name'
   const userEmail = user?.email || 'Nafuser@gmail.com'
   const userAvatar = user?.avatar || user?.image || userIcon
 
@@ -209,7 +209,7 @@ const Header = ({ isSidebarOpen, onToggleSidebar }) => {
                 <img src={userAvatar} alt="" className="h-full w-full object-cover" />
               </span>
               <span className="hidden sm:block text-sm font-bold truncate max-w-[120px] text-left">
-                {userName}
+                {fullName}
               </span>
               <ChevronDown
                 size={16}
@@ -244,7 +244,7 @@ const Header = ({ isSidebarOpen, onToggleSidebar }) => {
                       <img src={userAvatar} alt="" className="h-full w-full object-cover" />
                     </span>
                     <div className="min-w-0">
-                      <p className="truncate text-sm font-bold text-white">{userName}</p>
+                      <p className="truncate text-sm font-bold text-white">{fullName}</p>
                       <p className="truncate text-xs text-white/70">{userEmail}</p>
                     </div>
                   </div>
