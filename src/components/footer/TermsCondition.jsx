@@ -1,79 +1,157 @@
-import React from 'react'
+import { CalendarClock, Download, Mail, ShieldAlert } from 'lucide-react'
+
+const sections = [
+  'Information We Collect',
+  'How We Use Data',
+  'Data Security',
+  'Your Rights',
+]
 
 const TermsCondition = () => {
   return (
-    <main className="bg-[#070707] text-white min-h-screen">
-      {/* Hero */}
-      <section className="px-6 py-12 lg:py-20">
+    <main className="min-h-screen bg-[#050505] text-white">
+      <section className="border-b border-white/[0.04] bg-[radial-gradient(circle_at_8%_0%,rgba(239,68,68,0.1),transparent_24rem)] px-5 py-10 sm:px-8 lg:px-14 lg:py-14">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-6">
-            <span className="inline-block rounded-full border border-red-700 px-3 py-1 text-xs font-black text-red-500">LEGAL INFORMATION</span>
-          </div>
-
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight">TERMS &amp; CONDITIONS</h1>
-          <p className="mt-4 max-w-2xl text-white/60 text-sm md:text-base">Please review these terms carefully before using our platform, purchasing products, or accessing dealer services.</p>
+          <span className="inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/10 px-3 py-1 text-[9px] font-black uppercase tracking-[0.12em] text-red-500">
+            <ShieldAlert className="h-3 w-3" />
+            Data Protection & Security
+          </span>
+          <h1 className="mt-5 text-4xl font-black uppercase tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Privacy Policy
+          </h1>
+          <p className="mt-5 max-w-lg text-xs leading-6 text-white/45 sm:text-sm">
+            Learn how we collect, store, protect, and use your information across our dealer
+            platform.
+          </p>
         </div>
       </section>
 
-      {/* Content */}
-      <section className="px-6 pb-20">
-        <div className="mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Left column: meta + contents */}
-          <aside className="lg:col-span-3">
-            <div className="space-y-6">
-              <div className="rounded-lg border border-white/6 bg-[#0b0b0b] p-4">
-                <div className="text-xs text-white/60">LAST UPDATED</div>
-                <div className="mt-2 text-sm font-bold">April 2026</div>
-                <div className="mt-3 text-sm text-white/50">These terms govern all purchases, dealer accounts, and platform usage.</div>
+      <section className="px-5 py-10 sm:px-8 lg:px-14">
+        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[210px_minmax(0,1fr)]">
+          <aside className="space-y-5 lg:sticky lg:top-28 lg:self-start">
+            <div className="rounded-[8px] border border-white/[0.06] bg-[#141414] p-5">
+              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.1em] text-white/70">
+                <CalendarClock className="h-3.5 w-3.5 text-red-500" />
+                Last Updated
               </div>
-
-              <nav className="rounded-lg border border-white/6 bg-[#0b0b0b] p-4">
-                <div className="text-sm font-black uppercase mb-3">Contents</div>
-                <ol className="text-sm text-white/60 list-decimal list-inside space-y-2">
-                  <li>Acceptance of Terms</li>
-                  <li>Dealer Accounts</li>
-                  <li>Product Orders</li>
-                </ol>
-              </nav>
+              <p className="mt-2 text-[11px] text-white/45">May 2026</p>
+              <p className="mt-5 text-[11px] leading-6 text-white/35">
+                Comprehensive overview of our privacy protocols and your data rights.
+              </p>
             </div>
+
+            <nav className="rounded-[8px] border border-white/[0.06] bg-[#141414] p-5">
+              <p className="mb-5 text-[11px] font-black uppercase tracking-[0.08em] text-white/80">
+                Sections
+              </p>
+              <ol className="space-y-3 text-[11px] leading-5 text-white/40">
+                {sections.map((item, index) => (
+                  <li
+                    key={item}
+                    className={index === 0 ? 'border-l border-red-500 pl-2 text-red-500' : ''}
+                  >
+                    {index + 1}. {item}
+                  </li>
+                ))}
+              </ol>
+            </nav>
           </aside>
 
-          {/* Right column: main terms */}
-          <div className="lg:col-span-9">
-            <div className="space-y-6">
-              <article className="rounded-lg border border-white/6 bg-[#0b0b0b] p-6">
-                <h3 className="text-sm font-black text-red-500">01. Acceptance of Terms</h3>
-                <p className="mt-3 text-sm text-white/60">By accessing our platform, registering a dealer account, or placing an order, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you may not use our services.</p>
-                <p className="mt-3 text-sm text-white/60">These terms constitute a legally binding agreement between you ("Dealer", "Customer", "User") and SecureOps Inc. ("Company", "we", "us"). We reserve the right to update these terms at any time, and continued use of the platform constitutes acceptance of those changes.</p>
-              </article>
+          <div className="min-w-0 space-y-8">
+            <article className="rounded-[9px] border border-white/[0.06] bg-[#141414] px-5 py-7 sm:px-8 sm:py-9">
+              <div className="space-y-9">
+                <section className="border-b border-white/25 pb-8">
+                  <h2 className="text-base font-black text-red-500">
+                    1. Information We Collect
+                  </h2>
+                  <p className="mt-5 text-[12px] font-semibold leading-7 text-white/65">
+                    We may collect information about you in a variety of ways. The information we
+                    may collect on the Site includes:
+                  </p>
+                </section>
 
-              <article className="rounded-lg border border-white/6 bg-[#0b0b0b] p-6">
-                <h3 className="text-sm font-black text-red-500">02. Dealer Accounts</h3>
-                <p className="mt-3 text-sm text-white/60">To access wholesale pricing and dealer-specific features, you must apply for and maintain an active Dealer Account. All information provided during registration must be accurate, current, and complete.</p>
-                <ul className="mt-3 text-sm text-white/60 list-disc list-inside space-y-2">
-                  <li>Dealers are responsible for maintaining the confidentiality of their account credentials.</li>
-                  <li>Account access may not be shared with unauthorized third parties.</li>
-                  <li>Dealers must notify us immediately of any suspected unauthorized access.</li>
-                </ul>
-              </article>
+                <section className="border-b border-white/25 pb-8">
+                  <h2 className="text-base font-black text-red-500">
+                    2. How We Use Your Information
+                  </h2>
+                  <p className="mt-5 text-[12px] leading-7 text-white/55">
+                    Having accurate information about you permits us to provide you with a smooth,
+                    efficient, and customized experience. Specifically, we may use information
+                    collected about you via the Site to:
+                  </p>
+                  <ul className="mt-4 space-y-2 pl-5 text-[12px] leading-6 text-white/55">
+                    <li>Create and manage your account.</li>
+                    <li>Process your transactions and send you related information.</li>
+                    <li>Email you regarding your account or order.</li>
+                    <li>Fulfill and manage purchases, orders, payments, and other transactions.</li>
+                    <li>Generate a personal profile about you to make future visits more personalized.</li>
+                    <li>Increase the efficiency and operation of the Site.</li>
+                    <li>Monitor and analyze usage and trends to improve your experience.</li>
+                  </ul>
+                </section>
 
-              <article className="rounded-lg border border-white/6 bg-[#0b0b0b] p-6">
-                <h3 className="text-sm font-black text-red-500">03. Product Orders</h3>
-                <p className="mt-3 text-sm text-white/60">All orders are subject to acceptance and availability. We reserve the right to limit quantities, refuse service, or cancel orders at our sole discretion. Product specifications, pricing, and availability are subject to change without notice. Minimum order quantities (MOQs) may apply to specific dealer tiers.</p>
-              </article>
+                <section className="border-b border-white/25 pb-8">
+                  <h2 className="text-base font-black text-red-500">4. Data Security</h2>
+                  <p className="mt-5 text-[12px] leading-7 text-white/55">
+                    We use administrative, technical, and physical security measures to help protect
+                    your personal information. While we have taken reasonable steps to secure the
+                    personal information you provide to us, please be aware that despite our efforts,
+                    no security measures are perfect or impenetrable.
+                  </p>
+                </section>
 
-              {/* Contact CTA */}
-              <div className="rounded-lg border border-white/6 bg-[#0b0b0b] p-6 mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div>
-                  <h4 className="text-lg font-black">HAVE QUESTIONS?</h4>
-                  <p className="text-sm text-white/60 mt-2">Need clarification regarding our terms, policies, or dealer agreements?</p>
-                </div>
+                <section className="border-b border-white/25 pb-8">
+                  <h2 className="text-base font-black text-red-500">5. Your Rights</h2>
+                  <p className="mt-5 text-[12px] leading-7 text-white/55">
+                    Depending on your location, you may have certain rights regarding your personal
+                    information, such as the right to access, correct, or delete your data. If you
+                    wish to exercise any of these rights, please contact us.
+                  </p>
+                  <button
+                    type="button"
+                    className="mt-5 inline-flex items-center gap-2 rounded-[4px] bg-red-600 px-4 py-2.5 text-[10px] font-black uppercase text-white transition hover:bg-red-700"
+                  >
+                    <Download className="h-3.5 w-3.5" />
+                    Request my data
+                  </button>
+                </section>
 
-                <div>
-                  <a href="mailto:legal@nafcompany.com" className="inline-flex items-center gap-3 bg-red-600 text-white font-medium px-5 py-3 rounded">CONTACT LEGAL TEAM</a>
-                </div>
+                <section>
+                  <h2 className="text-base font-black text-red-500">6. Contact Us</h2>
+                  <p className="mt-5 text-[12px] leading-7 text-white/55">
+                    If you have questions or comments about this Privacy Policy, please contact us
+                    at:
+                  </p>
+                  <div className="mt-4 rounded-[5px] bg-red-600 px-5 py-4 text-[11px] font-semibold leading-6 text-white">
+                    privacy@privacyboard.example.com
+                    <br />
+                    123 Privacy Street, Suite 100, Tech City, TC 90210
+                  </div>
+                </section>
               </div>
-            </div>
+            </article>
+
+            <section className="relative overflow-hidden rounded-[8px] border border-white/[0.07] bg-[#141414] p-6 sm:p-8">
+              <span className="absolute left-3 top-3 h-2 w-2 border-l border-t border-white/20" />
+              <span className="absolute right-3 top-3 h-2 w-2 border-r border-t border-white/20" />
+              <span className="absolute bottom-3 left-3 h-2 w-2 border-b border-l border-white/20" />
+              <span className="absolute bottom-3 right-3 h-2 w-2 border-b border-r border-white/20" />
+              <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <h2 className="text-xl font-black uppercase text-white">Have Questions?</h2>
+                  <p className="mt-3 max-w-lg text-xs leading-6 text-white/45">
+                    Need clarification regarding our terms, policies, or dealer agreements?
+                  </p>
+                </div>
+                <a
+                  href="mailto:legal@nafcompany.com"
+                  className="inline-flex items-center justify-center gap-2 rounded-[4px] bg-red-500 px-7 py-3 text-[11px] font-black uppercase tracking-[0.04em] text-white shadow-[0_0_28px_rgba(239,68,68,0.45)] transition hover:bg-red-600"
+                >
+                  <Mail className="h-4 w-4" />
+                  Contact Legal Team
+                </a>
+              </div>
+            </section>
           </div>
         </div>
       </section>

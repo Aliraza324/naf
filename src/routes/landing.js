@@ -63,15 +63,7 @@ const landingRoutes = [
     element: createElement(TermsConditions),
   },
   {
-    path: '/terms-conditions',
-    element: createElement(TermsConditions),
-  },
-  {
     path: '/privacy-protocol',
-    element: createElement(PrivacyPolicy),
-  },
-  {
-    path: '/privacy-policy',
     element: createElement(PrivacyPolicy),
   },
   {
