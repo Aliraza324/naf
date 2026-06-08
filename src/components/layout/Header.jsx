@@ -406,7 +406,7 @@ const Header = () => {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.16, ease: 'easeOut' }}
               style={{ left: dropdownLeft }}
-              className='dropdown-bg absolute top-full z-[70] w-[min(92vw,254px)] rounded-[24px] border border-white/8 px-4 py-5 shadow-2xl'
+              className='absolute top-full z-[70] w-[260px] overflow-visible rounded-[6px] border border-white/10 bg-[#070707] shadow-[0_18px_42px_rgba(0,0,0,0.55)]'
             >
               <Link
                 to={`/products/${activeCategory.slug}`}
@@ -414,13 +414,13 @@ const Header = () => {
                   setActiveCategorySlug(null)
                   setExpandedDesktopCategorySlug(null)
                 }}
-                className='flex w-full items-center justify-between border-b border-white/10 pb-4 text-left text-[13px] font-black uppercase tracking-[0.04em] text-white'
+                className='flex h-[52px] w-full items-center justify-between rounded-t-[6px] bg-[#171717] px-7 text-left text-[11px] font-bold uppercase tracking-[0.12em] text-white/85 transition hover:text-white'
               >
                 {activeCategory.name}
-                <ChevronRight size={17} strokeWidth={2.4} className='text-white/85' />
+                <ChevronRight size={16} strokeWidth={2.4} className='text-white/70' />
               </Link>
 
-              <nav className='mt-4 grid gap-1 relative'>
+              <nav className='relative grid'>
                 {activeCategory.subCategories.map((subCategory) => {
                   const isActive = activeSubCategorySlug === subCategory.slug;
                   const hasSub2 = subCategory.subCategories2 && subCategory.subCategories2.length > 0;
@@ -438,29 +438,30 @@ const Header = () => {
                           setActiveCategorySlug(null)
                           setActiveSubCategorySlug(null)
                         }}
-                        className={`flex items-center justify-between rounded-[6px] px-3 py-2 text-[12px] font-semibold uppercase tracking-[0.02em] transition ${isActive ? 'text-white' : 'text-white/80 hover:text-white'
+                        className={`flex h-[52px] items-center justify-between px-7 text-[11px] font-bold uppercase tracking-[0.1em] transition ${isActive ? 'bg-[#171717] text-white' : 'text-white/78 hover:bg-[#111111] hover:text-white'
                           }`}
                       >
                         {getSubCategoryLabel(subCategory)}
                         {hasSub2 && (
                           <ChevronRight
-                            size={14}
-                            className={`text-white/50 transition-transform ${isActive ? 'rotate-90' : ''}`}
+                            size={16}
+                            strokeWidth={2.4}
+                            className={`text-white/70 transition ${isActive ? 'translate-x-0.5 text-white' : ''}`}
                           />
                         )}
                       </Link>
 
-                      {/* Level 3 (Products/SubCategory2) Accordion */}
+                      {/* Level 3 (Products/SubCategory2) Flyout */}
                       <AnimatePresence>
                         {isActive && hasSub2 && (
                           <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                            className='overflow-hidden'
+                            initial={{ opacity: 0, x: -6 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -6 }}
+                            transition={{ duration: 0.14, ease: 'easeOut' }}
+                            className='absolute left-full top-1/2 z-[75] max-h-[calc(100vh-170px)] w-[260px] -translate-y-1/2 overflow-y-auto rounded-[6px] border border-white/10 bg-[#070707] shadow-[0_18px_42px_rgba(0,0,0,0.55)]'
                           >
-                            <nav className='flex flex-col gap-2 pl-4 pr-3 pt-1 pb-3'>
+                            <nav className='grid'>
                               {subCategory.subCategories2.map((sub2) => (
                                 <Link
                                   key={sub2.slug}
@@ -469,7 +470,7 @@ const Header = () => {
                                     setActiveCategorySlug(null)
                                     setActiveSubCategorySlug(null)
                                   }}
-                                  className='block text-[10px] font-medium uppercase tracking-[0.04em] text-white/50 transition hover:text-white'
+                                  className='flex h-[54px] items-center bg-[#070707] px-7 text-[11px] font-semibold uppercase tracking-[0.1em] text-white/75 transition hover:bg-[#171717] hover:text-white'
                                 >
                                   {sub2.name}
                                 </Link>
@@ -482,8 +483,6 @@ const Header = () => {
                   );
                 })}
               </nav>
-
-              <div className='mt-4 border-t border-white/10' />
             </motion.div>
           )}
         </AnimatePresence>

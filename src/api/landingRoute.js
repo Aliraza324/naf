@@ -1,8 +1,5 @@
 import BASE_URL from "./baseUrl";
 
-// Categories API
-export const GET_CATEGORIES_API = `${BASE_URL}/categories`;
-
 // Unified Auth Login (admin + dealer)
 export const AUTH_LOGIN = `${BASE_URL}/auth/login`;
 
@@ -18,3 +15,12 @@ export const DELETE_DEALER_API = (id) => `${BASE_URL}/admin/dealers/${id}`;
 export const GET_DEALER_PROFILE_API = `${BASE_URL}/dealer/profile`;
 export const UPDATE_DEALER_PROFILE_API = `${BASE_URL}/dealer/profile`;
 export const UPDATE_DEALER_PASSWORD_API = `${BASE_URL}/dealer/password`;
+
+
+
+// Admin Categories
+export const GET_CATEGORIES_API = `${BASE_URL}/categories`;
+
+export const ADMIN_CATEGORIES_API = `${BASE_URL}/admin/categories`;
+export const CREATE_CATEGORY_API = `${BASE_URL}/admin/categories`;
+export const UPDATE_CATEGORY_API = (id) =>`${BASE_URL}/admin/categories/${id}`;

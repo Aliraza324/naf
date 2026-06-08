@@ -4,37 +4,49 @@ import {
   Edit2,
   Plus,
   Search,
-  Trash2,
   X,
 } from 'lucide-react'
 import Pagination from './Pagination'
 import logo from '../../assets/images/logo.svg'
-import { useCategories } from '../../hooks/landing/useCategories'
+import {
+  useAdminCategories,
+  useCreateCategory,
+  useUpdateCategory,
+} from '../../hooks/admin/useCategory'
 
 const Category = () => {
-  const { data: apiData, isLoading } = useCategories()
+  const { data: apiCategories = [], isLoading } = useAdminCategories()
+  const createCategoryMutation = useCreateCategory()
+  const updateCategoryMutation = useUpdateCategory()
+  const isSaving = createCategoryMutation.isPending || updateCategoryMutation.isPending
   const [categories, setCategories] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [editingIndex, setEditingIndex] = useState(null)
+  const [editingCategoryId, setEditingCategoryId] = useState(null)
   const [showPagination, setShowPagination] = useState(false)
 
   useEffect(() => {
-    if (apiData?.categories) {
-      const mappedCategories = apiData.categories.map((cat, index) => ({
-        id: `#CAT${1000 + index}`,
+    if (apiCategories) {
+      const mappedCategories = apiCategories.map((cat, index) => ({
+        id: cat.id || cat._id,
+        displayId: cat.id || cat._id || `#CAT${1000 + index}`,
         name: cat.name,
         slug: cat.slug,
+        icon: cat.icon || '',
+        description: cat.description || '',
+        color: cat.color || '#000000',
+        order: cat.order ?? index,
         subCategories: cat.subCategories?.map(sub => ({
           name: sub.name,
+          order: sub.order ?? 0,
           children: sub.children || []
         })) || [],
         products: cat.productsCount || 0,
-        enabled: true,
+        enabled: cat.isActive !== false,
         image: logo,
       }))
       setCategories(mappedCategories)
     }
-  }, [apiData])
+  }, [apiCategories])
 
   useEffect(() => {
     const updateShowPagination = () => {
@@ -68,11 +80,11 @@ const Category = () => {
 
   const filteredCategories = useMemo(() => {
     return categories.filter((category) => {
-      const matchesName = category.name.toLowerCase().includes(filters.name.toLowerCase())
+      const matchesName = category.name?.toLowerCase().includes(filters.name.toLowerCase())
       const matchesProducts =
         !filters.product || String(category.products).includes(filters.product.trim())
       const matchesCategory =
-        !filters.category || category.name.toLowerCase() === filters.category.toLowerCase()
+        !filters.category || category.name?.toLowerCase() === filters.category.toLowerCase()
 
       return matchesName && matchesProducts && matchesCategory
     })
@@ -91,7 +103,7 @@ const Category = () => {
       subCategories: [],
     })
     setSubCategoryChildInputs({})
-    setEditingIndex(null)
+    setEditingCategoryId(null)
   }
 
   const openAddModal = () => {
@@ -100,11 +112,10 @@ const Category = () => {
   }
 
   const openEditModal = (category) => {
-    const categoryIndex = categories.indexOf(category)
-    setEditingIndex(categoryIndex)
+    setEditingCategoryId(category.id)
     setForm({
       name: category.name,
-      slug: createSlug(category.name),
+      slug: category.slug || createSlug(category.name),
       subCategoryInput: '',
       subCategories: category.subCategories,
     })
@@ -187,39 +198,58 @@ const Category = () => {
     }
   }
 
-  const handleSubmit = (event) => {
+  const normalizeSubCategories = (subCategories) =>
+    subCategories.map((subCategory, index) => ({
+      name: subCategory.name,
+      order: subCategory.order ?? index,
+      children: subCategory.children || [],
+    }))
+
+  const handleSubmit = async (event) => {
     event.preventDefault()
 
-    const nextCategory = {
-      id: editingIndex === null ? `#GT${Math.floor(1000 + Math.random() * 9000)}` : categories[editingIndex].id,
-      name: form.name.trim() || 'Category Name',
-      subCategories: form.subCategories.length ? form.subCategories : ['General'],
-      products: editingIndex === null ? 0 : categories[editingIndex].products,
-      enabled: editingIndex === null ? true : categories[editingIndex].enabled,
-      image: logo,
+    const existingCategory = categories.find((category) => category.id === editingCategoryId)
+    const categoryName = form.name.trim()
+    const categorySlug = form.slug || createSlug(categoryName)
+
+    if (!categoryName || !categorySlug) return
+
+    const payload = {
+      name: categoryName,
+      slug: categorySlug,
+      icon: existingCategory?.icon || '',
+      description: existingCategory?.description || '',
+      color: existingCategory?.color || '#000000',
+      order: existingCategory?.order ?? categories.length,
+      isActive: existingCategory?.enabled ?? true,
+      subCategories: normalizeSubCategories(form.subCategories),
     }
 
-    if (editingIndex === null) {
-      setCategories((prev) => [nextCategory, ...prev])
-    } else {
-      setCategories((prev) =>
-        prev.map((category, index) => (index === editingIndex ? nextCategory : category)),
-      )
-    }
+    try {
+      let response
 
-    closeModal()
+      if (editingCategoryId === null) {
+        response = await createCategoryMutation.mutateAsync(payload)
+      } else {
+        response = await updateCategoryMutation.mutateAsync({
+          id: editingCategoryId,
+          data: payload,
+        })
+      }
+
+      if (response?.success) closeModal()
+    } catch (error) {
+      console.error('Save category error:', error)
+    }
   }
 
   const toggleCategory = (categoryToToggle) => {
-    setCategories((prev) =>
-      prev.map((category) =>
-        category === categoryToToggle ? { ...category, enabled: !category.enabled } : category,
-      ),
-    )
-  }
+    if (!categoryToToggle.id) return
 
-  const deleteCategory = (categoryToDelete) => {
-    setCategories((prev) => prev.filter((category) => category !== categoryToDelete))
+    updateCategoryMutation.mutate({
+      id: categoryToToggle.id,
+      data: { isActive: !categoryToToggle.enabled },
+    })
   }
 
   return (
@@ -275,7 +305,7 @@ const Category = () => {
             >
               <option value="" className="bg-[#111111] text-neutral-400">All Categories</option>
               {categories.map((cat) => (
-                <option key={cat.id} value={cat.name} className="bg-[#111111] text-white">
+                <option key={cat.displayId} value={cat.name} className="bg-[#111111] text-white">
                   {cat.name}
                 </option>
               ))}
@@ -309,7 +339,6 @@ const Category = () => {
           <table className="min-w-[920px] w-full border-collapse text-left">
             <thead>
               <tr className="border-b border-white/5 text-[10px] font-bold uppercase tracking-[0.22em] text-neutral-500">
-                <th className="px-6 py-4 font-semibold">Categorizes ID</th>
                 <th className="px-6 py-4 font-semibold">Categorizes Name</th>
                 <th className="px-6 py-4 font-semibold">Sub Categorizes</th>
                 <th className="px-6 py-4 font-semibold">Products</th>
@@ -320,19 +349,10 @@ const Category = () => {
             <tbody className="text-sm">
               {filteredCategories.map((category, index) => (
                 <tr
-                  key={`${category.id}-${index}`}
+                  key={`${category.displayId}-${index}`}
                   className="border-b border-white/5 last:border-0 transition hover:bg-white/[0.02]"
                 >
-                  <td className="px-6 py-5">
-                    <div className="flex items-center gap-4">
-                      <img
-                        src={category.image}
-                        alt=""
-                        className="h-10 w-10 rounded-full object-contain"
-                      />
-                      <span className="font-medium text-neutral-300">{category.id}</span>
-                    </div>
-                  </td>
+                 
                   <td className="px-6 py-5 font-medium text-neutral-300">{category.name}</td>
                   <td className="px-6 py-5 font-medium text-neutral-300">
                     {category.subCategories.length}
@@ -346,6 +366,7 @@ const Category = () => {
                       <button
                         type="button"
                         onClick={() => toggleCategory(category)}
+                        disabled={updateCategoryMutation.isPending}
                         aria-label={`${category.enabled ? 'Disable' : 'Enable'} ${category.name}`}
                         className={`relative h-7 w-12 rounded-full transition ${category.enabled ? 'bg-[#73d84a]' : 'bg-neutral-700'
                           }`}
@@ -367,14 +388,6 @@ const Category = () => {
                       >
                         <Edit2 className="h-4 w-4" />
                       </button>
-                      <button
-                        type="button"
-                        onClick={() => deleteCategory(category)}
-                        aria-label={`Delete ${category.name}`}
-                        className="text-white transition hover:text-red-500"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
                     </div>
                   </td>
                 </tr>
@@ -383,7 +396,13 @@ const Category = () => {
           </table>
         </div>
 
-        {filteredCategories.length === 0 && (
+        {isLoading && (
+          <div className="px-6 py-10 text-center text-sm text-neutral-500">
+            Loading categorizes...
+          </div>
+        )}
+
+        {!isLoading && filteredCategories.length === 0 && (
           <div className="px-6 py-10 text-center text-sm text-neutral-500">
             No categorizes found.
           </div>
@@ -418,6 +437,7 @@ const Category = () => {
                   value={form.name}
                   onChange={handleNameChange}
                   placeholder="Category Name"
+                  required
                   className="h-12 w-full rounded-lg border border-transparent bg-[#2b2b2b] px-5 text-sm text-white outline-none transition placeholder:text-slate-400 focus:border-red-500/60"
                 />
 
@@ -508,9 +528,10 @@ const Category = () => {
 
               <button
                 type="submit"
-                className="mt-7 h-12 w-full rounded bg-gradient-to-r from-red-600 to-red-800 text-base font-semibold text-white transition hover:from-red-500 hover:to-red-700"
+                disabled={isSaving || !form.name.trim()}
+                className="mt-7 h-12 w-full rounded bg-gradient-to-r from-red-600 to-red-800 text-base font-semibold text-white transition hover:from-red-500 hover:to-red-700 disabled:cursor-not-allowed disabled:opacity-70"
               >
-                Add
+                {isSaving ? 'Saving...' : editingCategoryId === null ? 'Add' : 'Update'}
               </button>
             </form>
           </div>
